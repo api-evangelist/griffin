@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/griffin-openapi-original.yml
+docs: https://docs.griffin.com/docs/guides/api-security-overview
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  notes: >-
+    Griffin uses API-key authentication with an additional mandatory HTTP
+    message-signature layer in live mode. There is no OAuth2 surface; API-key
+    access is scoped by the organizational role attached to the key.
+schemes:
+- name: api-key-auth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  format: 'GriffinAPIKey $GRIFFIN_API_KEY'
+  key_prefixes:
+    test: g-test-
+  description: |-
+    API token authentication passed in the Authorization header.
+    Format: `GriffinAPIKey g-test-MyKey-XXXXXXX`. Keys are created in the app
+    (Settings > API keys), shown once, and scoped by the holder's org role.
+  sources:
+  - openapi/griffin-openapi-original.yml
+message_signatures:
+  standard: HTTP Message Signatures (RFC 9421)
+  required_in: live
+  optional_in: sandbox
+  enforce_toggle: 'Validate all requests (sandbox)'
+  docs: https://docs.griffin.com/docs/guides/how-to-create-message-signatures
+  verify_operations:
+  - GET /v0/security/message-signature/verify
+  - POST /v0/security/message-signature/verify
+  notes: >-
+    Clients register a public key (Settings > Message signatures) and sign each
+    request with the private key; multiple signatures per request are supported
+    for key rotation. The same signing process authenticates inbound webhook
+    event notifications. Reference utilities: github.com/griffinbank/http-message-signatures.
