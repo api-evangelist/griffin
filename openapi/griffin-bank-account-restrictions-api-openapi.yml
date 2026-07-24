@@ -1,0 +1,2170 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Bank account restrictions API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Bank account restrictions
+  description: "Restrictions prevent payments on a bank account. A `freeze` blocks outbound payments while still allowing inbound payments. A `block` prevents both inbound and outbound payments. \n\n Restrictions can be applied at any point in the account lifecycle (`opening`, `open`, `closing`, or `closed`), and multiple restrictions can be active on the same account simultaneously. Each restriction is independent — lifting one does not affect others. \n\n Restrictions can only be updated or lifted if `active`. \n\n For more information, see our guide on [managing restrictions](/docs/guides/managing-restrictions)."
+paths:
+  /v0/bank/account-restrictions/{bank-account-restriction-id}:
+    get:
+      tags:
+      - Bank account restrictions
+      description: 'Fetches details of a single bank account restriction.
+
+
+        The response includes the restriction''s current status (`active` or `lifted`),
+
+        type, reason code, legal status, and who applied it.
+
+
+        If the restriction was applied by Griffin using a sensitive reason code
+
+        (`griffin-decision`, `law-enforcement`, `sanctions`, or `terrorist-financing`),
+
+        the type, reason code, and legal status fields are omitted from the response.
+
+
+        Action URLs (`update-bank-account-restriction-url`, `lift-bank-account-restriction-url`)
+
+        are included only when you are authorised to perform those actions on the restriction.'
+      parameters:
+      - type: string
+        required: true
+        name: bank-account-restriction-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              lift-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: lift-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/lift
+                description: Link to lift a bank account restriction.
+              restriction-status:
+                type: string
+                title: restriction-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - lifted
+                  - active
+                - type: string
+              restriction-legal-status:
+                type: string
+                title: restriction-legal-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - not-applicable
+                  - conviction-confirmed
+                  - formal-charge-filed
+                  - suspected
+                - type: string
+              bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw
+                description: Link to a bank account restriction.
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              update-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: update-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/update
+                description: Link to update a bank account restriction.
+              bank-account-restriction-events-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-events-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/events
+                description: Link to events for a bank account restriction.
+              restriction-reason-code:
+                type: string
+                title: restriction-reason-code
+                x-anyOf:
+                - type: string
+                  enum:
+                  - suspicious
+                  - fraud-app-perpetrator
+                  - customer-request
+                  - dormant
+                  - other
+                  - terrorist-financing
+                  - law-enforcement
+                  - sanctions
+                  - risk-appetite
+                  - deceased
+                  - fraud-app-victim
+                  - fraud-3rd-party
+                  - money-laundering
+                  - fraud
+                  - high-risk-pep
+                  - fraud-1st-party
+                - type: string
+              restriction-type:
+                type: string
+                title: restriction-type
+                x-anyOf:
+                - type: string
+                  enum:
+                  - block
+                  - freeze
+                - type: string
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              restriction-applied-by:
+                type: object
+                properties: {}
+                required:
+                - restriction-applied-by-type
+                title: restriction-applied-by
+                x-anyOf:
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - ops-user
+                      type: string
+                  required:
+                  - restriction-applied-by-type
+                  - restriction-applied-by-type
+                  title: ops-user
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - user
+                      type: string
+                    user-url:
+                      type: string
+                      title: user-url
+                      example: /v0/users/ur.ICAgICAgICAgdXNlci1pZA
+                      description: Link to the user.
+                    user-username:
+                      type: string
+                      title: user-username
+                      example: user@example.com
+                      description: The username.
+                  required:
+                  - restriction-applied-by-type
+                  - user-url
+                  - restriction-applied-by-type
+                  title: user
+            required:
+            - bank-account-restriction-url
+            - bank-account-restriction-events-url
+            - restriction-status
+            - restriction-applied-by
+            - created-at
+            - account-url
+            title: bank-account-restriction-response
+            description: A bank account restriction.
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: Get bank account restriction
+  /v0/bank/account-restrictions/{bank-account-restriction-id}/actions/lift:
+    post:
+      tags:
+      - Bank account restrictions
+      description: 'Lifts a bank account restriction.
+
+
+        Marks the restriction as `lifted`, removing its effect on the account. Notes are
+
+        required to provide context for the removal.'
+      parameters:
+      - in: body
+        name: request-lift-restriction
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            notes:
+              type: string
+              maxLength: 2000
+          required:
+          - notes
+          title: request-lift-restriction
+      - type: string
+        required: true
+        name: bank-account-restriction-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              lift-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: lift-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/lift
+                description: Link to lift a bank account restriction.
+              restriction-status:
+                type: string
+                title: restriction-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - lifted
+                  - active
+                - type: string
+              restriction-legal-status:
+                type: string
+                title: restriction-legal-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - not-applicable
+                  - conviction-confirmed
+                  - formal-charge-filed
+                  - suspected
+                - type: string
+              bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw
+                description: Link to a bank account restriction.
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              update-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: update-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/update
+                description: Link to update a bank account restriction.
+              bank-account-restriction-events-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-events-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/events
+                description: Link to events for a bank account restriction.
+              restriction-reason-code:
+                type: string
+                title: restriction-reason-code
+                x-anyOf:
+                - type: string
+                  enum:
+                  - suspicious
+                  - fraud-app-perpetrator
+                  - customer-request
+                  - dormant
+                  - other
+                  - terrorist-financing
+                  - law-enforcement
+                  - sanctions
+                  - risk-appetite
+                  - deceased
+                  - fraud-app-victim
+                  - fraud-3rd-party
+                  - money-laundering
+                  - fraud
+                  - high-risk-pep
+                  - fraud-1st-party
+                - type: string
+              restriction-type:
+                type: string
+                title: restriction-type
+                x-anyOf:
+                - type: string
+                  enum:
+                  - block
+                  - freeze
+                - type: string
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              restriction-applied-by:
+                type: object
+                properties: {}
+                required:
+                - restriction-applied-by-type
+                title: restriction-applied-by
+                x-anyOf:
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - ops-user
+                      type: string
+                  required:
+                  - restriction-applied-by-type
+                  - restriction-applied-by-type
+                  title: ops-user
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - user
+                      type: string
+                    user-url:
+                      type: string
+                      title: user-url
+                      example: /v0/users/ur.ICAgICAgICAgdXNlci1pZA
+                      description: Link to the user.
+                    user-username:
+                      type: string
+                      title: user-username
+                      example: user@example.com
+                      description: The username.
+                  required:
+                  - restriction-applied-by-type
+                  - user-url
+                  - restriction-applied-by-type
+                  title: user
+            required:
+            - bank-account-restriction-url
+            - bank-account-restriction-events-url
+            - restriction-status
+            - restriction-applied-by
+            - created-at
+            - account-url
+            title: bank-account-restriction-response
+            description: A bank account restriction.
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '403':
+          description: ''
+        '404':
+          description: ''
+        '422':
+          description: The restriction is not active or can only be lifted by Griffin
+        '500':
+          description: ''
+      summary: Lift bank account restriction
+  /v0/bank/account-restrictions/{bank-account-restriction-id}/actions/update:
+    post:
+      tags:
+      - Bank account restrictions
+      description: 'Updates a bank account restriction.
+
+
+        Allows you to change the restriction type, reason code, and/or legal status of an
+
+        active restriction. Notes are always required to provide context for the change.
+
+
+        Only the fields you include in the request body will be updated. Omitted fields
+
+        are left unchanged.'
+      parameters:
+      - in: body
+        name: request-update-restriction
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            restriction-type:
+              type: string
+              enum:
+              - block
+              - freeze
+            restriction-reason-code:
+              type: string
+              enum:
+              - fraud-app-perpetrator
+              - customer-request
+              - dormant
+              - other
+              - terrorist-financing
+              - law-enforcement
+              - sanctions
+              - risk-appetite
+              - deceased
+              - fraud-app-victim
+              - fraud-3rd-party
+              - money-laundering
+              - fraud-1st-party
+            restriction-legal-status:
+              type: string
+              enum:
+              - not-applicable
+              - conviction-confirmed
+              - formal-charge-filed
+              - suspected
+            notes:
+              type: string
+              maxLength: 2000
+          required:
+          - notes
+          title: request-update-restriction
+      - type: string
+        required: true
+        name: bank-account-restriction-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              lift-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: lift-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/lift
+                description: Link to lift a bank account restriction.
+              restriction-status:
+                type: string
+                title: restriction-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - lifted
+                  - active
+                - type: string
+              restriction-legal-status:
+                type: string
+                title: restriction-legal-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - not-applicable
+                  - conviction-confirmed
+                  - formal-charge-filed
+                  - suspected
+                - type: string
+              bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw
+                description: Link to a bank account restriction.
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              update-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: update-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/update
+                description: Link to update a bank account restriction.
+              bank-account-restriction-events-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-events-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/events
+                description: Link to events for a bank account restriction.
+              restriction-reason-code:
+                type: string
+                title: restriction-reason-code
+                x-anyOf:
+                - type: string
+                  enum:
+                  - suspicious
+                  - fraud-app-perpetrator
+                  - customer-request
+                  - dormant
+                  - other
+                  - terrorist-financing
+                  - law-enforcement
+                  - sanctions
+                  - risk-appetite
+                  - deceased
+                  - fraud-app-victim
+                  - fraud-3rd-party
+                  - money-laundering
+                  - fraud
+                  - high-risk-pep
+                  - fraud-1st-party
+                - type: string
+              restriction-type:
+                type: string
+                title: restriction-type
+                x-anyOf:
+                - type: string
+                  enum:
+                  - block
+                  - freeze
+                - type: string
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              restriction-applied-by:
+                type: object
+                properties: {}
+                required:
+                - restriction-applied-by-type
+                title: restriction-applied-by
+                x-anyOf:
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - ops-user
+                      type: string
+                  required:
+                  - restriction-applied-by-type
+                  - restriction-applied-by-type
+                  title: ops-user
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - user
+                      type: string
+                    user-url:
+                      type: string
+                      title: user-url
+                      example: /v0/users/ur.ICAgICAgICAgdXNlci1pZA
+                      description: Link to the user.
+                    user-username:
+                      type: string
+                      title: user-username
+                      example: user@example.com
+                      description: The username.
+                  required:
+                  - restriction-applied-by-type
+                  - user-url
+                  - restriction-applied-by-type
+                  title: user
+            required:
+            - bank-account-restriction-url
+            - bank-account-restriction-events-url
+            - restriction-status
+            - restriction-applied-by
+            - created-at
+            - account-url
+            title: bank-account-restriction-response
+            description: A bank account restriction.
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '403':
+          description: ''
+        '404':
+          description: ''
+        '422':
+          description: The restriction is not active or can only be updated by Griffin
+        '500':
+          description: ''
+      summary: Update bank account restriction
+  /v0/bank/accounts/{bank-account-id}/restrictions:
+    get:
+      tags:
+      - Bank account restrictions
+      description: 'Lists restrictions on a bank account.
+
+
+        Returns all restrictions (both `active` and `lifted`) by default. Use
+
+        `filter[restriction-status][eq]=active` to return only active restrictions.
+
+
+        See [get restriction](#tag/Bank-account-restrictions/paths/~1v0~1bank~1account-restrictions~1%7Bbank-account-restriction-id%7D/get)
+
+        for details on field visibility and redaction.'
+      parameters:
+      - in: query
+        name: filter[restriction-status][eq]
+        description: Return only restrictions with the given restriction-status.
+        type: string
+        required: false
+        enum:
+        - lifted
+        - active
+      - in: query
+        name: sort
+        description: ''
+        type: string
+        required: false
+        enum:
+        - -created-at
+        - created-at
+      - x-allOf:
+        - type: integer
+          format: int64
+        - minimum: 1
+          maximum: 201
+        maximum: 200
+        minimum: 1
+        name: page[size]
+        required: false
+        type: integer
+        description: ''
+        format: int64
+        in: query
+      - in: query
+        name: page[after]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - in: query
+        name: page[before]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - type: string
+        required: true
+        name: bank-account-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              bank-account-restrictions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lift-bank-account-restriction-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          bank-account-restriction-id:
+                            type: string
+                            format: ''
+                            title: bank-account-restriction-id
+                            required: true
+                            name: bank-account-restriction-id
+                        required:
+                        - bank-account-restriction-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      title: lift-bank-account-restriction-url
+                      example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/lift
+                      description: Link to lift a bank account restriction.
+                    restriction-status:
+                      type: string
+                      title: restriction-status
+                      x-anyOf:
+                      - type: string
+                        enum:
+                        - lifted
+                        - active
+                      - type: string
+                    restriction-legal-status:
+                      type: string
+                      title: restriction-legal-status
+                      x-anyOf:
+                      - type: string
+                        enum:
+                        - not-applicable
+                        - conviction-confirmed
+                        - formal-charge-filed
+                        - suspected
+                      - type: string
+                    bank-account-restriction-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          bank-account-restriction-id:
+                            type: string
+                            format: ''
+                            title: bank-account-restriction-id
+                            required: true
+                            name: bank-account-restriction-id
+                        required:
+                        - bank-account-restriction-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      title: bank-account-restriction-url
+                      example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw
+                      description: Link to a bank account restriction.
+                    created-at:
+                      title: created-at
+                      format: date-time
+                      type: string
+                      description: ISO 8601 formatted date-time.
+                    update-bank-account-restriction-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          bank-account-restriction-id:
+                            type: string
+                            format: ''
+                            title: bank-account-restriction-id
+                            required: true
+                            name: bank-account-restriction-id
+                        required:
+                        - bank-account-restriction-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      title: update-bank-account-restriction-url
+                      example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/update
+                      description: Link to update a bank account restriction.
+                    bank-account-restriction-events-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          bank-account-restriction-id:
+                            type: string
+                            format: ''
+                            title: bank-account-restriction-id
+                            required: true
+                            name: bank-account-restriction-id
+                        required:
+                        - bank-account-restriction-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-restriction-id:
+                              type: string
+                              format: ''
+                              title: bank-account-restriction-id
+                              required: true
+                              name: bank-account-restriction-id
+                          required:
+                          - bank-account-restriction-id
+                      title: bank-account-restriction-events-url
+                      example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/events
+                      description: Link to events for a bank account restriction.
+                    restriction-reason-code:
+                      type: string
+                      title: restriction-reason-code
+                      x-anyOf:
+                      - type: string
+                        enum:
+                        - suspicious
+                        - fraud-app-perpetrator
+                        - customer-request
+                        - dormant
+                        - other
+                        - terrorist-financing
+                        - law-enforcement
+                        - sanctions
+                        - risk-appetite
+                        - deceased
+                        - fraud-app-victim
+                        - fraud-3rd-party
+                        - money-laundering
+                        - fraud
+                        - high-risk-pep
+                        - fraud-1st-party
+                      - type: string
+                    restriction-type:
+                      type: string
+                      title: restriction-type
+                      x-anyOf:
+                      - type: string
+                        enum:
+                        - block
+                        - freeze
+                      - type: string
+                    account-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          bank-account-id:
+                            type: string
+                            format: ''
+                            title: bank-account-id
+                            required: true
+                            name: bank-account-id
+                        required:
+                        - bank-account-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-id:
+                              type: string
+                              format: ''
+                              title: bank-account-id
+                              required: true
+                              name: bank-account-id
+                          required:
+                          - bank-account-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-id:
+                              type: string
+                              format: ''
+                              title: bank-account-id
+                              required: true
+                              name: bank-account-id
+                          required:
+                          - bank-account-id
+                      title: account-url
+                      example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                      description: Link to the bank account resource.
+                    restriction-applied-by:
+                      type: object
+                      properties: {}
+                      required:
+                      - restriction-applied-by-type
+                      title: restriction-applied-by
+                      x-anyOf:
+                      - type: object
+                        properties:
+                          restriction-applied-by-type:
+                            enum:
+                            - ops-user
+                            type: string
+                        required:
+                        - restriction-applied-by-type
+                        - restriction-applied-by-type
+                        title: ops-user
+                      - type: object
+                        properties:
+                          restriction-applied-by-type:
+                            enum:
+                            - user
+                            type: string
+                          user-url:
+                            type: string
+                            title: user-url
+                            example: /v0/users/ur.ICAgICAgICAgdXNlci1pZA
+                            description: Link to the user.
+                          user-username:
+                            type: string
+                            title: user-username
+                            example: user@example.com
+                            description: The username.
+                        required:
+                        - restriction-applied-by-type
+                        - user-url
+                        - restriction-applied-by-type
+                        title: user
+                  required:
+                  - bank-account-restriction-url
+                  - bank-account-restriction-events-url
+                  - restriction-status
+                  - restriction-applied-by
+                  - created-at
+                  - account-url
+                  title: bank-account-restriction-response
+                  description: A bank account restriction.
+              links:
+                type: object
+                properties:
+                  prev:
+                    type: string
+                    x-nullable: true
+                  next:
+                    type: string
+                    x-nullable: true
+                required:
+                - prev
+                - next
+                title: links
+            required:
+            - bank-account-restrictions
+            - links
+            title: bank-account-restrictions-response
+            description: A list of bank account restrictions.
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: List bank account restrictions
+    post:
+      tags:
+      - Bank account restrictions
+      description: 'Applies a restriction to a bank account.
+
+
+        ### Reason codes
+
+
+        | Code | Description |
+
+        |---|---|
+
+        | `customer-request` | Account holder requested temporary restriction pending further instruction. |
+
+        | `deceased` | Account holder confirmed deceased. Restricted pending estate administration. |
+
+        | `dormant` | Account inactive for 2+ years (no customer-initiated transactions). |
+
+        | `fraud-1st-party` | Account holder is suspected perpetrator committing fraud against Griffin or third parties. |
+
+        | `fraud-3rd-party` | Account holder is victim of account takeover by unauthorised party. |
+
+        | `fraud-app-perpetrator` | Account holder is perpetrator receiving fraudulent payments from victims. |
+
+        | `fraud-app-victim` | Account holder is victim tricked into authorising payments to a fraudulent recipient. |
+
+        | `law-enforcement` | Restricted following law enforcement request, court order, or legal obligation. |
+
+        | `money-laundering` | Suspected money laundering detected. Restricted pending investigation. |
+
+        | `other` | Restriction applied for reasons not covered by standard categories. |
+
+        | `risk-appetite` | Account activity exceeds risk appetite thresholds. Restricted pending review. |
+
+        | `sanctions` | Account holder or associated party identified on a sanctions list. Restricted pending investigation. |
+
+        | `terrorist-financing` | Suspected terrorist financing. Restricted pending investigation. |
+
+
+        ### Legal status
+
+
+        | Code | Description |
+
+        |---|---|
+
+        | `suspected` | Restriction due to suspicion of offence. No formal charges filed. |
+
+        | `formal-charge-filed` | Customer formally charged with an offence. Legal proceedings active. |
+
+        | `conviction-confirmed` | Customer convicted. Deposits connected with the conviction are ineligible for FSCS compensation. |
+
+        | `not-applicable` | Legal status not relevant (e.g. customer requests, dormant accounts). |'
+      parameters:
+      - in: body
+        name: request-apply-restriction
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            restriction-type:
+              type: string
+              enum:
+              - block
+              - freeze
+            restriction-reason-code:
+              type: string
+              enum:
+              - fraud-app-perpetrator
+              - customer-request
+              - dormant
+              - other
+              - terrorist-financing
+              - law-enforcement
+              - sanctions
+              - risk-appetite
+              - deceased
+              - fraud-app-victim
+              - fraud-3rd-party
+              - money-laundering
+              - fraud-1st-party
+            restriction-legal-status:
+              type: string
+              enum:
+              - not-applicable
+              - conviction-confirmed
+              - formal-charge-filed
+              - suspected
+            notes:
+              type: string
+              maxLength: 2000
+          required:
+          - restriction-type
+          - restriction-reason-code
+          - restriction-legal-status
+          - notes
+          title: request-apply-restriction
+      - type: string
+        required: true
+        name: bank-account-id
+        in: path
+      responses:
+        '201':
+          schema:
+            type: object
+            properties:
+              lift-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: lift-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/lift
+                description: Link to lift a bank account restriction.
+              restriction-status:
+                type: string
+                title: restriction-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - lifted
+                  - active
+                - type: string
+              restriction-legal-status:
+                type: string
+                title: restriction-legal-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - not-applicable
+                  - conviction-confirmed
+                  - formal-charge-filed
+                  - suspected
+                - type: string
+              bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw
+                description: Link to a bank account restriction.
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              update-bank-account-restriction-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: update-bank-account-restriction-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/actions/update
+                description: Link to update a bank account restriction.
+              bank-account-restriction-events-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-restriction-id:
+                      type: string
+                      format: ''
+                      title: bank-account-restriction-id
+                      required: true
+                      name: bank-account-restriction-id
+                  required:
+                  - bank-account-restriction-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-restriction-id:
+                        type: string
+                        format: ''
+                        title: bank-account-restriction-id
+                        required: true
+                        name: bank-account-restriction-id
+                    required:
+                    - bank-account-restriction-id
+                title: bank-account-restriction-events-url
+                example: /v0/bank/account-restrictions/ri.YmFuay1hY2NvdW50LXJlcw/events
+                description: Link to events for a bank account restriction.
+              restriction-reason-code:
+                type: string
+                title: restriction-reason-code
+                x-anyOf:
+                - type: string
+                  enum:
+                  - suspicious
+                  - fraud-app-perpetrator
+                  - customer-request
+                  - dormant
+                  - other
+                  - terrorist-financing
+                  - law-enforcement
+                  - sanctions
+                  - risk-appetite
+                  - deceased
+                  - fraud-app-victim
+                  - fraud-3rd-party
+                  - money-laundering
+                  - fraud
+                  - high-risk-pep
+                  - fraud-1st-party
+                - type: string
+              restriction-type:
+                type: string
+                title: restriction-type
+                x-anyOf:
+                - type: string
+                  enum:
+                  - block
+                  - freeze
+                - type: string
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              restriction-applied-by:
+                type: object
+                properties: {}
+                required:
+                - restriction-applied-by-type
+                title: restriction-applied-by
+                x-anyOf:
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - ops-user
+                      type: string
+                  required:
+                  - restriction-applied-by-type
+                  - restriction-applied-by-type
+                  title: ops-user
+                - type: object
+                  properties:
+                    restriction-applied-by-type:
+                      enum:
+                      - user
+                      type: string
+                    user-url:
+                      type: string
+                      title: user-url
+                      example: /v0/users/ur.ICAgICAgICAgdXNlci1pZA
+                      description: Link to the user.
+                    user-username:
+                      type: string
+                      title: user-username
+                      example: user@example.com
+                      description: The username.
+                  required:
+                  - restriction-applied-by-type
+                  - user-url
+                  - restriction-applied-by-type
+                  title: user
+            required:
+            - bank-account-restriction-url
+            - bank-account-restriction-events-url
+            - restriction-status
+            - restriction-applied-by
+            - created-at
+            - account-url
+            title: bank-account-restriction-response
+            description: A bank account restriction.
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '403':
+          description: ''
+        '404':
+          description: ''
+        '409':
+          description: ''
+        '422':
+          description: ''
+        '500':
+          description: ''
+      summary: Apply bank account restriction
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default

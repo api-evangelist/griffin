@@ -1,0 +1,524 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Organizations API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Organizations
+  description: 'The organization resource represents your company and acts as a container for the majority of other resources, including [legal persons](#tag/Legal-Persons) and [bank accounts](#tag/Bank-accounts).
+
+    When you register for an account with Griffin, a new [organization](#tag/Organizations) is created alongside your [user](#tag/Users) account (unless you have received an [invitation](#tag/Invitations) to join an existing organization).
+
+    Your [user](#tag/Users) account is associated with an [organization](#tag/Organizations) via a [membership](#tag/Memberships).
+
+
+    Your [organization](#tag/Organization) can be in one of two modes:
+
+    - `test-mode` for organizations created when you sign up for the sandbox.
+
+    - `live-mode` for when you go live with Griffin.
+
+
+    Learn more about [sandbox vs. live mode](/docs/guides/sandbox-vs-live-mode).'
+paths:
+  /v0/organizations/{organization-id}:
+    get:
+      tags:
+      - Organizations
+      description: Yields the organization details
+      parameters:
+      - type: string
+        required: true
+        name: organization-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              own-legal-person-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    legal-person-id:
+                      type: string
+                      format: ''
+                      title: legal-person-id
+                      required: true
+                      name: legal-person-id
+                  required:
+                  - legal-person-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                title: own-legal-person-url
+                description: Link to the [legal person](#tag/Legal-persons) that represents the [organization](#tag/Organizations); this can be an individual or a company.
+                example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+              organization-mode:
+                title: organization-mode
+                enum:
+                - test-mode
+                - live-mode
+                type: string
+                description: The organization can either be a sandbox organization or a live one; Check out our guide for [sandbox mode vs live mode](/docs/guides/sandbox-vs-live-mode).
+              organization-memberships-url:
+                type: string
+                title: organization-memberships-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/memberships
+                description: Link to the [memberships](#tag/Memberships) for this [organization](#tag/Organizations).
+              organization-invitations-url:
+                type: string
+                title: organization-invitations-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/invitations
+                description: Link to the resource that enables you to [invite](#tag/Invites) new [users](#tag/Users) to this [organization](#tag/Organizations).
+              organization-payments-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    organization-id:
+                      type: string
+                      format: ''
+                      title: organization-id
+                      required: true
+                      name: organization-id
+                  required:
+                  - organization-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                title: organization-payments-url
+                description: Link to the [payments](#tag/Payments) associated with this organization.
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/payments
+              organization-bank-account-products-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    organization-id:
+                      type: string
+                      format: ''
+                      title: organization-id
+                      required: true
+                      name: organization-id
+                  required:
+                  - organization-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                title: organization-bank-account-products-url
+                description: Link to the [bank account](#tag/Bank-accounts) products owned by this [organization](#tag/Organization).
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/products
+              organization-onboarding-applications-url:
+                type: string
+                title: organization-onboarding-applications-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/onboarding/applications
+                description: Link to the [Reliance onboarding](#tag/Reliance-onboarding).
+              display-name:
+                type: string
+                minLength: 1
+                title: display-name
+                description: The mutable display name for the Organisation
+                maxLength: 64
+                example: Company Org
+              organization-bank-accounts-search-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    organization-id:
+                      type: string
+                      format: ''
+                      title: organization-id
+                      required: true
+                      name: organization-id
+                  required:
+                  - organization-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                title: organization-bank-accounts-search-url
+                description: Link to search [bank accounts](#tag/Bank-accounts) associated with this [organization](#tag/Organizations).
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts/search
+              organization-api-keys-url:
+                type: string
+                title: organization-api-keys-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/api-keys
+              organization-live-access-url:
+                type: string
+                title: organization-live-access-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/live-access
+                description: Link to the resource that enables you to request live access.
+              organization-webhooks-url:
+                type: string
+                title: organization-webhooks-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/webhooks
+                description: Link to the endpoint which enables webhook creation.
+              organization-workflows-url:
+                type: string
+                title: organization-workflows-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/workflows
+                description: Link to the onboarding [workflows](#tag/Workflows) configured for this [organization](#tag/Organizations).
+              organization-bank-accounts-url:
+                type: string
+                title: organization-bank-accounts-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts
+                description: Link to the [bank accounts](#tag/Bank-accounts) managed by this [organization](#tag/Organizations).
+              available-roles:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    display-name:
+                      type: string
+                      minLength: 1
+                      title: display-name
+                      description: The mutable display name for the Organisation
+                      maxLength: 64
+                      example: Company Org
+                    description:
+                      type: string
+                      title: description
+                    role-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          role-id:
+                            type: string
+                            format: ''
+                            title: role-id
+                            required: true
+                            name: role-id
+                        required:
+                        - role-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            role-id:
+                              type: string
+                              format: ''
+                              title: role-id
+                              required: true
+                              name: role-id
+                          required:
+                          - role-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            role-id:
+                              type: string
+                              format: ''
+                              title: role-id
+                              required: true
+                              name: role-id
+                          required:
+                          - role-id
+                      title: role-url
+                      description: Link to the [role](#tag/Roles).
+                      example: /v0/roles/re.ICAgICAgICAgcm9sZS1pZA
+                    role-category:
+                      type: string
+                  required:
+                  - display-name
+                  - description
+                  - role-url
+                  title: role
+                description: The subset of [roles](#tag/Roles) available to [members](#tag/Members) of this [organization](#tag/Organizations).
+                title: available-roles
+              organization-url:
+                type: string
+                title: organization-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA
+                description: Link to the [organization](#tag/Organizations).
+              organization-payments-search-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    organization-id:
+                      type: string
+                      format: ''
+                      title: organization-id
+                      required: true
+                      name: organization-id
+                  required:
+                  - organization-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      organization-id:
+                        type: string
+                        format: ''
+                        title: organization-id
+                        required: true
+                        name: organization-id
+                    required:
+                    - organization-id
+                title: organization-payments-search-url
+                description: Link to search [payments](#tag/Payments) associated with this organization.
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/payments/search
+              organization-individuals-url:
+                type: string
+                title: organization-individuals-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/individuals
+              organization-corporations-url:
+                type: string
+                title: organization-corporations-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/corporations
+              organization-legal-persons-url:
+                type: string
+                title: organization-legal-persons-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/legal-persons
+                description: Link to the [legal persons](#tag/Legal-persons) grouped under this [organization](#tag/Organizations).
+              organization-legal-persons-search-url:
+                type: string
+                title: organization-legal-persons-search-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/legal-persons/search
+                description: Link to search [legal persons](#tag/Legal-persons) grouped under this [organization](#tag/Organizations).
+              organization-events-url:
+                type: string
+                title: organization-events-url
+                example: /v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/events
+                description: Link to the endpoint which lists an organization's events.
+            required:
+            - available-roles
+            - can-decide-on-verifications?
+            - display-name
+            - organization-api-keys-url
+            - organization-bank-accounts-url
+            - organization-bank-account-products-url
+            - organization-corporations-url
+            - organization-events-url
+            - organization-individuals-url
+            - organization-invitations-url
+            - organization-legal-persons-url
+            - organization-live-access-url
+            - organization-memberships-url
+            - organization-mode
+            - organization-payments-url
+            - organization-url
+            - organization-webhooks-url
+            - organization-workflows-url
+            - own-legal-person-url
+            - organization-legal-persons-search-url
+            - organization-bank-accounts-search-url
+            - organization-payments-search-url
+            title: organization
+            additionalProperties: false
+          headers:
+            Location:
+              type: string
+              description: The URL of the organization
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: Get organization
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default

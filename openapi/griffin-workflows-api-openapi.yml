@@ -1,0 +1,464 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Workflows API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Workflows
+  description: A [workflow](/docs/terms/workflow) determines which checks will be run against a [legal person](#tag/Legal-persons) as part of a [verification](#tag/Verifications)
+paths:
+  /v0/organizations/{organization-id}/workflows:
+    get:
+      tags:
+      - Workflows
+      description: Lists workflows for use when creating a [verification](#tag/Verifications).
+      parameters:
+      - in: query
+        name: sort
+        description: ''
+        type: string
+        required: false
+        enum:
+        - -created-at
+        - created-at
+      - x-allOf:
+        - type: integer
+          format: int64
+        - minimum: 1
+          maximum: 201
+        maximum: 200
+        minimum: 1
+        name: page[size]
+        required: false
+        type: integer
+        description: ''
+        format: int64
+        in: query
+      - in: query
+        name: page[after]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - in: query
+        name: page[before]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - type: string
+        required: true
+        name: organization-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              workflows:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    workflow-url:
+                      type: string
+                      title: workflow-url
+                      example: /v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA
+                      description: A link to the [workflow](/docs/terms/workflow).
+                    display-name:
+                      type: string
+                      minLength: 1
+                      title: display-name
+                      description: A human readable label for an entity
+                    description:
+                      type: string
+                      title: description
+                    legal-person-type:
+                      title: legal-person-type
+                      enum:
+                      - individual
+                      - corporation
+                      type: string
+                      description: Specifies if the legal person is an `individual` or a `corporation`.
+                    created-at:
+                      title: created-at
+                      format: date-time
+                      type: string
+                      description: ISO 8601 formatted date-time.
+                    disabled?:
+                      type: boolean
+                      title: disabled?
+                      description: When a workflow is disabled, no new verifications using that workflow can be created.
+                    required-claim-types:
+                      type: object
+                      additionalProperties:
+                        type: array
+                        items:
+                          title: claim-type
+                          type: string
+                          enum:
+                          - mobile-number
+                          - properties-origins-of-deposits
+                          - individual-identity
+                          - sole-trader
+                          - property-types
+                          - commercial-property-industries
+                          - uk-company-register
+                          - individual-income
+                          - business-website
+                          - initial-deposit
+                          - international-payments-countries
+                          - company-telephone-number
+                          - managed-properties
+                          - business-size
+                          - entity-address
+                          - person-with-significant-control
+                          - business-industry
+                          - tax-residencies
+                          - tenant-cash-payments
+                          - verified-bank-account
+                          - company-email-address
+                          - tax-residency
+                          - uk-financial-services-register
+                          - non-tenant-balance
+                          - business-description
+                          - hmrc-register
+                          - external-risk-rating
+                          - nfe-classification
+                          - vat-registration
+                          - entity-name
+                          - hmo-license
+                          - business-email-address
+                          - client-money-protection-scheme
+                          - fca-mutuals-register
+                          - individual-sources-of-funds
+                          - nominal-person-with-significant-control
+                          - hmo-verification
+                          - commercial-property-ratio
+                          - governing-body-member
+                          - business-address
+                          - employment
+                          - annual-turnover
+                          - purposes-of-account
+                          - sic-codes
+                          - international-operations-countries
+                          - balance-sheet-size
+                          - us-citizen
+                          - role-titles
+                          - sources-of-funds
+                          - senior-manager-function-holder
+                          - business-owner
+                          - business-telephone-number
+                          - individual-email-address
+                          - tax-identification-numbers-by-country
+                          - business-start-date
+                          - contact-details
+                          - reliance-verification
+                          - ultimate-beneficial-owner
+                          - aeoi-entity-classification
+                          - business-name
+                          - individual-purposes-of-account
+                          - nationality
+                          - trading-name
+                          - number-of-employees
+                          - social-media
+                          - trading-address
+                          - company-website
+                          - director
+                          - complex-business-structure
+                          - alternative-number
+                          - cash-payments
+                          - fca-fs-register-firm
+                          - tax-identification-number
+                          - fca-fs-register-individual
+                          - individual-residence
+                          - business-type
+                        uniqueItems: true
+                      title: required-claim-types
+                      description: "A mapping of workflow-appropriate legal person types\n                                 to claims that are required for each type."
+                    workflow-rules:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                        - allow-zero-directors
+                        - allow-missing-directors
+                      uniqueItems: true
+                      title: workflow-rules
+                      description: A list of special behaviours a workflow can possess.
+                  required:
+                  - workflow-url
+                  - display-name
+                  - description
+                  - legal-person-type
+                  - created-at
+                  - disabled?
+                  title: workflow
+              links:
+                type: object
+                properties:
+                  prev:
+                    type: string
+                    x-nullable: true
+                  next:
+                    type: string
+                    x-nullable: true
+                required:
+                - prev
+                - next
+                title: links
+              meta:
+                type: object
+                properties:
+                  page:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        format: int64
+                        minimum: 0
+                        title: total
+                        description: Total number of items. Present when the total number of items in the full result set is less than 10,000.
+                      estimated-total:
+                        type: object
+                        properties:
+                          at-least:
+                            enum:
+                            - 10000
+                            type: integer
+                            title: at-least
+                            description: Present when the total number of items in the full result set exceeds 10,000. This indicates that the actual number of items is at least 10,000, but the exact total is not provided due to performance considerations.
+                        title: estimated-total
+                    title: page
+                title: meta
+            required:
+            - workflows
+            - links
+            title: organization-workflows-response
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: List organization workflows
+  /v0/workflows/{workflow-id}:
+    get:
+      tags:
+      - Workflows
+      description: Fetch the workflow.
+      parameters:
+      - type: string
+        required: true
+        name: workflow-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              workflow-url:
+                type: string
+                title: workflow-url
+                example: /v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA
+                description: A link to the [workflow](/docs/terms/workflow).
+              display-name:
+                type: string
+                minLength: 1
+                title: display-name
+                description: A human readable label for an entity
+              description:
+                type: string
+                title: description
+              legal-person-type:
+                title: legal-person-type
+                enum:
+                - individual
+                - corporation
+                type: string
+                description: Specifies if the legal person is an `individual` or a `corporation`.
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              disabled?:
+                type: boolean
+                title: disabled?
+                description: When a workflow is disabled, no new verifications using that workflow can be created.
+              required-claim-types:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    title: claim-type
+                    type: string
+                    enum:
+                    - mobile-number
+                    - properties-origins-of-deposits
+                    - individual-identity
+                    - sole-trader
+                    - property-types
+                    - commercial-property-industries
+                    - uk-company-register
+                    - individual-income
+                    - business-website
+                    - initial-deposit
+                    - international-payments-countries
+                    - company-telephone-number
+                    - managed-properties
+                    - business-size
+                    - entity-address
+                    - person-with-significant-control
+                    - business-industry
+                    - tax-residencies
+                    - tenant-cash-payments
+                    - verified-bank-account
+                    - company-email-address
+                    - tax-residency
+                    - uk-financial-services-register
+                    - non-tenant-balance
+                    - business-description
+                    - hmrc-register
+                    - external-risk-rating
+                    - nfe-classification
+                    - vat-registration
+                    - entity-name
+                    - hmo-license
+                    - business-email-address
+                    - client-money-protection-scheme
+                    - fca-mutuals-register
+                    - individual-sources-of-funds
+                    - nominal-person-with-significant-control
+                    - hmo-verification
+                    - commercial-property-ratio
+                    - governing-body-member
+                    - business-address
+                    - employment
+                    - annual-turnover
+                    - purposes-of-account
+                    - sic-codes
+                    - international-operations-countries
+                    - balance-sheet-size
+                    - us-citizen
+                    - role-titles
+                    - sources-of-funds
+                    - senior-manager-function-holder
+                    - business-owner
+                    - business-telephone-number
+                    - individual-email-address
+                    - tax-identification-numbers-by-country
+                    - business-start-date
+                    - contact-details
+                    - reliance-verification
+                    - ultimate-beneficial-owner
+                    - aeoi-entity-classification
+                    - business-name
+                    - individual-purposes-of-account
+                    - nationality
+                    - trading-name
+                    - number-of-employees
+                    - social-media
+                    - trading-address
+                    - company-website
+                    - director
+                    - complex-business-structure
+                    - alternative-number
+                    - cash-payments
+                    - fca-fs-register-firm
+                    - tax-identification-number
+                    - fca-fs-register-individual
+                    - individual-residence
+                    - business-type
+                  uniqueItems: true
+                title: required-claim-types
+                description: "A mapping of workflow-appropriate legal person types\n                                 to claims that are required for each type."
+              workflow-rules:
+                type: array
+                items:
+                  type: string
+                  enum:
+                  - allow-zero-directors
+                  - allow-missing-directors
+                uniqueItems: true
+                title: workflow-rules
+                description: A list of special behaviours a workflow can possess.
+            required:
+            - workflow-url
+            - display-name
+            - description
+            - legal-person-type
+            - created-at
+            - disabled?
+            title: workflow
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: Get workflow
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default

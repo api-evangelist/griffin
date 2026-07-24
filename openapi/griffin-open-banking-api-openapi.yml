@@ -1,0 +1,794 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Open banking API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Open banking
+  description: 'Open banking allows regulated third-party providers (TPPs) to access your customers'' account data or initiate payments on their behalf.
+
+    Griffin partners with [tell.money](https://tell.money/) to provide the TPP-facing open banking APIs.
+
+    You handle the consent flow — authenticating your customer and registering the consent with Griffin — and Griffin handles the resource requests from TPPs.
+
+
+    For a full walkthrough, see our [open banking integration guide](/docs/guides/open-banking-customer-accounts).'
+paths:
+  /v0/open-banking/tell-consents/{consent-id}:
+    get:
+      tags:
+      - Open banking
+      description: Fetch a registered Tell consent.
+      parameters:
+      - type: string
+        in: path
+        name: consent-id
+        required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              tell-consent-expiry:
+                title: tell-consent-expiry
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-gateway-id:
+                type: string
+                format: uuid
+                title: tell-gateway-id
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-consent-id:
+                type: string
+                format: uuid
+                title: tell-consent-id
+              tell-consent-scope:
+                type: string
+                title: tell-consent-scope
+                x-anyOf:
+                - type: string
+                  enum:
+                  - payments
+                  - accounts
+                - type: string
+              tell-consent-consumed-at:
+                title: tell-consent-consumed-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-consent-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    consent-id:
+                      type: string
+                      format: uuid
+                  required:
+                  - consent-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      consent-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - consent-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      consent-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - consent-id
+                title: tell-consent-url
+                example: /v0/open-banking/tell-consents/00000000-0000-0000-0000-000000000000
+              tell-consent-status:
+                type: string
+                title: tell-consent-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - revoked
+                  - consumed
+                  - authorised
+                - type: string
+              tell-consent-permissions:
+                type: array
+                items:
+                  type: string
+                  title: tell-consent-permission
+                  x-anyOf:
+                  - type: string
+                    enum:
+                    - ReadPartyPSU
+                    - ReadTransactionsDetail
+                    - ReadProducts
+                    - ReadStatementsDetail
+                    - ReadDirectDebits
+                    - ReadTransactionsDebits
+                    - ReadTransactionsCredits
+                    - ReadBeneficiariesDetail
+                    - ReadBalances
+                    - ReadPAN
+                    - ReadScheduledPaymentsDetail
+                    - ReadAccountsDetail
+                    - ReadAccountsBasic
+                    - ReadOffers
+                    - ReadBeneficiariesBasic
+                    - ReadStandingOrdersBasic
+                    - ReadStandingOrdersDetail
+                    - ReadTransactionsBasic
+                    - ReadParty
+                    - ReadStatementsBasic
+                    - ReadScheduledPaymentsBasic
+                  - type: string
+              bank-account-urls:
+                type: array
+                items:
+                  type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                  x-anyOf:
+                  - type: string
+                    x-allOf:
+                    - type: string
+                    - {}
+                    - type: object
+                      properties:
+                        bank-account-id:
+                          type: string
+                          format: ''
+                          title: bank-account-id
+                          required: true
+                          name: bank-account-id
+                      required:
+                      - bank-account-id
+                  - type: string
+                    x-allOf:
+                    - type: string
+                    - {}
+                    - type: object
+                      properties:
+                        bank-account-id:
+                          type: string
+                          format: ''
+                          title: bank-account-id
+                          required: true
+                          name: bank-account-id
+                      required:
+                      - bank-account-id
+                  title: account-url
+                  example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                  description: Link to the bank account resource.
+              tell-consent-revoked-at:
+                title: tell-consent-revoked-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+            required:
+            - tell-consent-url
+            - tell-consent-id
+            - tell-gateway-id
+            - bank-account-urls
+            - tell-consent-scope
+            - tell-consent-permissions
+            - tell-consent-status
+            - created-at
+            title: tell-consent-response
+            description: A registered Tell consent.
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: Get Tell consent
+  /v0/open-banking/tell-consents/{consent-id}/actions/revoke:
+    post:
+      tags:
+      - Open banking
+      description: 'Revoke a registered Tell consent.
+
+
+        After revoking a consent with Tell Money, also revoke it with Griffin
+
+        so that Griffin rejects any further resource requests for this consent.'
+      parameters:
+      - type: string
+        in: path
+        name: consent-id
+        required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              tell-consent-expiry:
+                title: tell-consent-expiry
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-gateway-id:
+                type: string
+                format: uuid
+                title: tell-gateway-id
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-consent-id:
+                type: string
+                format: uuid
+                title: tell-consent-id
+              tell-consent-scope:
+                type: string
+                title: tell-consent-scope
+                x-anyOf:
+                - type: string
+                  enum:
+                  - payments
+                  - accounts
+                - type: string
+              tell-consent-consumed-at:
+                title: tell-consent-consumed-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-consent-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    consent-id:
+                      type: string
+                      format: uuid
+                  required:
+                  - consent-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      consent-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - consent-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      consent-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - consent-id
+                title: tell-consent-url
+                example: /v0/open-banking/tell-consents/00000000-0000-0000-0000-000000000000
+              tell-consent-status:
+                type: string
+                title: tell-consent-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - revoked
+                  - consumed
+                  - authorised
+                - type: string
+              tell-consent-permissions:
+                type: array
+                items:
+                  type: string
+                  title: tell-consent-permission
+                  x-anyOf:
+                  - type: string
+                    enum:
+                    - ReadPartyPSU
+                    - ReadTransactionsDetail
+                    - ReadProducts
+                    - ReadStatementsDetail
+                    - ReadDirectDebits
+                    - ReadTransactionsDebits
+                    - ReadTransactionsCredits
+                    - ReadBeneficiariesDetail
+                    - ReadBalances
+                    - ReadPAN
+                    - ReadScheduledPaymentsDetail
+                    - ReadAccountsDetail
+                    - ReadAccountsBasic
+                    - ReadOffers
+                    - ReadBeneficiariesBasic
+                    - ReadStandingOrdersBasic
+                    - ReadStandingOrdersDetail
+                    - ReadTransactionsBasic
+                    - ReadParty
+                    - ReadStatementsBasic
+                    - ReadScheduledPaymentsBasic
+                  - type: string
+              bank-account-urls:
+                type: array
+                items:
+                  type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                  x-anyOf:
+                  - type: string
+                    x-allOf:
+                    - type: string
+                    - {}
+                    - type: object
+                      properties:
+                        bank-account-id:
+                          type: string
+                          format: ''
+                          title: bank-account-id
+                          required: true
+                          name: bank-account-id
+                      required:
+                      - bank-account-id
+                  - type: string
+                    x-allOf:
+                    - type: string
+                    - {}
+                    - type: object
+                      properties:
+                        bank-account-id:
+                          type: string
+                          format: ''
+                          title: bank-account-id
+                          required: true
+                          name: bank-account-id
+                      required:
+                      - bank-account-id
+                  title: account-url
+                  example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                  description: Link to the bank account resource.
+              tell-consent-revoked-at:
+                title: tell-consent-revoked-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+            required:
+            - tell-consent-url
+            - tell-consent-id
+            - tell-gateway-id
+            - bank-account-urls
+            - tell-consent-scope
+            - tell-consent-permissions
+            - tell-consent-status
+            - created-at
+            title: tell-consent-response
+            description: A registered Tell consent.
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: Consent not found.
+        '422':
+          description: Consent is already revoked.
+      summary: Revoke Tell consent
+  /v0/organizations/{organization-id}/open-banking/tell-consents:
+    post:
+      tags:
+      - Open banking
+      description: "Register a Tell consent for open banking on your customers' accounts.\n\nAfter granting a consent with Tell Money, register it with Griffin so\nthat Griffin can validate Tell's subsequent resource requests.\n\n`tell-consent-permissions` behaviour depends on `tell-consent-scope`:\n  - `accounts` scope requires at least one permission; this controls which\n    AISP operations the TPP can perform (e.g. reading balances or\n    transactions).\n  - `payments` scope does not use permissions — Tell Money returns them\n    empty and Griffin authorises payment operations from the scope alone.\n    Pass `[]` (matching Tell's response) or any value; the field is still\n    required in the request."
+      parameters:
+      - in: body
+        name: request-register-tell-consent
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            tell-consent-id:
+              type: string
+              format: uuid
+            tell-gateway-id:
+              type: string
+              format: uuid
+            tell-consent-scope:
+              type: string
+              enum:
+              - payments
+              - accounts
+            tell-consent-permissions:
+              type: array
+              items:
+                type: string
+                enum:
+                - ReadPartyPSU
+                - ReadTransactionsDetail
+                - ReadProducts
+                - ReadStatementsDetail
+                - ReadDirectDebits
+                - ReadTransactionsDebits
+                - ReadTransactionsCredits
+                - ReadBeneficiariesDetail
+                - ReadBalances
+                - ReadPAN
+                - ReadScheduledPaymentsDetail
+                - ReadAccountsDetail
+                - ReadAccountsBasic
+                - ReadOffers
+                - ReadBeneficiariesBasic
+                - ReadStandingOrdersBasic
+                - ReadStandingOrdersDetail
+                - ReadTransactionsBasic
+                - ReadParty
+                - ReadStatementsBasic
+                - ReadScheduledPaymentsBasic
+              uniqueItems: true
+              description: Permissions granted by the consent. For `accounts` scope, must list at least one permission. For `payments` scope, pass `[]` — Tell Money returns no permissions and Griffin authorises payments from the scope alone.
+            bank-account-urls:
+              type: array
+              items:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+            tell-consent-expiry:
+              title: inst
+              format: date-time
+              type: string
+              description: ISO 8601 formatted date-time.
+          required:
+          - tell-consent-id
+          - tell-gateway-id
+          - tell-consent-scope
+          - tell-consent-permissions
+          - bank-account-urls
+          x-allOf:
+          - type: object
+            properties: {}
+            required: []
+          - {}
+          title: request-register-tell-consent
+      - type: string
+        required: true
+        name: organization-id
+        in: path
+      responses:
+        '201':
+          schema:
+            type: object
+            properties:
+              tell-consent-expiry:
+                title: tell-consent-expiry
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-gateway-id:
+                type: string
+                format: uuid
+                title: tell-gateway-id
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-consent-id:
+                type: string
+                format: uuid
+                title: tell-consent-id
+              tell-consent-scope:
+                type: string
+                title: tell-consent-scope
+                x-anyOf:
+                - type: string
+                  enum:
+                  - payments
+                  - accounts
+                - type: string
+              tell-consent-consumed-at:
+                title: tell-consent-consumed-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              tell-consent-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    consent-id:
+                      type: string
+                      format: uuid
+                  required:
+                  - consent-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      consent-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - consent-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      consent-id:
+                        type: string
+                        format: uuid
+                    required:
+                    - consent-id
+                title: tell-consent-url
+                example: /v0/open-banking/tell-consents/00000000-0000-0000-0000-000000000000
+              tell-consent-status:
+                type: string
+                title: tell-consent-status
+                x-anyOf:
+                - type: string
+                  enum:
+                  - revoked
+                  - consumed
+                  - authorised
+                - type: string
+              tell-consent-permissions:
+                type: array
+                items:
+                  type: string
+                  title: tell-consent-permission
+                  x-anyOf:
+                  - type: string
+                    enum:
+                    - ReadPartyPSU
+                    - ReadTransactionsDetail
+                    - ReadProducts
+                    - ReadStatementsDetail
+                    - ReadDirectDebits
+                    - ReadTransactionsDebits
+                    - ReadTransactionsCredits
+                    - ReadBeneficiariesDetail
+                    - ReadBalances
+                    - ReadPAN
+                    - ReadScheduledPaymentsDetail
+                    - ReadAccountsDetail
+                    - ReadAccountsBasic
+                    - ReadOffers
+                    - ReadBeneficiariesBasic
+                    - ReadStandingOrdersBasic
+                    - ReadStandingOrdersDetail
+                    - ReadTransactionsBasic
+                    - ReadParty
+                    - ReadStatementsBasic
+                    - ReadScheduledPaymentsBasic
+                  - type: string
+              bank-account-urls:
+                type: array
+                items:
+                  type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                  x-anyOf:
+                  - type: string
+                    x-allOf:
+                    - type: string
+                    - {}
+                    - type: object
+                      properties:
+                        bank-account-id:
+                          type: string
+                          format: ''
+                          title: bank-account-id
+                          required: true
+                          name: bank-account-id
+                      required:
+                      - bank-account-id
+                  - type: string
+                    x-allOf:
+                    - type: string
+                    - {}
+                    - type: object
+                      properties:
+                        bank-account-id:
+                          type: string
+                          format: ''
+                          title: bank-account-id
+                          required: true
+                          name: bank-account-id
+                      required:
+                      - bank-account-id
+                  title: account-url
+                  example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                  description: Link to the bank account resource.
+              tell-consent-revoked-at:
+                title: tell-consent-revoked-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+            required:
+            - tell-consent-url
+            - tell-consent-id
+            - tell-gateway-id
+            - bank-account-urls
+            - tell-consent-scope
+            - tell-consent-permissions
+            - tell-consent-status
+            - created-at
+            title: tell-consent-response
+            description: A registered Tell consent.
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: Gateway not found.
+        '409':
+          description: Consent with this ID already exists.
+        '422':
+          description: At least one of the supplied bank accounts doesn't exist.
+      summary: Register Tell consent
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default

@@ -1,0 +1,398 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Companies House API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Companies House
+paths:
+  /v0/companies-house/companies/{company-number}:
+    get:
+      tags:
+      - Companies House
+      description: Lookup Companies House company by company number. Includes information about the company, its directors, and persons with significant control.
+      parameters:
+      - type: string
+        description: UK Companies House company number
+        in: path
+        name: company-number
+        required: true
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              company-address:
+                type: object
+                properties:
+                  building-number:
+                    title: building-number
+                    maxLength: 50
+                  street-name:
+                    title: street-name
+                    minLength: 1
+                    maxLength: 50
+                  city:
+                    title: city
+                    minLength: 1
+                    maxLength: 50
+                  postal-code:
+                    title: postal-code
+                    type: string
+                    maxLength: 10
+                    example: NW16XE
+                    minLength: 1
+                  country-code:
+                    title: country-code
+                    description: ISO 3166-1 alpha-2 two-letter country code.
+                    minLength: 2
+                    maxLength: 2
+                    example: GB
+                title: company-address
+              date-of-latest-accounts:
+                title: date-of-latest-accounts
+                format: date
+                type: string
+                description: ISO 8601 formatted date.
+              entity-name:
+                title: entity-name
+                type: string
+                minLength: 1
+              directors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    display-name:
+                      type: string
+                      minLength: 1
+                      title: display-name
+                      description: A human readable label for an entity
+                    companies-house-url:
+                      title: companies-house-url
+                      description: The URL of the entity in Companies House
+                      type: string
+                      example: https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX
+                    director-appointed-on:
+                      title: director-appointed-on
+                      format: date
+                      type: string
+                      description: ISO 8601 formatted date.
+                    director-occupation:
+                      type: string
+                    day-of-birth:
+                      type: integer
+                      format: int64
+                      minimum: 1
+                      title: day-of-birth
+                      example: '1'
+                    month-of-birth:
+                      type: integer
+                      format: int64
+                      minimum: 1
+                      title: month-of-birth
+                      example: '1'
+                    year-of-birth:
+                      type: integer
+                      format: int64
+                      minimum: 1
+                      title: year-of-birth
+                      example: '1970'
+                  required:
+                  - display-name
+                  - companies-house-url
+                  title: ch-director
+              date-of-latest-confirmation-statement:
+                title: date-of-latest-confirmation-statement
+                format: date
+                type: string
+                description: ISO 8601 formatted date.
+              corporation-type:
+                title: corporation-type
+                type: string
+                enum:
+                - private-limited-guarant-nsc-limited-exemption
+                - eeig
+                - private-limited-shares-section-30-exemption
+                - limited-partnership
+                - royal-charter
+                - private-unlimited-nsc
+                - old-public-company
+                - investment-company-with-variable-capital
+                - other-company-type
+                - converted-or-closed
+                - protected-cell-company
+                - private-limited-guarant-nsc
+                - scottish-charitable-incorporated-organisation
+                - industrial-and-provident-society
+                - registered-society-non-jurisdictional
+                - private-unlimited
+                - further-education-or-sixth-form-college-corporation
+                - limited-liability-partnership
+                - assurance-company
+                - other
+                - northern-ireland-other
+                - charitable-incorporated-organisation
+                - oversea-company
+                - icvc-securities
+                - uk-establishment
+                - unregistered-company
+                - icvc-warrant
+                - registered-overseas-entity
+                - public-limited-company
+                - private-limited-company
+                - european-public-limited-liability-company-se
+                - private-unlimted-nsc
+                - northern-ireland
+                - icvc-umbrella
+                - scottish-partnership
+              company-status:
+                title: company-status
+                type: string
+                enum:
+                - dissolved
+                - active
+                - receivership
+                - registered
+                - removed
+                - administration
+                - open
+                - closed
+                - voluntary-arrangement
+                - liquidation
+                - converted-closed
+                - insolvency-proceedings
+              accounts-overdue:
+                type: boolean
+              sic-codes:
+                type: array
+                items:
+                  title: sic-code
+                  pattern: ^[0-9]*$
+                  type: string
+                  maxLength: 5
+                  example: '12345'
+                  minLength: 4
+              persons-with-significant-control:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    display-name:
+                      type: string
+                      minLength: 1
+                      title: display-name
+                      description: A human readable label for an entity
+                    natures-of-control:
+                      type: array
+                      items:
+                        title: nature-of-control
+                        type: string
+                        enum:
+                        - voting-rights-25-to-50-percent-limited-liability-partnership
+                        - right-to-appoint-and-remove-members-limited-liability-partnership
+                        - part-right-to-share-surplus-assets-75-to-100-percent-as-trust
+                        - ownership-of-shares-more-than-25-percent-registered-overseas-entity
+                        - part-right-to-share-surplus-assets-50-to-75-percent-as-trust
+                        - significant-influence-or-control-as-firm-limited-liability-partnership
+                        - part-right-to-share-surplus-assets-25-to-50-percent-as-firm
+                        - ownership-of-shares-25-to-50-percent-as-trust
+                        - ownership-of-shares-more-than-25-percent-as-firm-registered-overseas-entity
+                        - voting-rights-25-to-50-percent
+                        - voting-rights-25-to-50-percent-as-firm
+                        - ownership-of-shares-more-than-25-percent-as-trust-registered-overseas-entity
+                        - significant-influence-or-control
+                        - significant-influence-or-control-registered-overseas-entity
+                        - part-right-to-share-surplus-assets-50-to-75-percent-as-firm
+                        - voting-rights-50-to-75-percent
+                        - part-right-to-share-surplus-assets-25-to-50-percent
+                        - voting-rights-50-to-75-percent-as-trust
+                        - right-to-share-surplus-assets-75-to-100-percent-as-firm-limited-liability-partnership
+                        - right-to-appoint-and-remove-person-as-trust
+                        - ownership-of-shares-50-to-75-percent-as-firm
+                        - voting-rights-50-to-75-percent-as-firm-limited-liability-partnership
+                        - voting-rights-25-to-50-percent-as-trust
+                        - voting-rights-50-to-75-percent-as-trust-limited-liability-partnership
+                        - voting-rights-75-to-100-percent
+                        - part-right-to-share-surplus-assets-75-to-100-percent-as-firm
+                        - significant-influence-or-control-limited-liability-partnership
+                        - right-to-share-surplus-assets-75-to-100-percent-limited-liability-partnership
+                        - right-to-appoint-and-remove-directors-as-firm
+                        - voting-rights-75-to-100-percent-as-trust
+                        - voting-rights-25-to-50-percent-as-firm-limited-liability-partnership
+                        - right-to-appoint-and-remove-directors-as-firm-registered-overseas-entity
+                        - right-to-share-surplus-assets-25-to-50-percent-as-firm-limited-liability-partnership
+                        - ownership-of-shares-25-to-50-percent
+                        - ownership-of-shares-75-to-100-percent-as-firm
+                        - significant-influence-or-control-as-firm
+                        - right-to-appoint-and-remove-directors-as-trust
+                        - right-to-appoint-and-remove-person
+                        - significant-influence-or-control-as-trust-registered-overseas-entity
+                        - voting-rights-more-than-25-percent-as-trust-registered-overseas-entity
+                        - right-to-appoint-and-remove-directors-as-trust-registered-overseas-entity
+                        - right-to-appoint-and-remove-members-as-firm-limited-liability-partnership
+                        - part-right-to-share-surplus-assets-75-to-100-percent
+                        - ownership-of-shares-25-to-50-percent-as-firm
+                        - right-to-share-surplus-assets-25-to-50-percent-as-trust-limited-liability-partnership
+                        - right-to-share-surplus-assets-50-to-75-percent-limited-liability-partnership
+                        - voting-rights-50-to-75-percent-as-firm
+                        - part-right-to-share-surplus-assets-50-to-75-percent
+                        - right-to-appoint-and-remove-directors-registered-overseas-entity
+                        - significant-influence-or-control-as-trust
+                        - right-to-share-surplus-assets-75-to-100-percent-as-trust-limited-liability-partnership
+                        - ownership-of-shares-50-to-75-percent-as-trust
+                        - right-to-share-surplus-assets-50-to-75-percent-as-firm-limited-liability-partnership
+                        - voting-rights-more-than-25-percent-as-firm-registered-overseas-entity
+                        - significant-influence-or-control-as-firm-registered-overseas-entity
+                        - ownership-of-shares-75-to-100-percent-as-trust
+                        - ownership-of-shares-50-to-75-percent
+                        - right-to-share-surplus-assets-50-to-75-percent-as-trust-limited-liability-partnership
+                        - voting-rights-75-to-100-percent-limited-liability-partnership
+                        - voting-rights-more-than-25-percent-registered-overseas-entity
+                        - right-to-appoint-and-remove-members-as-trust-limited-liability-partnership
+                        - ownership-of-shares-75-to-100-percent
+                        - part-right-to-share-surplus-assets-25-to-50-percent-as-trust
+                        - voting-rights-75-to-100-percent-as-trust-limited-liability-partnership
+                        - voting-rights-50-to-75-percent-limited-liability-partnership
+                        - significant-influence-or-control-as-trust-limited-liability-partnership
+                        - voting-rights-75-to-100-percent-as-firm-limited-liability-partnership
+                        - right-to-appoint-and-remove-person-as-firm
+                        - right-to-appoint-and-remove-directors
+                        - voting-rights-25-to-50-percent-as-trust-limited-liability-partnership
+                        - voting-rights-75-to-100-percent-as-firm
+                        - right-to-share-surplus-assets-25-to-50-percent-limited-liability-partnership
+                    companies-house-url:
+                      title: companies-house-url
+                      description: The URL of the entity in Companies House
+                      type: string
+                      example: https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX
+                    given-name:
+                      title: given-name
+                      type: string
+                      minLength: 1
+                    surname:
+                      title: surname
+                      type: string
+                      minLength: 1
+                    day-of-birth:
+                      type: integer
+                      format: int64
+                      minimum: 1
+                      title: day-of-birth
+                      example: '1'
+                    month-of-birth:
+                      type: integer
+                      format: int64
+                      minimum: 1
+                      title: month-of-birth
+                      example: '1'
+                    year-of-birth:
+                      type: integer
+                      format: int64
+                      minimum: 1
+                      title: year-of-birth
+                      example: '1970'
+                  required:
+                  - display-name
+                  - natures-of-control
+                  - companies-house-url
+                  title: person-with-significant-control
+              confirmation-statement-overdue:
+                type: boolean
+              date-of-incorporation:
+                title: date-of-incorporation
+                format: date
+                type: string
+                description: ISO 8601 formatted date.
+              entity-registration-number:
+                type: string
+                minLength: 1
+                title: entity-registration-number
+                description: The entity number assigned by the local register. For UK companies that's the Companies House company number.
+            required:
+            - directors
+            - persons-with-significant-control
+            - date-of-incorporation
+            - corporation-type
+            - entity-registration-number
+            - entity-name
+            - company-status
+            title: company-information-response
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+        '422':
+          description: ''
+        '429':
+          description: ''
+        '500':
+          description: ''
+        '502':
+          description: ''
+      summary: Lookup company
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default

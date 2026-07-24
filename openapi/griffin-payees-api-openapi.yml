@@ -1,0 +1,1363 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Payees API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Payees
+  description: "A payee is the person or business to whom you are paying money. When you create a payee, you need to provide their name (`\"account-holder\"`), and their bank account number (`\"account-number\"`) and sort code (`\"bank-id\"`). \n\n You may also register the outcome of a [Confirmation of Payee (CoP) check](#tag/Confirmation-of-payee) with your payee by supplying a `cop-request-url`. \n\n Read more about payees [in our guides](/docs/guides/create-a-payee)."
+paths:
+  /v0/legal-persons/{legal-person-id}/bank/payees:
+    get:
+      tags:
+      - Payees
+      description: Lists payees belonging to the legal person.
+      parameters:
+      - in: query
+        name: sort
+        description: ''
+        type: string
+        required: false
+        enum:
+        - -created-at
+        - created-at
+      - in: query
+        name: include
+        description: For each payee returned, include its Confirmation of Payee (CoP) details (if they exist) in the response under the `included` attribute.
+        type: array
+        required: false
+        x-allOf:
+        - {}
+        - {}
+        items:
+          enum:
+          - cop-requests
+          type: string
+      - x-allOf:
+        - type: integer
+          format: int64
+        - minimum: 1
+          maximum: 201
+        maximum: 200
+        minimum: 1
+        name: page[size]
+        required: false
+        type: integer
+        description: ''
+        format: int64
+        in: query
+      - in: query
+        name: page[after]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - in: query
+        name: page[before]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - type: string
+        required: true
+        name: legal-person-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              payees:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cop-request-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          cop-request-id:
+                            type: string
+                            format: ''
+                            title: cop-request-id
+                            required: true
+                            name: cop-request-id
+                        required:
+                        - cop-request-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            cop-request-id:
+                              type: string
+                              format: ''
+                              title: cop-request-id
+                              required: true
+                              name: cop-request-id
+                          required:
+                          - cop-request-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            cop-request-id:
+                              type: string
+                              format: ''
+                              title: cop-request-id
+                              required: true
+                              name: cop-request-id
+                          required:
+                          - cop-request-id
+                      title: cop-request-url
+                      example: /v0/cop-request/cp.ICBjb3AtcmVxdWVzdC1pZA
+                      description: Link to a [CoP request](#tag/Confirmation-of-payee).
+                    payee-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          payee-id:
+                            type: string
+                            format: ''
+                            title: payee-id
+                            required: true
+                            name: payee-id
+                        required:
+                        - payee-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            payee-id:
+                              type: string
+                              format: ''
+                              title: payee-id
+                              required: true
+                              name: payee-id
+                          required:
+                          - payee-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            payee-id:
+                              type: string
+                              format: ''
+                              title: payee-id
+                              required: true
+                              name: payee-id
+                          required:
+                          - payee-id
+                      title: payee-url
+                      example: /v0/payees/pe.ICAgICAgICBwYXllZS1pZA
+                      description: Link to the [payee](#tag/Payees).
+                    account-number:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      title: account-number
+                      pattern: ^[0-9]{8}$
+                      description: A UK account number.
+                      maxLength: 8
+                      example: '12345678'
+                      minLength: 8
+                    account-holder:
+                      type: string
+                      minLength: 1
+                      title: account-holder
+                      description: The name of the [account holder](/docs/terms/account-holder).
+                    legal-person-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          legal-person-id:
+                            type: string
+                            format: ''
+                            title: legal-person-id
+                            required: true
+                            name: legal-person-id
+                        required:
+                        - legal-person-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            legal-person-id:
+                              type: string
+                              format: ''
+                              title: legal-person-id
+                              required: true
+                              name: legal-person-id
+                          required:
+                          - legal-person-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            legal-person-id:
+                              type: string
+                              format: ''
+                              title: legal-person-id
+                              required: true
+                              name: legal-person-id
+                          required:
+                          - legal-person-id
+                      title: legal-person-url
+                      example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                      description: A contextual link to the [legal person](#tag/Legal-persons).
+                    bank-id:
+                      title: bank-id
+                      pattern: ^[0-9]{6}$
+                      type: string
+                      description: A UK sort code.
+                      maxLength: 6
+                      example: '123456'
+                      minLength: 6
+                    created-at:
+                      title: created-at
+                      format: date-time
+                      type: string
+                      description: ISO 8601 formatted date-time.
+                    account-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          bank-account-id:
+                            type: string
+                            format: ''
+                            title: bank-account-id
+                            required: true
+                            name: bank-account-id
+                        required:
+                        - bank-account-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-id:
+                              type: string
+                              format: ''
+                              title: bank-account-id
+                              required: true
+                              name: bank-account-id
+                          required:
+                          - bank-account-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            bank-account-id:
+                              type: string
+                              format: ''
+                              title: bank-account-id
+                              required: true
+                              name: bank-account-id
+                          required:
+                          - bank-account-id
+                      title: account-url
+                      example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                      description: Link to the bank account resource.
+                    payee-status:
+                      title: payee-status
+                      enum:
+                      - deactivated
+                      - active
+                      type: string
+                      description: The status of the payee; you can only make payments to active payees.
+                    country-code:
+                      title: country-code
+                      description: ISO 3166-1 alpha-2 two-letter country code.
+                      minLength: 2
+                      maxLength: 2
+                      example: GB
+                  required:
+                  - account-holder
+                  - account-number
+                  - bank-id
+                  - country-code
+                  - created-at
+                  - legal-person-url
+                  - payee-status
+                  - payee-url
+                  title: payee
+              links:
+                type: object
+                properties:
+                  prev:
+                    type: string
+                    x-nullable: true
+                  next:
+                    type: string
+                    x-nullable: true
+                required:
+                - prev
+                - next
+                title: links
+              included:
+                title: ''
+                description: Present only when the request uses the `include` parameter.
+            required:
+            - links
+            - payees
+            title: ''
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+      summary: List legal person payees
+    post:
+      tags:
+      - Payees
+      description: 'Registers a new payee with a legal person.
+
+
+        You may associate the outcome of a [CoP request](#tag/Confirmation-of-payee) with the payee by supplying a `cop-request-url`.'
+      parameters:
+      - in: body
+        name: request-create-bank-payee
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            account-holder:
+              type: string
+              minLength: 1
+              title: account-holder
+              description: The name of the [account holder](/docs/terms/account-holder).
+            account-number:
+              type: string
+              x-allOf:
+              - type: string
+              - {}
+              title: account-number
+              pattern: ^[0-9]{8}$
+              description: A UK account number.
+              maxLength: 8
+              example: '12345678'
+              minLength: 8
+            bank-id:
+              title: bank-id
+              pattern: ^[0-9]{6}$
+              type: string
+              description: A UK sort code.
+              maxLength: 6
+              example: '123456'
+              minLength: 6
+            cop-request-url:
+              type: string
+              x-allOf:
+              - type: string
+              - {}
+              - type: object
+                properties:
+                  cop-request-id:
+                    type: string
+                    format: ''
+                    title: cop-request-id
+                    required: true
+                    name: cop-request-id
+                required:
+                - cop-request-id
+              x-anyOf:
+              - type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+              - type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+              title: cop-request-url
+              example: /v0/cop-request/cp.ICBjb3AtcmVxdWVzdC1pZA
+              description: Link to a [CoP request](#tag/Confirmation-of-payee).
+          required:
+          - account-holder
+          - account-number
+          - bank-id
+          title: request-create-bank-payee
+      - type: string
+        required: true
+        name: legal-person-id
+        in: path
+      responses:
+        '201':
+          schema:
+            type: object
+            properties:
+              cop-request-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      cop-request-id:
+                        type: string
+                        format: ''
+                        title: cop-request-id
+                        required: true
+                        name: cop-request-id
+                    required:
+                    - cop-request-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      cop-request-id:
+                        type: string
+                        format: ''
+                        title: cop-request-id
+                        required: true
+                        name: cop-request-id
+                    required:
+                    - cop-request-id
+                title: cop-request-url
+                example: /v0/cop-request/cp.ICBjb3AtcmVxdWVzdC1pZA
+                description: Link to a [CoP request](#tag/Confirmation-of-payee).
+              payee-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    payee-id:
+                      type: string
+                      format: ''
+                      title: payee-id
+                      required: true
+                      name: payee-id
+                  required:
+                  - payee-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      payee-id:
+                        type: string
+                        format: ''
+                        title: payee-id
+                        required: true
+                        name: payee-id
+                    required:
+                    - payee-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      payee-id:
+                        type: string
+                        format: ''
+                        title: payee-id
+                        required: true
+                        name: payee-id
+                    required:
+                    - payee-id
+                title: payee-url
+                example: /v0/payees/pe.ICAgICAgICBwYXllZS1pZA
+                description: Link to the [payee](#tag/Payees).
+              account-number:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                title: account-number
+                pattern: ^[0-9]{8}$
+                description: A UK account number.
+                maxLength: 8
+                example: '12345678'
+                minLength: 8
+              account-holder:
+                type: string
+                minLength: 1
+                title: account-holder
+                description: The name of the [account holder](/docs/terms/account-holder).
+              legal-person-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    legal-person-id:
+                      type: string
+                      format: ''
+                      title: legal-person-id
+                      required: true
+                      name: legal-person-id
+                  required:
+                  - legal-person-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                title: legal-person-url
+                example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                description: A contextual link to the [legal person](#tag/Legal-persons).
+              bank-id:
+                title: bank-id
+                pattern: ^[0-9]{6}$
+                type: string
+                description: A UK sort code.
+                maxLength: 6
+                example: '123456'
+                minLength: 6
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              payee-status:
+                title: payee-status
+                enum:
+                - deactivated
+                - active
+                type: string
+                description: The status of the payee; you can only make payments to active payees.
+              country-code:
+                title: country-code
+                description: ISO 3166-1 alpha-2 two-letter country code.
+                minLength: 2
+                maxLength: 2
+                example: GB
+            required:
+            - account-holder
+            - account-number
+            - bank-id
+            - country-code
+            - created-at
+            - legal-person-url
+            - payee-status
+            - payee-url
+            title: payee
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+        '409':
+          description: ''
+        '422':
+          description: ''
+      summary: Create payee
+  /v0/payees/{payee-id}:
+    get:
+      tags:
+      - Payees
+      description: Returns the payee details.
+      parameters:
+      - type: string
+        required: true
+        name: payee-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              cop-request-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      cop-request-id:
+                        type: string
+                        format: ''
+                        title: cop-request-id
+                        required: true
+                        name: cop-request-id
+                    required:
+                    - cop-request-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      cop-request-id:
+                        type: string
+                        format: ''
+                        title: cop-request-id
+                        required: true
+                        name: cop-request-id
+                    required:
+                    - cop-request-id
+                title: cop-request-url
+                example: /v0/cop-request/cp.ICBjb3AtcmVxdWVzdC1pZA
+                description: Link to a [CoP request](#tag/Confirmation-of-payee).
+              payee-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    payee-id:
+                      type: string
+                      format: ''
+                      title: payee-id
+                      required: true
+                      name: payee-id
+                  required:
+                  - payee-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      payee-id:
+                        type: string
+                        format: ''
+                        title: payee-id
+                        required: true
+                        name: payee-id
+                    required:
+                    - payee-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      payee-id:
+                        type: string
+                        format: ''
+                        title: payee-id
+                        required: true
+                        name: payee-id
+                    required:
+                    - payee-id
+                title: payee-url
+                example: /v0/payees/pe.ICAgICAgICBwYXllZS1pZA
+                description: Link to the [payee](#tag/Payees).
+              account-number:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                title: account-number
+                pattern: ^[0-9]{8}$
+                description: A UK account number.
+                maxLength: 8
+                example: '12345678'
+                minLength: 8
+              account-holder:
+                type: string
+                minLength: 1
+                title: account-holder
+                description: The name of the [account holder](/docs/terms/account-holder).
+              legal-person-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    legal-person-id:
+                      type: string
+                      format: ''
+                      title: legal-person-id
+                      required: true
+                      name: legal-person-id
+                  required:
+                  - legal-person-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                title: legal-person-url
+                example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                description: A contextual link to the [legal person](#tag/Legal-persons).
+              bank-id:
+                title: bank-id
+                pattern: ^[0-9]{6}$
+                type: string
+                description: A UK sort code.
+                maxLength: 6
+                example: '123456'
+                minLength: 6
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              payee-status:
+                title: payee-status
+                enum:
+                - deactivated
+                - active
+                type: string
+                description: The status of the payee; you can only make payments to active payees.
+              country-code:
+                title: country-code
+                description: ISO 3166-1 alpha-2 two-letter country code.
+                minLength: 2
+                maxLength: 2
+                example: GB
+            required:
+            - account-holder
+            - account-number
+            - bank-id
+            - country-code
+            - created-at
+            - legal-person-url
+            - payee-status
+            - payee-url
+            title: payee
+          description: ''
+        '400':
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '404':
+          description: ''
+      summary: Get payee
+    patch:
+      tags:
+      - Payees
+      description: 'Updates an existing payee.
+
+
+        You can update a payee with the outcome of a [CoP request](#tag/Confirmation-of-payee) by supplying a `cop-request-url`.
+
+
+        A payee can be deactivated by updating the `payee-status` of an active payee to `deactivated`. Any attempt to create or submit a payment to a deactivated payee will fail.
+
+
+        A 422 is served when attempting to deactivate an already-deactivated payee.'
+      parameters:
+      - in: body
+        name: request-update-bank-payee
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            cop-request-url:
+              type: string
+              x-allOf:
+              - type: string
+              - {}
+              - type: object
+                properties:
+                  cop-request-id:
+                    type: string
+                    format: ''
+                    title: cop-request-id
+                    required: true
+                    name: cop-request-id
+                required:
+                - cop-request-id
+              x-anyOf:
+              - type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+              - type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+              title: cop-request-url
+              example: /v0/cop-request/cp.ICBjb3AtcmVxdWVzdC1pZA
+              description: Link to a [CoP request](#tag/Confirmation-of-payee).
+            payee-status:
+              title: payee-status
+              enum:
+              - deactivated
+              type: string
+              description: The status of the payee; you can only make payments to active payees.
+          title: request-update-bank-payee
+      - type: string
+        required: true
+        name: payee-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              cop-request-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    cop-request-id:
+                      type: string
+                      format: ''
+                      title: cop-request-id
+                      required: true
+                      name: cop-request-id
+                  required:
+                  - cop-request-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      cop-request-id:
+                        type: string
+                        format: ''
+                        title: cop-request-id
+                        required: true
+                        name: cop-request-id
+                    required:
+                    - cop-request-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      cop-request-id:
+                        type: string
+                        format: ''
+                        title: cop-request-id
+                        required: true
+                        name: cop-request-id
+                    required:
+                    - cop-request-id
+                title: cop-request-url
+                example: /v0/cop-request/cp.ICBjb3AtcmVxdWVzdC1pZA
+                description: Link to a [CoP request](#tag/Confirmation-of-payee).
+              payee-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    payee-id:
+                      type: string
+                      format: ''
+                      title: payee-id
+                      required: true
+                      name: payee-id
+                  required:
+                  - payee-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      payee-id:
+                        type: string
+                        format: ''
+                        title: payee-id
+                        required: true
+                        name: payee-id
+                    required:
+                    - payee-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      payee-id:
+                        type: string
+                        format: ''
+                        title: payee-id
+                        required: true
+                        name: payee-id
+                    required:
+                    - payee-id
+                title: payee-url
+                example: /v0/payees/pe.ICAgICAgICBwYXllZS1pZA
+                description: Link to the [payee](#tag/Payees).
+              account-number:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                title: account-number
+                pattern: ^[0-9]{8}$
+                description: A UK account number.
+                maxLength: 8
+                example: '12345678'
+                minLength: 8
+              account-holder:
+                type: string
+                minLength: 1
+                title: account-holder
+                description: The name of the [account holder](/docs/terms/account-holder).
+              legal-person-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    legal-person-id:
+                      type: string
+                      format: ''
+                      title: legal-person-id
+                      required: true
+                      name: legal-person-id
+                  required:
+                  - legal-person-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                title: legal-person-url
+                example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                description: A contextual link to the [legal person](#tag/Legal-persons).
+              bank-id:
+                title: bank-id
+                pattern: ^[0-9]{6}$
+                type: string
+                description: A UK sort code.
+                maxLength: 6
+                example: '123456'
+                minLength: 6
+              created-at:
+                title: created-at
+                format: date-time
+                type: string
+                description: ISO 8601 formatted date-time.
+              account-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: account-url
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA
+                description: Link to the bank account resource.
+              payee-status:
+                title: payee-status
+                enum:
+                - deactivated
+                - active
+                type: string
+                description: The status of the payee; you can only make payments to active payees.
+              country-code:
+                title: country-code
+                description: ISO 3166-1 alpha-2 two-letter country code.
+                minLength: 2
+                maxLength: 2
+                example: GB
+            required:
+            - account-holder
+            - account-number
+            - bank-id
+            - country-code
+            - created-at
+            - legal-person-url
+            - payee-status
+            - payee-url
+            title: payee
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '409':
+          description: ''
+        '422':
+          description: ''
+        '500':
+          description: ''
+      summary: Update payee
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default

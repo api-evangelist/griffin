@@ -1,0 +1,1140 @@
+swagger: '2.0'
+info:
+  title: The Griffin API keys Pooled account membership API
+  version: ''
+  description: "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it."
+host: api.griffin.com
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- api-key-auth: []
+tags:
+- name: Pooled account membership
+paths:
+  /v0/bank/accounts/{bank-account-id}/membership:
+    get:
+      tags:
+      - Pooled account membership
+      description: List legal persons in a pooled account membership
+      parameters:
+      - in: query
+        name: include
+        description: For each member returned, include its legal person details, latest verification (if one exists), and/or latest risk rating (if one exists) in the response under the `included` attribute.
+        type: array
+        required: false
+        x-allOf:
+        - {}
+        - {}
+        items:
+          enum:
+          - latest-risk-rating
+          - legal-person
+          - latest-verification
+          type: string
+      - x-allOf:
+        - type: integer
+          format: int64
+        - minimum: 1
+          maximum: 201
+        maximum: 200
+        minimum: 1
+        name: page[size]
+        required: false
+        type: integer
+        description: ''
+        format: int64
+        in: query
+      - in: query
+        name: page[after]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - in: query
+        name: page[before]
+        description: A base64 encoded opaque string returned in paginated responses.
+        type: string
+        required: false
+        format: byte
+      - type: string
+        required: true
+        name: bank-account-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              pool-members:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    created-at:
+                      title: created-at
+                      format: date-time
+                      type: string
+                      description: ISO 8601 formatted date-time.
+                    legal-person-url:
+                      type: string
+                      x-allOf:
+                      - type: string
+                      - {}
+                      - type: object
+                        properties:
+                          legal-person-id:
+                            type: string
+                            format: ''
+                            title: legal-person-id
+                            required: true
+                            name: legal-person-id
+                        required:
+                        - legal-person-id
+                      x-anyOf:
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            legal-person-id:
+                              type: string
+                              format: ''
+                              title: legal-person-id
+                              required: true
+                              name: legal-person-id
+                          required:
+                          - legal-person-id
+                      - type: string
+                        x-allOf:
+                        - type: string
+                        - {}
+                        - type: object
+                          properties:
+                            legal-person-id:
+                              type: string
+                              format: ''
+                              title: legal-person-id
+                              required: true
+                              name: legal-person-id
+                          required:
+                          - legal-person-id
+                      title: legal-person-url
+                      description: A contextual link to the [legal person](#tag/Legal-persons).
+                      example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                  required:
+                  - created-at
+                  - legal-person-url
+                  title: pool-member
+              links:
+                type: object
+                properties:
+                  prev:
+                    type: string
+                    x-nullable: true
+                  next:
+                    type: string
+                    x-nullable: true
+                required:
+                - prev
+                - next
+                title: links
+              meta:
+                type: object
+                properties:
+                  page:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        format: int64
+                        minimum: 0
+                        title: total
+                        description: Total number of items. Present when the total number of items in the full result set is less than 10,000.
+                      estimated-total:
+                        type: object
+                        properties:
+                          at-least:
+                            enum:
+                            - 10000
+                            type: integer
+                            title: at-least
+                            description: Present when the total number of items in the full result set exceeds 10,000. This indicates that the actual number of items is at least 10,000, but the exact total is not provided due to performance considerations.
+                        title: estimated-total
+                    title: page
+                title: meta
+              included:
+                type: object
+                properties:
+                  verifications:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        verification-profiles-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              verification-id:
+                                type: string
+                                format: ''
+                                title: verification-id
+                                required: true
+                                name: verification-id
+                            required:
+                            - verification-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                verification-id:
+                                  type: string
+                                  format: ''
+                                  title: verification-id
+                                  required: true
+                                  name: verification-id
+                              required:
+                              - verification-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                verification-id:
+                                  type: string
+                                  format: ''
+                                  title: verification-id
+                                  required: true
+                                  name: verification-id
+                              required:
+                              - verification-id
+                          title: verification-profiles-url
+                          description: Get claims used in this [verification](#tag/Verifications) for all associated  [legal persons](/docs/terms/legal-person).
+                          example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/profiles
+                        verification-url:
+                          type: string
+                          title: verification-url
+                          example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA
+                          description: A link to the [verification](#tag/Verifications).
+                        verification-resources-url:
+                          type: string
+                          title: verification-resources-url
+                          example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources
+                          description: A link to the resources of a [verification](#tag/Verifications).
+                        updated-at:
+                          title: updated-at
+                          format: date-time
+                          type: string
+                          description: ISO 8601 formatted date-time.
+                        legal-person-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-url
+                          description: A contextual link to the [legal person](#tag/Legal-persons).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                        workflow-url:
+                          type: string
+                          title: workflow-url
+                          example: /v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA
+                          description: A link to the [workflow](/docs/terms/workflow).
+                        created-at:
+                          title: created-at
+                          format: date-time
+                          type: string
+                          description: ISO 8601 formatted date-time.
+                        verification-checks-url:
+                          type: string
+                          title: verification-checks-url
+                          example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/checks
+                        risk-rating:
+                          title: risk-rating
+                          type: string
+                          enum:
+                          - high-risk
+                          - prohibited-risk
+                          - medium-risk
+                          - low-risk
+                        verification-status:
+                          title: verification-status
+                          type: string
+                          enum:
+                          - in-progress
+                          - pending
+                          - checks-declined
+                          - checks-complete
+                          - failed
+                        verification-risk-assessments-url:
+                          type: string
+                          title: verification-risk-assessments-url
+                          example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/risk-assessments
+                      required:
+                      - created-at
+                      - legal-person-url
+                      - verification-status
+                      - verification-url
+                      - verification-checks-url
+                      title: verification
+                  risk-rating-entries:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        risk-rating-url:
+                          type: string
+                          title: risk-rating-url
+                          example: /v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA
+                          description: A contextual link to the risk rating.
+                        risk-rating:
+                          title: risk-rating
+                          type: string
+                          enum:
+                          - high-risk
+                          - prohibited-risk
+                          - medium-risk
+                          - low-risk
+                        legal-person-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-url
+                          description: A contextual link to the [legal person](#tag/Legal-persons).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                        notes:
+                          type: string
+                          minLength: 1
+                          title: notes
+                          description: Rationale for overriding the risk rating.
+                        manually-created-by:
+                          type: object
+                          properties: {}
+                          required:
+                          - manually-created-by-type
+                          title: manually-created-by
+                          description: User that triggered this event.
+                          x-anyOf:
+                          - type: object
+                            properties:
+                              manually-created-by-type:
+                                enum:
+                                - ops-user
+                                type: string
+                            required:
+                            - manually-created-by-type
+                            - manually-created-by-type
+                            title: ops-user
+                        verification-url:
+                          type: string
+                          title: verification-url
+                          example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA
+                          description: A link to the [verification](#tag/Verifications).
+                        previous-risk-rating:
+                          title: previous-risk-rating
+                          type: string
+                          enum:
+                          - high-risk
+                          - prohibited-risk
+                          - medium-risk
+                          - low-risk
+                      required:
+                      - risk-rating-url
+                      - risk-rating
+                      - legal-person-url
+                      title: risk-rating-entry
+                  legal-persons:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        latest-decision:
+                          type: object
+                          properties:
+                            decision-outcome:
+                              title: decision-outcome
+                              type: string
+                              enum:
+                              - accepted
+                              - declined
+                            decision-notes:
+                              type: string
+                              title: decision-notes
+                              description: Free-text field to explain the reasons behind the decision.
+                            verification-url:
+                              type: string
+                              title: verification-url
+                              example: /v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA
+                              description: A link to the [verification](#tag/Verifications).
+                            legal-person-url:
+                              type: string
+                              x-allOf:
+                              - type: string
+                              - {}
+                              - type: object
+                                properties:
+                                  legal-person-id:
+                                    type: string
+                                    format: ''
+                                    title: legal-person-id
+                                    required: true
+                                    name: legal-person-id
+                                required:
+                                - legal-person-id
+                              x-anyOf:
+                              - type: string
+                                x-allOf:
+                                - type: string
+                                - {}
+                                - type: object
+                                  properties:
+                                    legal-person-id:
+                                      type: string
+                                      format: ''
+                                      title: legal-person-id
+                                      required: true
+                                      name: legal-person-id
+                                  required:
+                                  - legal-person-id
+                              - type: string
+                                x-allOf:
+                                - type: string
+                                - {}
+                                - type: object
+                                  properties:
+                                    legal-person-id:
+                                      type: string
+                                      format: ''
+                                      title: legal-person-id
+                                      required: true
+                                      name: legal-person-id
+                                  required:
+                                  - legal-person-id
+                              title: legal-person-url
+                              description: A contextual link to the [legal person](#tag/Legal-persons).
+                              example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                            created-at:
+                              title: created-at
+                              format: date-time
+                              type: string
+                              description: ISO 8601 formatted date-time.
+                            decision-maker:
+                              title: decision-maker
+                              enum:
+                              - system
+                              - ops-user
+                              - user
+                              type: string
+                              description: Indicates if the decision was automated or made by a human.
+                            decision-user-url:
+                              type: string
+                              example: /v0/users/ur.ICAgICAgICAgdXNlci1pZA
+                              description: Link to the [user](#tag/Users) that made the decision (if applicable).
+                              title: decision-user-url
+                            decision-ops-user:
+                              title: decision-ops-user
+                              enum:
+                              - griffin-ops-user
+                              type: string
+                              description: Indicates that an Ops user has created the decision.
+                            decision-user-username:
+                              type: string
+                              example: user@example.com
+                              description: Username of the [user](#tag/Users) that made the decision (if applicable).
+                              title: decision-user-username
+                          required:
+                          - legal-person-url
+                          - verification-url
+                          - decision-outcome
+                          - decision-maker
+                          - decision-notes
+                          - created-at
+                          title: latest-decision
+                          description: The most recent [decision](#tag/Decisions)
+                        legal-person-type:
+                          title: legal-person-type
+                          enum:
+                          - individual
+                          - corporation
+                          type: string
+                          description: Specifies if the legal person is an `individual` or a `corporation`.
+                        latest-risk-rating-url:
+                          type: string
+                          title: latest-risk-rating-url
+                          example: /v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA
+                          description: A contextual link to the risk rating.
+                        display-name:
+                          type: string
+                          minLength: 1
+                          title: display-name
+                          description: A human readable label for an entity
+                        application-status:
+                          title: application-status
+                          enum:
+                          - referred
+                          - errored
+                          - declined
+                          - submitted
+                          - accepted
+                          type: string
+                          description: Status of the current [application](/docs/terms/application)
+                        legal-person-status:
+                          title: legal-person-status
+                          enum:
+                          - restricted
+                          - onboarding-declined
+                          - onboarded
+                          - verified
+                          - onboarding
+                          type: string
+                          description: Status of the [legal person](#tag/Legal-persons)
+                        legal-person-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-url
+                          description: A contextual link to the [legal person](#tag/Legal-persons).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                        legal-person-decisions-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-decisions-url
+                          description: Link to [decisions](#tag/Decisions) for this [legal person](/docs/terms/legal-person).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA/decisions
+                        status-changed-at:
+                          title: status-changed-at
+                          format: date-time
+                          type: string
+                          description: ISO 8601 formatted date-time.
+                        created-at:
+                          title: created-at
+                          format: date-time
+                          type: string
+                          description: ISO 8601 formatted date-time.
+                        legal-person-claims-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-claims-url
+                          description: Link to the [claims](#tag/Claims) for this [legal person](/docs/terms/legal-person).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA/claims
+                        legal-person-bank-payees-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-bank-payees-url
+                          description: Link to the [payees](#tag/Payees) for this [legal person](/docs/terms/legal-person).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA/bank/payees
+                        legal-person-verifications-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-verifications-url
+                          description: Link to all [verifications](#tag/Verifications) run against this [legal person](/docs/terms/legal-person).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA/verifications
+                        legal-name:
+                          type: string
+                          title: legal-name
+                          description: A read-only, human readable label derived from claims
+                        legal-person-documents-url:
+                          type: string
+                          x-allOf:
+                          - type: string
+                          - {}
+                          - type: object
+                            properties:
+                              legal-person-id:
+                                type: string
+                                format: ''
+                                title: legal-person-id
+                                required: true
+                                name: legal-person-id
+                            required:
+                            - legal-person-id
+                          x-anyOf:
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          - type: string
+                            x-allOf:
+                            - type: string
+                            - {}
+                            - type: object
+                              properties:
+                                legal-person-id:
+                                  type: string
+                                  format: ''
+                                  title: legal-person-id
+                                  required: true
+                                  name: legal-person-id
+                              required:
+                              - legal-person-id
+                          title: legal-person-documents-url
+                          description: Link to all evidence documents associated with this [legal person](/docs/terms/legal-person).
+                          example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA/documents
+                      required:
+                      - created-at
+                      - display-name
+                      - legal-person-decisions-url
+                      - legal-person-documents-url
+                      - legal-person-type
+                      - legal-person-url
+                      - legal-person-verifications-url
+                      title: legal-person
+                title: ''
+                description: Present only when the request uses the `include` parameter.
+            required:
+            - links
+            - pool-members
+          description: ''
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '403':
+          description: ''
+        '404':
+          description: ''
+      summary: List legal person in a pooled account membership
+  /v0/bank/accounts/{bank-account-id}/membership-updates:
+    post:
+      tags:
+      - Pooled account membership
+      description: Add and update the legal persons in a pooled account membership. Limited to 1000 legal persons per operation.
+      parameters:
+      - in: body
+        name: request-pooled-account-membership-updates
+        description: ''
+        required: true
+        schema:
+          type: object
+          properties:
+            additions:
+              type: array
+              items:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    legal-person-id:
+                      type: string
+                      format: ''
+                      title: legal-person-id
+                      required: true
+                      name: legal-person-id
+                  required:
+                  - legal-person-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                title: legal-person-url
+                example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                description: A contextual link to the [legal person](#tag/Legal-persons).
+            deletions:
+              type: array
+              items:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    legal-person-id:
+                      type: string
+                      format: ''
+                      title: legal-person-id
+                      required: true
+                      name: legal-person-id
+                  required:
+                  - legal-person-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      legal-person-id:
+                        type: string
+                        format: ''
+                        title: legal-person-id
+                        required: true
+                        name: legal-person-id
+                    required:
+                    - legal-person-id
+                title: legal-person-url
+                example: /v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA
+                description: A contextual link to the [legal person](#tag/Legal-persons).
+          required:
+          - additions
+          - deletions
+          title: request-pooled-account-membership-updates
+      - type: string
+        required: true
+        name: bank-account-id
+        in: path
+      responses:
+        '200':
+          schema:
+            type: object
+            properties:
+              pooled-account-memberships-url:
+                type: string
+                x-allOf:
+                - type: string
+                - {}
+                - type: object
+                  properties:
+                    bank-account-id:
+                      type: string
+                      format: ''
+                      title: bank-account-id
+                      required: true
+                      name: bank-account-id
+                  required:
+                  - bank-account-id
+                x-anyOf:
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                - type: string
+                  x-allOf:
+                  - type: string
+                  - {}
+                  - type: object
+                    properties:
+                      bank-account-id:
+                        type: string
+                        format: ''
+                        title: bank-account-id
+                        required: true
+                        name: bank-account-id
+                    required:
+                    - bank-account-id
+                title: pooled-account-memberships-url
+                description: Link to the list of [pool members](#tag/Pooled-account-membership) associated with this account.
+                example: /v0/bank/accounts/ba.IGJhbmstYWNjb3VudC1pZA/membership
+            required:
+            - pooled-account-memberships-url
+            title: update-pooled-account-memberships-response
+          description: ''
+        '400':
+          description: Responds with bad-request if the body does not conform to the schema.
+        '401':
+          description: Requires an API key to continue
+          headers:
+            www-authenticate:
+              type: string
+              description: Returns `GriffinSession` if no valid authentication is found.
+        '403':
+          description: ''
+        '404':
+          description: ''
+        '422':
+          description: ''
+      summary: Manage pooled account members
+securityDefinitions:
+  api-key-auth:
+    type: apiKey
+    in: header
+    name: Authorization
+    description: 'API token authentication.
+
+      It should follow the format: `GriffinAPIKey g-test-MyKey-XXXXXXX`'
+x-tagGroups:
+- name: Getting started
+  tags:
+  - API keys
+  - Connectivity
+  - Navigation
+  - Events
+  - Webhooks
+  - Message Signatures
+- name: Customer verifications
+  tags:
+  - Legal persons
+  - Legal person history
+  - Claims
+  - Workflows
+  - Verifications
+  - Decisions
+  - Companies House
+  - Reliance onboarding
+- name: Banking
+  tags:
+  - Bank accounts
+  - Bank account events
+  - Bank account restrictions
+  - Bank account holds
+  - Pooled account membership
+  - Payments
+  - Transactions
+  - Payees
+  - Confirmation of payee
+  - Open banking
+- name: Team management
+  tags:
+  - Organizations
+  - Users
+  - Roles
+  - Memberships
+  - Invitations
+x-id:
+- default
