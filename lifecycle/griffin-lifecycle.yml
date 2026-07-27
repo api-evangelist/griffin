@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.griffin.com/docs/guides/get-started-with-the-api
+versioning:
+  scheme: uri-path-prefix
+  current: v0
+  docs: https://docs.griffin.com/docs/guides/get-started-with-the-api
+  policy: >-
+    Backwards compatible within a version; existing response keys are never
+    removed (only new optional keys added).
+deprecation:
+  policy: >-
+    When a new API version is released, organizations are given 12 months to
+    upgrade before the prior version is retired.
+  policy_url: https://docs.griffin.com/docs/guides/get-started-with-the-api
+  sunset_window: 12 months
+sla:
+  status_page: https://status.griffin.com/
+changelog: https://updates.griffin.com/
+status_page: https://status.griffin.com/
+deprecated_operations: []

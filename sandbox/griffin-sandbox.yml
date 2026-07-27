@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.griffin.com/docs/guides/sandbox-vs-live-mode
+docs:
+- https://docs.griffin.com/docs/guides/sandbox-vs-live-mode
+- https://app.griffin.com/register
+model:
+  separation: >-
+    Griffin runs two separate organization types — sandbox and live. Resources
+    never move between them. Sandbox is a free playground (no fees, no NDA, no
+    commitment to buy).
+  base_url: https://api.griffin.com
+  key_prefix_test: g-test-
+  message_signatures: optional in sandbox (can be enforced via the "Validate all requests" toggle)
+test_data:
+  starting_balance: >-
+    Every bank account created in sandbox is automatically credited with
+    £1,000,000 of test money.
+  sort_codes_accounts: Simulated sort codes and account numbers; not reachable by real payment schemes.
+  payments: Sandbox payments are not sent to payment schemes and always succeed.
+  onboarding: No third-party KYC/KYB checks are performed in sandbox.
+simulation_tooling:
+- endpoint: POST /v0/simulation/organizations/{organization-id}/cop-request/simulate/{cop-simulation-type}
+  description: '[Alpha] Simulate a Confirmation of Payee (CoP) response in sandbox.'
+notes: >-
+  Griffin does not publish fixed "magic" card/account numbers the way a card
+  acquirer does; sandbox test values are generated per-account. No test values
+  are invented here — only what the docs publish is captured.

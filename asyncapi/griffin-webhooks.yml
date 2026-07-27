@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+type: Webhooks
+source: https://docs.griffin.com/docs/guides/create-a-webhook
+docs:
+- https://docs.griffin.com/docs/guides/create-a-webhook
+spec_type: none
+notes: >-
+  Griffin documents webhooks but publishes no AsyncAPI document, so this
+  captures the webhook surface only (type: Webhooks). One webhook endpoint per
+  organization receives all events. Delivery is "at least once" (duplicates
+  possible) and ordering is not guaranteed.
+delivery:
+  model: at-least-once
+  ordering: not-guaranteed
+  endpoint_requirement: HTTPS URL
+  one_per_org: true
+  signing: >-
+    Each event notification is signed with Griffin's HTTP message-signature
+    process; recipients verify using the same mechanism as API request signing.
+event_type_scheme:
+  pattern: '{resource}-{change-type}'
+  example: transaction-created
+registration:
+  create_operation: POST /v0/organizations/{organization-id}/webhooks
+  activate_operation: POST /v0/webhooks/{webhook-id}/actions/activate
+  fields: [webhook-destination-url, webhook-description]
+operations:
+- GET /v0/organizations/{organization-id}/webhooks
+- POST /v0/organizations/{organization-id}/webhooks
+- GET /v0/webhooks/{webhook-id}
+- PATCH /v0/webhooks/{webhook-id}
+- DELETE /v0/webhooks/{webhook-id}
+- POST /v0/webhooks/{webhook-id}/actions/activate
+- GET /v0/events/{event-id}
+- GET /v0/organizations/{organization-id}/events

@@ -1,0 +1,53 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.griffin.com/docs/guides/get-started-with-the-api
+docs:
+- https://docs.griffin.com/docs/guides/get-started-with-the-api
+- https://docs.griffin.com/docs/guides/api-security-overview
+- https://docs.griffin.com/docs/guides/errors-overview
+authentication:
+  style: api-key
+  header: 'Authorization: GriffinAPIKey $GRIFFIN_API_KEY'
+  message_signatures: HTTP Message Signatures (RFC 9421), mandatory in live
+  ref: authentication/griffin-authentication.yml
+required_headers:
+- 'Authorization: GriffinAPIKey $GRIFFIN_API_KEY'
+- 'Content-Type: application/json (requests with a body)'
+- 'Accept: application/json'
+idempotency:
+  supported: false
+  notes: >-
+    Griffin does not document a client idempotency-key header. Payment
+    submission uses a create-then-submit lifecycle rather than an
+    Idempotency-Key contract. No `/idempoten/i` convention is claimed.
+pagination:
+  style: hateoas-links
+  notes: >-
+    Responses follow a JSON:API-influenced shape (not strict). Collections and
+    resource navigation are driven by hypermedia `links`/URL fields returned in
+    payloads (e.g. `event-url`, `organization-webhooks-url`) and the
+    `GET /v0/index` navigation document, rather than page/offset query params.
+versioning:
+  scheme: uri-path-prefix
+  current: v0
+  policy: >-
+    Backwards compatible within a version — existing response keys are never
+    removed, only new optional keys added. On a new version release,
+    organizations get 12 months to upgrade.
+  ref: lifecycle/griffin-lifecycle.yml
+error_envelope:
+  format: json-api-influenced
+  strict: false
+  fields:
+  - detail
+  - source (JSON pointer into the request body)
+  content_type_note: errors returned as application/json
+  ref: errors/griffin-problem-types.yml
+rate_limiting:
+  model: concurrency
+  limit: 50 concurrent (in-flight) requests per organization
+  over_limit_status: 429
+request_tracing:
+  notes: Each event carries a unique `event-url`; resources are addressable by canonical URL.
+metadata:
+  notes: Resource relationships and actions are exposed as embedded `links`/action URLs (e.g. `.../actions/close`, `.../actions/lift`).

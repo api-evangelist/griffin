@@ -1,0 +1,31 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.npmjs.com/package/@griffinbank/mcp-server
+notes: >-
+  Griffin does not publish first-party REST client SDKs (no server-side client
+  library in npm/PyPI/Maven/NuGet/Go/RubyGems). It is an API-first BaaS: the
+  published first-party packages are the MCP server, a Postman collection, and
+  HTTP message-signature reference utilities. No `SDKs` pointer is emitted
+  because no client library is shipped.
+packages:
+- language: typescript
+  registry: npm
+  name: '@griffinbank/mcp-server'
+  url: https://www.npmjs.com/package/@griffinbank/mcp-server
+  install: npx -y @griffinbank/mcp-server
+  category: mcp-server
+  official: true
+- language: python
+  registry: github
+  name: http-message-signatures
+  url: https://github.com/griffinbank/http-message-signatures
+  category: reference-utilities
+  description: Code examples/utilities for Griffin HTTP message signatures + webhook verification.
+  official: true
+- language: postman
+  registry: github
+  name: griffin-postman
+  url: https://github.com/griffinbank/griffin-postman
+  category: postman-collection
+  description: Postman collection for the Griffin API.
+  official: true

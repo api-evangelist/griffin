@@ -1,0 +1,62 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/griffin-openapi-original.yml
+docs:
+- https://docs.griffin.com/docs/guides/errors-overview
+- https://docs.griffin.com/docs/guides/payment-errors
+format: json-api-influenced
+strict: false
+notes: >-
+  Griffin follows the jsonapi.org error shape but does not adhere to it strictly.
+  Errors are returned as application/json (not RFC 9457 application/problem+json).
+  Field-level errors carry a `source` JSON pointer into the offending request
+  body member. Derived from the 4xx/5xx responses across all 97 operations and
+  enriched from the dedicated per-error docs pages.
+envelope:
+  content_type: application/json
+  fields:
+  - detail
+  - source (JSON pointer, field-level errors)
+problems:
+- status: 400
+  title: Bad request
+  docs: https://docs.griffin.com/docs/errors/bad-request
+  causes: [missing field, incorrect type, invalid enum value, invalid date/datetime, incomplete value, bad path parameter]
+- status: 401
+  title: Not authenticated
+  remediation: Provide a valid Authorization API key (and message signature in live).
+- status: 403
+  title: Forbidden
+  docs: https://docs.griffin.com/docs/errors/forbidden
+  remediation: The key's org role lacks permission for this endpoint.
+- status: 404
+  title: Not found
+  docs: https://docs.griffin.com/docs/errors/not-found
+- status: 405
+  title: Method not allowed
+  docs: https://docs.griffin.com/docs/errors/method-not-allowed
+- status: 406
+  title: Not acceptable
+  docs: https://docs.griffin.com/docs/errors/not-acceptable
+- status: 409
+  title: Conflict
+  docs: https://docs.griffin.com/docs/errors/conflict
+- status: 410
+  title: Gone
+  docs: https://docs.griffin.com/docs/errors/gone
+- status: 415
+  title: Unsupported media type
+  docs: https://docs.griffin.com/docs/errors/unsupported-media-type
+- status: 422
+  title: Unprocessable entity
+  docs: https://docs.griffin.com/docs/errors/unprocessable-entity
+  categories: [account-close errors, payment errors]
+- status: 429
+  title: Too many requests
+  remediation: Exceeded 50 concurrent in-flight requests; retry with backoff.
+- status: 500
+  title: Internal server error
+- status: 502
+  title: Bad gateway
+- status: 503
+  title: Service unavailable

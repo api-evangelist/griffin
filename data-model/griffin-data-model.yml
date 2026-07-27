@@ -1,0 +1,82 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/griffin-openapi-original.yml
+notes: >-
+  Entity-relationship graph derived from the v0 OpenAPI path structure and
+  id-reference fields (the Swagger 2.0 spec inlines schemas, so relationships
+  are inferred from nested resource paths and {id} path parameters rather than
+  from components.schemas $refs). Enriched with resource domains from the docs.
+entities:
+- name: organization
+  key: organization-id
+  description: Top-level tenant; owns memberships, legal persons, bank accounts, webhooks, events.
+- name: user
+  key: user-id
+- name: membership
+  key: membership-id
+  relationships:
+  - {type: belongs_to, target: organization, via: organization-id}
+  - {type: belongs_to, target: user, via: user-id}
+  - {type: has_many, target: role, via: membership-roles}
+- name: role
+  key: role-id
+- name: legal-person
+  key: legal-person-id
+  description: A verified individual or company (KYC/KYB subject).
+  relationships:
+  - {type: belongs_to, target: organization, via: organization-id}
+  - {type: has_many, target: verification, via: legal-person-verifications}
+  - {type: has_many, target: decision, via: legal-person-decisions}
+  - {type: has_many, target: claim, via: legal-person-claims}
+  - {type: has_many, target: payee, via: legal-person-payees}
+- name: verification
+  key: verification-id
+  relationships:
+  - {type: belongs_to, target: legal-person, via: legal-person-id}
+- name: decision
+  key: decision-id
+  relationships:
+  - {type: belongs_to, target: legal-person, via: legal-person-id}
+- name: onboarding-application
+  key: onboarding-application-id
+  relationships:
+  - {type: belongs_to, target: organization, via: organization-id}
+- name: bank-product
+  key: bank-product-id
+- name: bank-account
+  key: bank-account-id
+  relationships:
+  - {type: belongs_to, target: organization, via: organization-id}
+  - {type: belongs_to, target: bank-product, via: bank-product-id}
+  - {type: has_many, target: payment, via: bank-account-payments}
+  - {type: has_many, target: transaction, via: bank-account-transactions}
+  - {type: has_many, target: bank-account-restriction, via: bank-account-restrictions}
+  - {type: has_many, target: bank-account-hold, via: bank-account-holds}
+- name: bank-account-restriction
+  key: bank-account-restriction-id
+- name: bank-account-hold
+  key: hold-id
+- name: payment
+  key: payment-id
+  relationships:
+  - {type: belongs_to, target: bank-account, via: bank-account-id}
+  - {type: has_one, target: submission, via: payment-submission}
+  - {type: has_one, target: admission, via: payment-admission}
+- name: transaction
+  key: transaction-id
+  relationships:
+  - {type: belongs_to, target: bank-account, via: bank-account-id}
+- name: payee
+  key: payee-id
+  relationships:
+  - {type: belongs_to, target: legal-person, via: legal-person-id}
+- name: webhook
+  key: webhook-id
+  relationships:
+  - {type: belongs_to, target: organization, via: organization-id}
+- name: event
+  key: event-id
+  relationships:
+  - {type: belongs_to, target: organization, via: organization-id}
+- name: workflow
+  key: workflow-id

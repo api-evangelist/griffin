@@ -1,0 +1,37 @@
+generated: '2026-07-19'
+method: searched
+source: https://updates.griffin.com/
+scheme: dated
+current_version: v0
+notes: >-
+  Griffin publishes a dated release-notes feed (no semantic version tags). The
+  API is versioned by URL prefix (v0); release notes describe additive,
+  backwards-compatible changes plus product/app updates. Recent window captured
+  below; the live feed is the source of truth.
+entries:
+- date: '2026-03-12'
+  title: You can now freeze and block bank accounts via the app or API
+  type: addition
+- date: '2026-03-05'
+  title: Interest accrued now shows in the API and app
+  type: addition
+- date: '2026-02-09'
+  title: Changes to debtor and creditor identification fields
+  type: change
+  highlight: Payment response structure updated to better support international transactions.
+- date: '2026-02-09'
+  title: Savings account payout time shifting to 4pm UK time
+  type: change
+- date: '2026-01-28'
+  title: 'Extension: additional customer data requirements now due 02 March 2026'
+  type: notice
+- date: '2025-12-11'
+  title: We've added a new compliance role for view-only access
+  type: addition
+- date: '2025-12-08'
+  title: You can now receive CHAPS payments
+  type: addition
+- date: '2025-09-29'
+  title: Search is now available
+  type: addition
+  highlight: Search across legal persons, bank accounts, and payments.

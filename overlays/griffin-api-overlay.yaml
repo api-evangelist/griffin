@@ -1,0 +1,31 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for The Griffin API
+  version: 1.0.0
+extends: openapi/griffin-openapi-original.yml
+x-notes: >-
+  The harvested source is a Swagger 2.0 document. Its operations carry summaries
+  and descriptions but NO operationIds and inline (rather than components)
+  schemas — this overlay records our derived enhancements without mutating the
+  original. The largest content gap to file with Griffin is the absence of
+  operationIds across all 97 operations, which weakens agent/codegen ergonomics.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-rating: 4
+    x-apievangelist-notes: >-
+      Real Swagger 2.0 spec, 97 operations, API-key + RFC 9421 message-signature
+      auth, documented webhooks, sandbox, error registry, dated changelog,
+      status page, and a first-party MCP server. Missing: operationIds,
+      componentised schemas, machine-readable OpenAPI 3.x.
+- target: $.info
+  update:
+    x-apievangelist-artifacts:
+      authentication: authentication/griffin-authentication.yml
+      conventions: conventions/griffin-conventions.yml
+      errors: errors/griffin-problem-types.yml
+      lifecycle: lifecycle/griffin-lifecycle.yml
+      sandbox: sandbox/griffin-sandbox.yml
+      webhooks: asyncapi/griffin-webhooks.yml
+      data_model: data-model/griffin-data-model.yml
+      mcp: mcp/griffin-mcp.yml

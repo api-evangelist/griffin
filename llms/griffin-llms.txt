@@ -1,0 +1,66 @@
+# Griffin
+
+> Griffin is a UK-regulated bank (Financial Conduct Authority authorised, Prudential Regulation Authority regulated) that provides Banking as a Service APIs, allowing fintechs and businesses to embed bank accounts, payments, and financial products directly into their own platforms.
+
+## Products
+
+### Business banking
+- [Business bank accounts](https://griffin.com/products/business-bank-accounts): Your own operational account
+
+### Platform banking
+- [Client money accounts](https://griffin.com/products/client-money): CASS and CMP compliant accounts for holding client funds
+- [Safeguarding accounts](https://griffin.com/products/safeguarding): Ringfenced accounts for EMIs and PIs
+- [Savings accounts](https://griffin.com/products/savings-accounts): Interest-bearing accounts for your customers
+- [Embedded bank accounts](https://griffin.com/products/embedded-bank-accounts): Bank accounts to power any product
+
+### Onboarding
+- [Verify](https://griffin.com/products/verify): Automated customer onboarding (KYC/KYB)
+
+### Payments
+- [Payments](https://griffin.com/products/payments): API-enabled payment options including Faster Payments and BACS
+
+## Solutions
+
+- [Payroll](https://griffin.com/solutions/payroll): Embedded banking for payroll platforms
+- [Proptech](https://griffin.com/solutions/proptech): Financial infrastructure for property technology companies
+- [Lending](https://griffin.com/solutions/lending): Banking services for lending platforms
+- [Wealthtech](https://griffin.com/solutions/wealthtech): Savings and investment account infrastructure
+- [FX and remittance](https://griffin.com/solutions/fx-and-remittance): Accounts and payments for FX and remittance businesses
+- [E-money and payments](https://griffin.com/solutions/e-money-and-payments): Banking infrastructure for e-money institutions and payment platforms
+
+## Pricing
+
+- [Pricing](https://griffin.com/pricing): Transparent pricing for Griffin's products and services
+
+## Developers
+
+- [Documentation](https://docs.griffin.com): API reference, guides, and integration documentation
+- [Sandbox](https://app.griffin.com/register): Free sandbox environment to test the Griffin API
+- [Release notes](https://updates.griffin.com/): Changelog and API release notes
+- [Status](https://status.griffin.com/): Platform uptime and incident history
+
+## Company
+
+- [About](https://griffin.com/about): What Griffin is building and why
+- [Team](https://griffin.com/team): The people behind Griffin
+- [Culture](https://griffin.com/culture): How Griffin works and what the team values
+- [Careers](https://griffin.com/careers): Open roles at Griffin
+- [Newsroom](https://griffin.com/newsroom): Press releases and company announcements
+- [Annual reports](https://griffin.com/reports): Griffin's annual financial reports
+- [Contact](https://griffin.com/contact): Get in touch
+
+## Resources
+
+- [Blog](https://griffin.com/blog): Engineering, product, and industry articles
+- [Customer stories](https://griffin.com/customer-stories): How fintechs are building with Griffin
+- [Griffin Uncut](https://griffin.com/podcast): Griffin's podcast
+- [Events](https://griffin.com/events): Upcoming and past events
+- [FAQs](https://griffin.com/support/faqs): Frequently asked questions and support articles
+
+## Legal and compliance
+
+- [Privacy policy](https://griffin.com/privacy)
+- [Deposit protection](https://griffin.com/deposit-protection): FSCS deposit protection information
+- [Eligibility](https://griffin.com/eligibility): Who can use Griffin's products
+- [Complaints](https://griffin.com/complaints): How to raise a complaint
+- [Sustainability policy](https://griffin.com/sustainability-policy)

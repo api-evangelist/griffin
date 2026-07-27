@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/griffin-openapi-original.yml
+notes: >-
+  Packaged agent skills for Griffin's marquee flows. The Swagger 2.0 source has
+  no operationIds, so operations are grounded in the real HTTP method + path +
+  summary (each verified verbatim in openapi/griffin-openapi-original.yml).
+  Conventions/idempotency/error rules come from the captured artifacts.
+skills:
+- file: griffin-onboard-a-legal-person.md
+  name: Onboard and verify a legal person (KYC/KYB)
+  api: openapi/griffin-openapi-original.yml
+  operations:
+  - POST /v0/organizations/{organization-id}/legal-persons
+  - POST /v0/legal-persons/{legal-person-id}/verifications
+  - GET /v0/legal-persons/{legal-person-id}/decisions
+- file: griffin-open-a-bank-account.md
+  name: Open a bank account for a verified legal person
+  api: openapi/griffin-openapi-original.yml
+  operations:
+  - GET /v0/bank/products/{bank-product-id}
+  - POST /v0/bank/products/{bank-product-id}/accounts
+  - GET /v0/bank/accounts/{bank-account-id}
+- file: griffin-create-and-submit-a-payment.md
+  name: Create and submit a Faster Payment
+  api: openapi/griffin-openapi-original.yml
+  operations:
+  - POST /v0/legal-persons/{legal-person-id}/bank/payees
+  - POST /v0/bank/accounts/{bank-account-id}/payments
+  - GET /v0/bank/accounts/{bank-account-id}/transactions
