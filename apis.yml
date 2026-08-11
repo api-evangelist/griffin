@@ -659,7 +659,7 @@ common:
 - type: Postman
   url: https://github.com/griffinbank/griffin-postman
 - type: OpenAPI
-  url: openapi/griffin-openapi-original.yml
+  url: openapi/_original/griffin-openapi-original.yml
 - type: Authentication
   url: authentication/griffin-authentication.yml
 - type: Conventions
