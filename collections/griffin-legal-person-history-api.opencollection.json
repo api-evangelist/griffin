@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Legal person history API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Legal person history",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v0/legal-persons/{legal-person-id}/history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/history",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists history of events for the given legal person."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

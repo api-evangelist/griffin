@@ -1,0 +1,264 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Bank accounts API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id",
+            "params": [
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetch a bank account"
+        },
+        {
+          "info": {
+            "name": "PATCH /v0/bank/accounts/{bank-account-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id",
+            "params": [
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a bank account"
+        },
+        {
+          "info": {
+            "name": "POST /v0/bank/accounts/{bank-account-id}/actions/close",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/actions/close",
+            "params": [
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Close a bank account"
+        },
+        {
+          "info": {
+            "name": "Get bank account product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/products/:bank-product-id",
+            "params": [
+              {
+                "name": "bank-product-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetches a bank account product by ID"
+        },
+        {
+          "info": {
+            "name": "Open bank account with a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/products/:bank-product-id/accounts",
+            "params": [
+              {
+                "name": "bank-product-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Opens a bank account of the given bank product"
+        },
+        {
+          "info": {
+            "name": "List bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/bank/accounts",
+            "params": [
+              {
+                "name": "filter[account-restricted][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether the bank account has restrictions applied by Griffin."
+              },
+              {
+                "name": "filter[beneficiary-url][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Link to the [legal person](#tag/Legal-persons) that represents the [beneficiary](/docs/terms/beneficiary) of the account."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each bank account returned, include its owner and/or beneficiary in the response under the `included.legal-persons` attribute."
+              },
+              {
+                "name": "filter[account-status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "filter[pooled-funds][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether the bank account holds funds belonging to multiple beneficiaries."
+              },
+              {
+                "name": "filter[bank-product-type][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[owner-url][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Link to the [legal person](#tag/Legal-persons) that represents the [owner](/docs/terms/owner) of the account."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields a list of all bank accounts under the control of this Organization."
+        },
+        {
+          "info": {
+            "name": "Open bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/bank/accounts",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Open a new bank account"
+        },
+        {
+          "info": {
+            "name": "Search bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/bank/accounts/search",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of bank accounts whose account number match the `search-query` supplied in the request, either exactly or partially as a prefix."
+        },
+        {
+          "info": {
+            "name": "List bank account products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/bank/products",
+            "params": [
+              {
+                "name": "filter[status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of the organization's bank account products."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

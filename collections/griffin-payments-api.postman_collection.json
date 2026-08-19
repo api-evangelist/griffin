@@ -1,0 +1,4670 @@
+{
+  "item": [
+    {
+      "id": "165c1bce-59b5-4ae8-a274-4c4c85d3e852",
+      "name": "Payments",
+      "description": {
+        "content": "A payment captures the intent to move funds from a bank account to another bank account. Outbound payments can be made from your [bank account](#tag/Bank-accounts) to a [payee](#tag/Payees). Griffin accepts inbound payments to your bank accounts on your behalf. \n If it's your first time using our payments API, check out our guide for [sending payments](/docs/guides/sending-payments)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5582d138-d328-420c-afb9-c466216f33ae",
+          "name": "Get payment admission",
+          "request": {
+            "name": "Get payment admission",
+            "description": {
+              "content": "Yields an admission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "admissions",
+                ":admission-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "admission-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6f54ee2a-700a-482e-9197-aec7849e5611",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "admissions",
+                    ":admission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "admission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admission-status\": \"processing\",\n  \"admission-scheme-information\": {\n    \"end-to-end-identification\": \"string\",\n    \"payment-scheme\": \"fps\"\n  },\n  \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n  \"created-at\": \"2006-09-07T03:29:25.688Z\",\n  \"admission-url\": \"/v0/admissions/pa.ICAgIGFkbWlzc2lvbi1pZA\",\n  \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \",\n  \"account-url\": \"string\",\n  \"original-unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c4657d6-8a6c-4577-9cce-e966f19745a8",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "admissions",
+                    ":admission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "admission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c428524d-f367-430d-891b-abba0a4b0973",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "admissions",
+                    ":admission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "admission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3186932d-2967-4ebe-8b38-a3905f938a1b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "admissions",
+                    ":admission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "admission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "857a03e0-3f58-4d4b-add1-323dc75738ac",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "admissions",
+                    ":admission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "admission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba33e5ee-77a4-4b1b-a0d4-1588196a5416",
+          "name": "List bank account admissions",
+          "request": {
+            "name": "List bank account admissions",
+            "description": {
+              "content": "Lists admissions targeting a bank account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "bank",
+                "accounts",
+                ":bank-account-id",
+                "admissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[admission-status][in][]",
+                  "value": "<string>,<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank-account-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fb8cd4e9-b541-4486-b814-ff905d92df49",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[admission-status][in][]",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admissions\": [\n    {\n      \"admission-status\": \"delivered\",\n      \"admission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"2007-05-24T03:05:11.777Z\",\n      \"admission-url\": \"/v0/admissions/pa.ICAgIGFkbWlzc2lvbi1pZA\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \",\n      \"account-url\": \"string\",\n      \"original-unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    },\n    {\n      \"admission-status\": \"cancelled\",\n      \"admission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"2003-04-28T23:31:37.241Z\",\n      \"admission-url\": \"/v0/admissions/pa.ICAgIGFkbWlzc2lvbi1pZA\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \",\n      \"account-url\": \"string\",\n      \"original-unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a19e0e6c-03e4-4de6-8241-2015afcd8836",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[admission-status][in][]",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "18439e50-18cf-4f49-98a9-c23fac42a1db",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[admission-status][in][]",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5b54d917-9ae0-432d-8b1f-138170376afe",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[admission-status][in][]",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "735e4726-6a1c-4e98-836d-3b5d87d2577e",
+          "name": "List bank account payments",
+          "request": {
+            "name": "List bank account payments",
+            "description": {
+              "content": "Lists payments made from a bank account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "bank",
+                "accounts",
+                ":bank-account-id",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each payment returned, include its bank account, latest submission (if one exists), rejecting user (if one exists), and/or creating user (if one exists) in the response under the `included` attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[rejected][eq]",
+                  "value": "<boolean>",
+                  "description": "Specifies whether the payment has been [rejected](/docs/guides/payment-approvals)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[payment-direction][eq]",
+                  "value": "<string>",
+                  "description": "Whether the payment is moving money into or out of the account."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[latest-submission-status][in][]",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than the given timestamp."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank-account-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f190c9a0-d33f-40be-8159-ce9edff2e740",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[rejected][eq]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[payment-direction][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[latest-submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"payments\": [\n    {\n      \"created-at\": \"1951-10-23T11:08:39.443Z\",\n      \"payment-amount\": {\n        \"currency\": \"GBP\",\n        \"value\": \"1000.00\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"payment-direction\": \"outbound-payment\",\n      \"creditor\": {\n        \"account-url\": \"string\",\n        \"creditor-type\": \"griffin-bank-account\"\n      },\n      \"rejected-at\": \"1960-03-05T20:28:11.880Z\",\n      \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-via\": \"api\",\n      \"payment-reference\": \"test reference\",\n      \"ultimate-debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n      \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n      \"debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"rejection-reason\": \"string\"\n    },\n    {\n      \"created-at\": \"2018-04-02T01:45:54.835Z\",\n      \"payment-amount\": {\n        \"currency\": \"GBP\",\n        \"value\": \"1000.00\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"payment-direction\": \"inbound-payment\",\n      \"creditor\": {\n        \"account-url\": \"string\",\n        \"creditor-type\": \"griffin-bank-account\"\n      },\n      \"rejected-at\": \"2024-12-08T01:01:37.640Z\",\n      \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-via\": \"api\",\n      \"payment-reference\": \"test reference\",\n      \"ultimate-debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n      \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n      \"debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"stri\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"rejection-reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a792439f-6e84-4d91-be3a-fe8bd4471ac0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[rejected][eq]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[payment-direction][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[latest-submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a518599-403b-47bf-89f9-9bdf6136ce1d",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[rejected][eq]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[payment-direction][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[latest-submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "329dbee1-ff3f-4e13-a988-9cfec7b90062",
+          "name": "Create payment",
+          "request": {
+            "name": "Create payment",
+            "description": {
+              "content": "Registers a new payment request for the bank account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "bank",
+                "accounts",
+                ":bank-account-id",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank-account-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  },\n  \"payment-reference\": \"Sent from X\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c955d65-5944-4a16-9cc0-9ba5a648aae1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-reference\": \"test reference\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"1993-09-02T11:56:31.147Z\",\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-direction\": \"inbound-payment\",\n  \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n  \"created-by-user\": {\n    \"user-email\": \"user@example.com\",\n    \"user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"user-username\": \"user@example.com\",\n    \"api-keys-url\": \"string\",\n    \"user-memberships-url\": \"string\",\n    \"given-name\": \"string\",\n    \"surname\": \"string\"\n  },\n  \"creditor\": {\n    \"account-url\": \"string\",\n    \"creditor-type\": \"griffin-bank-account\"\n  },\n  \"rejected-at\": \"1956-08-23T04:30:25.188Z\",\n  \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n  \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n  \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n  \"created-via\": \"ui\",\n  \"payment-reference\": \"test reference\",\n  \"ultimate-debtor\": {\n    \"iban\": \"GB42GFNB12345612345678\",\n    \"uk-domestic-sort-code\": \"123456\",\n    \"bic\": \"GFNBGB22\",\n    \"account-number\": \"12345678\",\n    \"account-holder\": \"string\",\n    \"bank-id-code\": \"gbdsc\",\n    \"bank-id\": \"123456\",\n    \"bban\": \"GFNB12345612345678\",\n    \"account-url\": \"string\",\n    \"uk-domestic-account-number\": \"12345678\",\n    \"other-account-identification\": \"ABC123\",\n    \"account-number-code\": \"bban\",\n    \"other-institution-identification\": \"ABC123\"\n  },\n  \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n  \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n  \"debtor\": {\n    \"iban\": \"GB42GFNB12345612345678\",\n    \"uk-domestic-sort-code\": \"123456\",\n    \"bic\": \"GFNBGB22\",\n    \"account-number\": \"12345678\",\n    \"account-holder\": \"string\",\n    \"bank-id-code\": \"gbdsc\",\n    \"bank-id\": \"123456\",\n    \"bban\": \"GFNB12345612345678\",\n    \"account-url\": \"string\",\n    \"uk-domestic-account-number\": \"12345678\",\n    \"other-account-identification\": \"ABC123\",\n    \"account-number-code\": \"bban\",\n    \"other-institution-identification\": \"ABC123\"\n  },\n  \"rejection-reason\": \"string\",\n  \"rejected-by-user\": {\n    \"user-email\": \"user@example.com\",\n    \"user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"user-username\": \"user@example.com\",\n    \"api-keys-url\": \"string\",\n    \"user-memberships-url\": \"string\",\n    \"given-name\": \"string\",\n    \"surname\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee22d162-b5be-47ef-868b-d4e9100b5a3f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-reference\": \"test reference\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "28bde877-dde5-43fc-97e0-39a6f8a7474c",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-reference\": \"test reference\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6091754-d69f-4647-998d-0d1348505ec3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-reference\": \"test reference\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "83f87591-3d6b-4e6b-9127-867c60b58859",
+              "name": "An error occurred when trying to create the payment. See [https://docs.griffin.com/docs/errors/payment](https://docs.griffin.com/docs/errors/payment) for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-reference\": \"test reference\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "04ab0b31-fd26-4683-bf74-a6ab7f5944b5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"creditor\": {\n    \"payee-url\": \"<string>\",\n    \"creditor-type\": \"<string>\"\n  },\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-reference\": \"test reference\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13672a28-7757-4113-96e2-c63bfbfe52d3",
+          "name": "List bank account submissions",
+          "request": {
+            "name": "List bank account submissions",
+            "description": {
+              "content": "Lists submissions originating from a bank account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "bank",
+                "accounts",
+                ":bank-account-id",
+                "submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[submission-status][in][]",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than the given timestamp."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank-account-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52363d82-fa85-4cae-b0af-4b03ae312cf0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"submissions\": [\n    {\n      \"submission-status\": \"processing\",\n      \"submission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\",\n        \"scheme-status-code\": \"string\",\n        \"scheme-status-code-description\": \"string\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"1970-01-06T16:29:32.623Z\",\n      \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"account-url\": \"string\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"scheduled-at\": \"1996-04-02T19:34:51.995Z\",\n      \"submission-status-reason\": \"string\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    },\n    {\n      \"submission-status\": \"returned\",\n      \"submission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\",\n        \"scheme-status-code\": \"string\",\n        \"scheme-status-code-description\": \"string\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"1960-04-18T00:32:49.698Z\",\n      \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"account-url\": \"string\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"scheduled-at\": \"1948-12-28T14:07:48.554Z\",\n      \"submission-status-reason\": \"string\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27813669-4018-4c43-9e87-6af9a859cbc3",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bb38d43f-de31-4c05-96d9-36cadc03750f",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "01ff55c2-412c-4707-85d4-b185b324c8c6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "filter[submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9793be1f-7b5c-4771-b017-1d2a2667ab39",
+          "name": "List payments in your organization.",
+          "request": {
+            "name": "List payments in your organization.",
+            "description": {
+              "content": "List payments in your organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each payment returned, include its bank account, latest submission (if one exists), rejecting user (if one exists), and/or creating user (if one exists) in the response under the `included` attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[rejected][eq]",
+                  "value": "<boolean>",
+                  "description": "Specifies whether the payment has been [rejected](/docs/guides/payment-approvals)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[payment-direction][eq]",
+                  "value": "<string>",
+                  "description": "Whether the payment is moving money into or out of the account."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[latest-submission-status][in][]",
+                  "value": "<string>,<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][lt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at less than the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gte]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[created-at][gt]",
+                  "value": "<dateTime>",
+                  "description": "Return only resources with a created-at greater than the given timestamp."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "50e6def9-b6eb-4493-aac6-89e193f0b4f1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[rejected][eq]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[payment-direction][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[latest-submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"payments\": [\n    {\n      \"created-at\": \"1951-10-23T11:08:39.443Z\",\n      \"payment-amount\": {\n        \"currency\": \"GBP\",\n        \"value\": \"1000.00\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"payment-direction\": \"outbound-payment\",\n      \"creditor\": {\n        \"account-url\": \"string\",\n        \"creditor-type\": \"griffin-bank-account\"\n      },\n      \"rejected-at\": \"1960-03-05T20:28:11.880Z\",\n      \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-via\": \"api\",\n      \"payment-reference\": \"test reference\",\n      \"ultimate-debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n      \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n      \"debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"rejection-reason\": \"string\"\n    },\n    {\n      \"created-at\": \"2018-04-02T01:45:54.835Z\",\n      \"payment-amount\": {\n        \"currency\": \"GBP\",\n        \"value\": \"1000.00\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"payment-direction\": \"inbound-payment\",\n      \"creditor\": {\n        \"account-url\": \"string\",\n        \"creditor-type\": \"griffin-bank-account\"\n      },\n      \"rejected-at\": \"2024-12-08T01:01:37.640Z\",\n      \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-via\": \"api\",\n      \"payment-reference\": \"test reference\",\n      \"ultimate-debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n      \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n      \"debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"stri\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"rejection-reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb88d1bb-3ea0-4acc-965c-604fda1849c9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[rejected][eq]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[payment-direction][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[latest-submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "164c5961-476b-4791-b566-feed228f1288",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[rejected][eq]",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "filter[payment-direction][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[latest-submission-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[created-at][lte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][lt]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gte]",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "filter[created-at][gt]",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "497e9da8-8fe8-4509-b4e8-80fc1eca56a3",
+          "name": "Search payments",
+          "request": {
+            "name": "Search payments",
+            "description": {
+              "content": "Returns a list of payments which reference or scheme ID match the `search-query` supplied in the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "payments",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each payment returned, include its bank account, latest submission (if one exists), rejecting user (if one exists), and/or creating user (if one exists) in the response under the `included` attribute."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"search-query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d3c55da-2ed0-4925-b8e7-b56d8c8ccb0b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "payments",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"search-query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"search-results\": [\n    {\n      \"created-at\": \"1954-06-17T03:43:21.657Z\",\n      \"payment-amount\": {\n        \"currency\": \"GBP\",\n        \"value\": \"1000.00\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"payment-direction\": \"inbound-payment\",\n      \"creditor\": {\n        \"account-url\": \"string\",\n        \"creditor-type\": \"griffin-bank-account\"\n      },\n      \"rejected-at\": \"2024-05-12T08:11:03.269Z\",\n      \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-via\": \"api\",\n      \"payment-reference\": \"test reference\",\n      \"ultimate-debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n      \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n      \"debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"rejection-reason\": \"string\"\n    },\n    {\n      \"created-at\": \"2000-11-26T04:42:39.503Z\",\n      \"payment-amount\": {\n        \"currency\": \"GBP\",\n        \"value\": \"1000.00\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"payment-direction\": \"inbound-payment\",\n      \"creditor\": {\n        \"account-url\": \"string\",\n        \"creditor-type\": \"griffin-bank-account\"\n      },\n      \"rejected-at\": \"1990-12-24T21:01:16.065Z\",\n      \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"created-via\": \"ui\",\n      \"payment-reference\": \"test reference\",\n      \"ultimate-debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n      \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n      \"debtor\": {\n        \"iban\": \"GB42GFNB12345612345678\",\n        \"uk-domestic-sort-code\": \"123456\",\n        \"bic\": \"GFNBGB22\",\n        \"account-number\": \"12345678\",\n        \"account-holder\": \"string\",\n        \"bank-id-code\": \"gbdsc\",\n        \"bank-id\": \"123456\",\n        \"bban\": \"GFNB12345612345678\",\n        \"account-url\": \"string\",\n        \"uk-domestic-account-number\": \"12345678\",\n        \"other-account-identification\": \"ABC123\",\n        \"account-number-code\": \"bban\",\n        \"other-institution-identification\": \"ABC123\"\n      },\n      \"rejection-reason\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"page\": {\n      \"total\": 2653,\n      \"estimated-total\": {\n        \"at-least\": 10000\n      }\n    }\n  },\n  \"included\": {\n    \"accounts\": [\n      {\n        \"account-balance\": {\n          \"currency\": \"GBP\",\n          \"value\": \"1000.00\"\n        },\n        \"accrued-interest\": {\n          \"currency\": \"GBP\",\n          \"value\": \"1000.00\"\n        },\n        \"available-balance\": {\n          \"currency\": \"GBP\",\n          \"value\": \"1000.00\"\n        },\n        \"account-payments-url\": \"string\",\n        \"account-admissions-url\": \"string\",\n        \"account-submissions-url\": \"string\",\n        \"account-transactions-url\": \"string\",\n        \"account-url\": \"string\",\n        \"owner-url\": \"string\",\n        \"controller-url\": \"/v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA\",\n        \"display-name\": \"string\",\n        \"account-restricted\": false,\n        \"account-status\": \"closed\",\n        \"bank-product-type\": \"embedded-account\",\n        \"pooled-funds\": false,\n        \"created-at\": \"1949-09-23T04:48:06.362Z\",\n        \"primary-account\": false,\n        \"bank-account-product-url\": \"string\",\n        \"pooled-account-memberships-url\": \"string\",\n        \"client-money-type\": \"designated-client-money\",\n        \"closed-at\": \"1951-08-18T19:58:25.526Z\",\n        \"opened-at\": \"1947-12-21T11:14:55.702Z\",\n        \"close-account-url\": \"string\",\n        \"pooled-account-membership-updates-url\": \"string\",\n        \"bank-account-restrictions-url\": \"string\",\n        \"bank-addresses\": [\n          {\n            \"account-holder\": \"string\",\n            \"bank-id-code\": \"gbdsc\",\n            \"bank-id\": \"123456\",\n            \"account-number\": \"12345678\",\n            \"account-number-code\": \"bban\"\n          },\n          {\n            \"account-holder\": \"string\",\n            \"bank-id-code\": \"gbdsc\",\n            \"bank-id\": \"123456\",\n            \"account-number\": \"12345678\",\n            \"account-number-code\": \"bban\"\n          }\n        ],\n        \"bank-account-events-url\": \"string\",\n        \"beneficiary-url\": \"string\",\n        \"savings-type\": \"easy-access\"\n      },\n      {\n        \"account-balance\": {\n          \"currency\": \"GBP\",\n          \"value\": \"1000.00\"\n        },\n        \"accrued-interest\": {\n          \"currency\": \"GBP\",\n          \"value\": \"1000.00\"\n        },\n        \"available-balance\": {\n          \"currency\": \"GBP\",\n          \"value\": \"1000.00\"\n        },\n        \"account-payments-url\": \"string\",\n        \"account-admissions-url\": \"string\",\n        \"account-submissions-url\": \"string\",\n        \"account-transactions-url\": \"string\",\n        \"account-url\": \"string\",\n        \"owner-url\": \"string\",\n        \"controller-url\": \"/v0/legal-persons/lp.IGxlZ2FsLXBlcnNvbi1pZA\",\n        \"display-name\": \"string\",\n        \"account-restricted\": false,\n        \"account-status\": \"opening\",\n        \"bank-product-type\": \"savings-account\",\n        \"pooled-funds\": false,\n        \"created-at\": \"1975-07-26T06:13:02.808Z\",\n        \"primary-account\": false,\n        \"bank-account-product-url\": \"string\",\n        \"pooled-account-memberships-url\": \"string\",\n        \"client-money-type\": \"general-client-money\",\n        \"closed-at\": \"1968-11-15T14:10:51.961Z\",\n        \"opened-at\": \"1971-02-25T20:20:53.878Z\",\n        \"close-account-url\": \"string\",\n        \"pooled-account-membership-updates-url\": \"string\",\n        \"bank-account-restrictions-url\": \"string\",\n        \"bank-addresses\": [\n          {\n            \"account-holder\": \"string\",\n            \"bank-id-code\": \"gbdsc\",\n            \"bank-id\": \"123456\",\n            \"account-number\": \"12345678\",\n            \"account-number-code\": \"bban\"\n          },\n          {\n            \"account-holder\": \"string\",\n            \"bank-id-code\": \"gbdsc\",\n            \"bank-id\": \"123456\",\n            \"account-number\": \"12345678\",\n            \"account-number-code\": \"bban\"\n          }\n        ],\n        \"bank-account-events-url\": \"string\",\n        \"beneficiary-url\": \"string\",\n        \"savings-type\": \"easy-access\"\n      }\n    ],\n    \"submissions\": [\n      {\n        \"submission-status\": \"scheduled\",\n        \"submission-scheme-information\": {\n          \"end-to-end-identification\": \"string\",\n          \"payment-scheme\": \"fps\",\n          \"scheme-status-code\": \"string\",\n          \"scheme-status-code-description\": \"string\"\n        },\n        \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n        \"created-at\": \"1990-12-29T11:22:27.140Z\",\n        \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n        \"account-url\": \"string\",\n        \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"scheduled-at\": \"2008-10-04T22:47:23.204Z\",\n        \"submission-status-reason\": \"string\",\n        \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n      },\n      {\n        \"submission-status\": \"processing\",\n        \"submission-scheme-information\": {\n          \"end-to-end-identification\": \"string\",\n          \"payment-scheme\": \"fps\",\n          \"scheme-status-code\": \"string\",\n          \"scheme-status-code-description\": \"string\"\n        },\n        \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n        \"created-at\": \"2011-12-14T22:16:01.312Z\",\n        \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n        \"account-url\": \"string\",\n        \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"scheduled-at\": \"2012-09-11T21:01:39.279Z\",\n        \"submission-status-reason\": \"stri\",\n        \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n      }\n    ],\n    \"users\": [\n      {\n        \"user-email\": \"user@example.com\",\n        \"user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"user-username\": \"user@example.com\",\n        \"api-keys-url\": \"string\",\n        \"user-memberships-url\": \"string\",\n        \"given-name\": \"string\",\n        \"surname\": \"string\"\n      },\n      {\n        \"user-email\": \"user@example.com\",\n        \"user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"user-username\": \"user@example.com\",\n        \"api-keys-url\": \"string\",\n        \"user-memberships-url\": \"string\",\n        \"given-name\": \"string\",\n        \"surname\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9eef421-dd2b-4444-8964-af5e6ae5e4fe",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "payments",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"search-query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4694d08-2497-43ef-ac8d-8a989fe26909",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "payments",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"search-query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8817c3ba-7fd5-498d-b75d-8f1c1c8c38d5",
+          "name": "Get payment",
+          "request": {
+            "name": "Get payment",
+            "description": {
+              "content": "Yields payment details",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payments",
+                ":payment-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a7058b69-8812-44ea-980f-32088f48cbd7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"1993-09-02T11:56:31.147Z\",\n  \"payment-amount\": {\n    \"currency\": \"GBP\",\n    \"value\": \"1000.00\"\n  },\n  \"payment-direction\": \"inbound-payment\",\n  \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n  \"created-by-user\": {\n    \"user-email\": \"user@example.com\",\n    \"user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"user-username\": \"user@example.com\",\n    \"api-keys-url\": \"string\",\n    \"user-memberships-url\": \"string\",\n    \"given-name\": \"string\",\n    \"surname\": \"string\"\n  },\n  \"creditor\": {\n    \"account-url\": \"string\",\n    \"creditor-type\": \"griffin-bank-account\"\n  },\n  \"rejected-at\": \"1956-08-23T04:30:25.188Z\",\n  \"latest-submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n  \"rejected-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n  \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n  \"created-via\": \"ui\",\n  \"payment-reference\": \"test reference\",\n  \"ultimate-debtor\": {\n    \"iban\": \"GB42GFNB12345612345678\",\n    \"uk-domestic-sort-code\": \"123456\",\n    \"bic\": \"GFNBGB22\",\n    \"account-number\": \"12345678\",\n    \"account-holder\": \"string\",\n    \"bank-id-code\": \"gbdsc\",\n    \"bank-id\": \"123456\",\n    \"bban\": \"GFNB12345612345678\",\n    \"account-url\": \"string\",\n    \"uk-domestic-account-number\": \"12345678\",\n    \"other-account-identification\": \"ABC123\",\n    \"account-number-code\": \"bban\",\n    \"other-institution-identification\": \"ABC123\"\n  },\n  \"payment-admissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/admissions\",\n  \"payment-submissions-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA/submissions\",\n  \"debtor\": {\n    \"iban\": \"GB42GFNB12345612345678\",\n    \"uk-domestic-sort-code\": \"123456\",\n    \"bic\": \"GFNBGB22\",\n    \"account-number\": \"12345678\",\n    \"account-holder\": \"string\",\n    \"bank-id-code\": \"gbdsc\",\n    \"bank-id\": \"123456\",\n    \"bban\": \"GFNB12345612345678\",\n    \"account-url\": \"string\",\n    \"uk-domestic-account-number\": \"12345678\",\n    \"other-account-identification\": \"ABC123\",\n    \"account-number-code\": \"bban\",\n    \"other-institution-identification\": \"ABC123\"\n  },\n  \"rejection-reason\": \"string\",\n  \"rejected-by-user\": {\n    \"user-email\": \"user@example.com\",\n    \"user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"user-username\": \"user@example.com\",\n    \"api-keys-url\": \"string\",\n    \"user-memberships-url\": \"string\",\n    \"given-name\": \"string\",\n    \"surname\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5cb9765f-7706-4085-84d0-75498f83db72",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed67c352-ff10-4166-8b28-b3c14e2b33d6",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ed475a5-8d42-4459-b7d2-40a707b373ac",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0870ddf2-9911-4036-a69e-4e1c8141f5ca",
+          "name": "Updates a payment",
+          "request": {
+            "name": "Updates a payment",
+            "description": {
+              "content": "Updates a payment",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payments",
+                ":payment-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d2b7bef4-2914-41da-b0de-8c3a796b4192",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7569cec-8c5d-4d5d-a7a3-dec781cb7df2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "601001e7-4392-4e1d-a332-ad9df50ec95a",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82f74b67-52a3-4037-ace8-3dfcbd6c4fb2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1031533c-94d5-4b7b-8b2a-86f160c8164c",
+              "name": "An error occurred when trying to update the payment. See [https://docs.griffin.com/docs/errors/payment](https://docs.griffin.com/docs/errors/payment) for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d04d7a9-8992-4c72-8b2e-6101bc159feb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d3eb6e8f-b091-4951-8fe0-a015b0f31ccc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rejection-reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d6a1d47-993e-42d9-b535-d08e61db4e1b",
+          "name": "List payment admissions",
+          "request": {
+            "name": "List payment admissions",
+            "description": {
+              "content": "Lists admissions for a payment. A payment may have at most one admission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payments",
+                ":payment-id",
+                "admissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85327586-3061-43d1-a2bb-85a120ec03f1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admissions\": [\n    {\n      \"admission-status\": \"delivered\",\n      \"admission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"1986-04-21T15:25:49.761Z\",\n      \"admission-url\": \"/v0/admissions/pa.ICAgIGFkbWlzc2lvbi1pZA\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \",\n      \"account-url\": \"string\",\n      \"original-unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    },\n    {\n      \"admission-status\": \"returned\",\n      \"admission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"2017-02-05T19:53:57.486Z\",\n      \"admission-url\": \"/v0/admissions/pa.ICAgIGFkbWlzc2lvbi1pZA\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \",\n      \"account-url\": \"string\",\n      \"original-unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b51c8a3-7d34-4992-ad75-894e5eb5b3e7",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "db4e944d-8d79-4ea3-b737-c3076db3bd7a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "admissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7fe46dd3-90b3-4f35-b7d8-7b40ba68afc1",
+          "name": "List payment submissions",
+          "request": {
+            "name": "List payment submissions",
+            "description": {
+              "content": "Lists submissions for a payment. The presence of a submission means that the payment has been submitted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payments",
+                ":payment-id",
+                "submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fe699e13-810a-4e29-8453-88a9158c67a7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"submissions\": [\n    {\n      \"submission-status\": \"returned\",\n      \"submission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\",\n        \"scheme-status-code\": \"string\",\n        \"scheme-status-code-description\": \"string\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"1984-07-07T16:35:08.477Z\",\n      \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"account-url\": \"string\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"scheduled-at\": \"1980-06-01T19:11:52.074Z\",\n      \"submission-status-reason\": \"string\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    },\n    {\n      \"submission-status\": \"failed\",\n      \"submission-scheme-information\": {\n        \"end-to-end-identification\": \"string\",\n        \"payment-scheme\": \"fps\",\n        \"scheme-status-code\": \"string\",\n        \"scheme-status-code-description\": \"string\"\n      },\n      \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n      \"created-at\": \"1957-09-14T11:49:52.611Z\",\n      \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n      \"account-url\": \"string\",\n      \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n      \"scheduled-at\": \"1991-09-16T11:24:41.567Z\",\n      \"submission-status-reason\": \"string\",\n      \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "914a583a-5e09-45b1-ac70-b5004fd37c79",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "edc1b341-57ce-47ae-aad3-ab2cf983edfd",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3a29637-0ff4-4ef5-96b2-64d34f826b0b",
+          "name": "Submit payment",
+          "request": {
+            "name": "Submit payment",
+            "description": {
+              "content": "Submits a previously created payment for execution.\n\nYou can submit payments over different payment schemes, check out our [payments guides](docs/guides/payments-overview) to help decide which scheme best suites your use case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payments",
+                ":payment-id",
+                "submissions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e470ed4-0f9f-46dd-92aa-9af3006e9fb4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"submission-status\": \"returned\",\n  \"submission-scheme-information\": {\n    \"end-to-end-identification\": \"string\",\n    \"payment-scheme\": \"fps\",\n    \"scheme-status-code\": \"string\",\n    \"scheme-status-code-description\": \"string\"\n  },\n  \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n  \"created-at\": \"1956-09-09T07:25:52.012Z\",\n  \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n  \"account-url\": \"string\",\n  \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n  \"scheduled-at\": \"1957-08-13T06:09:29.878Z\",\n  \"submission-status-reason\": \"string\",\n  \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbbc4279-e49e-4b4d-9293-88a7e829a6ff",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "43fec7f9-f1e4-4496-80be-d880077e5995",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "405f5cb1-1b3c-4905-bebb-0b5646da0fd9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5ead395-d4ad-4182-9955-5b5430781c88",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Gone",
+              "code": 410,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdbf056c-1405-4d04-99cc-ba6c1325d42e",
+              "name": "An error occurred when trying to submit the payment. See [https://docs.griffin.com/docs/errors/payment](https://docs.griffin.com/docs/errors/payment) for details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b48a8a39-f8b7-4a32-9173-a32692917798",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payments",
+                    ":payment-id",
+                    "submissions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment-scheme\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76587ac6-ce66-4ecc-8603-e639dcebd2a5",
+          "name": "Get payment submission",
+          "request": {
+            "name": "Get payment submission",
+            "description": {
+              "content": "Yields a submission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "submissions",
+                ":submission-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "submission-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9c64f6b3-4bcb-43a3-ae00-8caa3ae54e1d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submissions",
+                    ":submission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "submission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"submission-status\": \"returned\",\n  \"submission-scheme-information\": {\n    \"end-to-end-identification\": \"string\",\n    \"payment-scheme\": \"fps\",\n    \"scheme-status-code\": \"string\",\n    \"scheme-status-code-description\": \"string\"\n  },\n  \"payment-url\": \"/v0/payments/pm.ICAgICAgcGF5bWVudC1pZA\",\n  \"created-at\": \"1956-09-09T07:25:52.012Z\",\n  \"submission-url\": \"/v0/submissions/ps.ICAgc3VibWlzc2lvbi1pZA\",\n  \"account-url\": \"string\",\n  \"created-by-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n  \"scheduled-at\": \"1957-08-13T06:09:29.878Z\",\n  \"submission-status-reason\": \"string\",\n  \"unique-scheme-identifier\": \"PGIT2IS7AJG77D2HK23020240212826NatWes     \"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "814fd45b-0ec8-467d-9e0b-e99729c8f858",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submissions",
+                    ":submission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "submission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d89996c-1b6d-4813-bfde-09e87516c2fe",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submissions",
+                    ":submission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "submission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e0f33231-9cb9-4602-a150-612357a2e1c9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submissions",
+                    ":submission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "submission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c91d18e7-7fcc-4287-af56-3eef296072e5",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "submissions",
+                    ":submission-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "submission-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "702ed37b-ad2e-47cb-88ad-2305aa284ee9",
+    "name": "The Griffin API keys Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

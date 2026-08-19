@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Pooled account membership API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pooled account membership",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List legal person in a pooled account membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/membership",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each member returned, include its legal person details, latest verification (if one exists), and/or latest risk rating (if one exists) in the response under the `included` attribute."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List legal persons in a pooled account membership"
+        },
+        {
+          "info": {
+            "name": "Manage pooled account members",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/membership-updates",
+            "params": [
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Add and update the legal persons in a pooled account membership. Limited to 1000 legal persons per operation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

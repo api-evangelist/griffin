@@ -1,0 +1,847 @@
+{
+  "item": [
+    {
+      "id": "eaf27849-900c-42f6-b392-505113cdd43e",
+      "name": "Confirmation of payee",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2e88aad1-0edc-4e56-999a-424f51982f3c",
+          "name": "Create a CoP request",
+          "request": {
+            "name": "Create a CoP request",
+            "description": {
+              "content": "Create a Confirmation of Payee (CoP) request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "cop-request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account-number\": \"<string>\",\n  \"bank-id\": \"<string>\",\n  \"account-classification\": \"<string>\",\n  \"name\": {},\n  \"requester-legal-person-url\": \"<string>\",\n  \"secondary-reference-data\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a27a0b31-4dc8-4b1c-adb8-53b70edd0500",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cop-request-url\": \"string\",\n  \"account\": {\n    \"account-number\": \"12345678\",\n    \"bank-id\": \"123456\",\n    \"account-classification\": \"business\",\n    \"name\": {},\n    \"requester-legal-person-url\": \"string\",\n    \"secondary-reference-data\": {}\n  },\n  \"cop-response\": {\n    \"status\": \"verified\",\n    \"result\": \"close-match\",\n    \"reason\": \"no-match-name\",\n    \"suggested-name\": \"string\",\n    \"suggested-account-classification\": \"business\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61b299e6-7072-4a77-bf51-024ec151e465",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ee892b6c-2ffc-4161-b2d1-9062238cf4b0",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f33f1a6c-f362-4d1e-be2e-0902145a894d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c5baeb8a-c3a0-4d81-88fa-c98e4e408dfc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c78d726b-91de-4747-afd1-c70f953f26c0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3adf789d-2c6d-43bb-9366-5494478540fb",
+          "name": "[Alpha] Simulate a CoP request",
+          "request": {
+            "name": "[Alpha] Simulate a CoP request",
+            "description": {
+              "content": "Simulate the creation of a CoP Request. Note: This is an alpha API and may change anytime.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "simulation",
+                "organizations",
+                ":organization-id",
+                "cop-request",
+                "simulate",
+                ":cop-simulation-type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cop-simulation-type",
+                  "description": "(Required) The type of simulation to run."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account-number\": \"<string>\",\n  \"bank-id\": \"<string>\",\n  \"account-classification\": \"<string>\",\n  \"name\": {},\n  \"requester-legal-person-url\": \"<string>\",\n  \"secondary-reference-data\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cb2d0d6c-6021-4857-9df5-0cf1dd9ad733",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "simulation",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request",
+                    "simulate",
+                    ":cop-simulation-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cop-simulation-type",
+                      "description": "(Required) The type of simulation to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cop-request-url\": \"string\",\n  \"account\": {\n    \"account-number\": \"12345678\",\n    \"bank-id\": \"123456\",\n    \"account-classification\": \"business\",\n    \"name\": {},\n    \"requester-legal-person-url\": \"string\",\n    \"secondary-reference-data\": {}\n  },\n  \"cop-response\": {\n    \"status\": \"verified\",\n    \"result\": \"close-match\",\n    \"reason\": \"no-match-name\",\n    \"suggested-name\": \"string\",\n    \"suggested-account-classification\": \"business\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcf84e08-ed8b-465b-86a4-e3d638c44ac2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "simulation",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request",
+                    "simulate",
+                    ":cop-simulation-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cop-simulation-type",
+                      "description": "(Required) The type of simulation to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9570e8b4-aa99-450d-a952-07980728ea80",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "simulation",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request",
+                    "simulate",
+                    ":cop-simulation-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cop-simulation-type",
+                      "description": "(Required) The type of simulation to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05a2e09b-5be9-46a0-8588-f100bf397c29",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "simulation",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request",
+                    "simulate",
+                    ":cop-simulation-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cop-simulation-type",
+                      "description": "(Required) The type of simulation to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b6c45a2-0863-4187-b1fe-2ca6e01588d2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "simulation",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request",
+                    "simulate",
+                    ":cop-simulation-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cop-simulation-type",
+                      "description": "(Required) The type of simulation to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23f71a32-46a4-42f7-ae64-ab38a0ed7465",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "simulation",
+                    "organizations",
+                    ":organization-id",
+                    "cop-request",
+                    "simulate",
+                    ":cop-simulation-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cop-simulation-type",
+                      "description": "(Required) The type of simulation to run."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a15f2a0f-8556-4193-ba06-c30b61cc3141",
+    "name": "The Griffin API keys Confirmation of payee API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

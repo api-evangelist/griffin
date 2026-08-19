@@ -1,0 +1,1365 @@
+{
+  "item": [
+    {
+      "id": "a01aee2f-ce0d-4264-8f60-46c5f1817e32",
+      "name": "Payees",
+      "description": {
+        "content": "A payee is the person or business to whom you are paying money. When you create a payee, you need to provide their name (`\"account-holder\"`), and their bank account number (`\"account-number\"`) and sort code (`\"bank-id\"`). \n\n You may also register the outcome of a [Confirmation of Payee (CoP) check](#tag/Confirmation-of-payee) with your payee by supplying a `cop-request-url`. \n\n Read more about payees [in our guides](/docs/guides/create-a-payee).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "358e776a-1808-489c-ab52-2c8279343805",
+          "name": "List legal person payees",
+          "request": {
+            "name": "List legal person payees",
+            "description": {
+              "content": "Lists payees belonging to the legal person.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "legal-persons",
+                ":legal-person-id",
+                "bank",
+                "payees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each payee returned, include its Confirmation of Payee (CoP) details (if they exist) in the response under the `included` attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legal-person-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fcf5369-0aff-4208-aadf-896bb9ef1e5b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"payees\": [\n    {\n      \"account-holder\": \"string\",\n      \"account-number\": \"12345678\",\n      \"bank-id\": \"123456\",\n      \"country-code\": {},\n      \"created-at\": \"2002-01-30T06:53:21.315Z\",\n      \"legal-person-url\": \"string\",\n      \"payee-status\": \"active\",\n      \"payee-url\": \"string\",\n      \"cop-request-url\": \"string\",\n      \"account-url\": \"string\"\n    },\n    {\n      \"account-holder\": \"string\",\n      \"account-number\": \"12345678\",\n      \"bank-id\": \"123456\",\n      \"country-code\": {},\n      \"created-at\": \"2023-06-08T14:34:25.032Z\",\n      \"legal-person-url\": \"string\",\n      \"payee-status\": \"deactivated\",\n      \"payee-url\": \"string\",\n      \"cop-request-url\": \"string\",\n      \"account-url\": \"string\"\n    }\n  ],\n  \"included\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad5fb5b8-c745-4f4a-95da-755b0c5ec678",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e038360-4a56-49b9-8823-e5c33dd5a40f",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2825e3e3-7c97-4a38-8c4b-3c5b0eab6a86",
+          "name": "Create payee",
+          "request": {
+            "name": "Create payee",
+            "description": {
+              "content": "Registers a new payee with a legal person.\n\nYou may associate the outcome of a [CoP request](#tag/Confirmation-of-payee) with the payee by supplying a `cop-request-url`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "legal-persons",
+                ":legal-person-id",
+                "bank",
+                "payees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legal-person-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"<string>\",\n  \"bank-id\": \"<string>\",\n  \"cop-request-url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "597ab5fc-3b7f-4b55-a517-785a57a53154",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"cop-request-url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account-holder\": \"string\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"country-code\": {},\n  \"created-at\": \"1962-07-15T10:52:44.076Z\",\n  \"legal-person-url\": \"string\",\n  \"payee-status\": \"deactivated\",\n  \"payee-url\": \"string\",\n  \"cop-request-url\": \"string\",\n  \"account-url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7f9f74d-fa68-4a83-94ca-df0776e38b87",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"cop-request-url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a72a9569-ffbf-4039-aec5-c67b08e422a7",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"cop-request-url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a8ab1305-15a9-4fa8-945c-e1249bf60999",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"cop-request-url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b395962e-59f2-4cc3-8a3a-ead2684182ab",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"cop-request-url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e6b441a-d321-4411-b7d6-df8303ae4d32",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "bank",
+                    "payees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"account-holder\": \"<string>\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"cop-request-url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87474c41-5a85-47df-bcf6-7293b1eabb93",
+          "name": "Get payee",
+          "request": {
+            "name": "Get payee",
+            "description": {
+              "content": "Returns the payee details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payees",
+                ":payee-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payee-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7205bf1-7b2b-428e-ac09-0cca4a0c0b4f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account-holder\": \"string\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"country-code\": {},\n  \"created-at\": \"1962-07-15T10:52:44.076Z\",\n  \"legal-person-url\": \"string\",\n  \"payee-status\": \"deactivated\",\n  \"payee-url\": \"string\",\n  \"cop-request-url\": \"string\",\n  \"account-url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a518867a-25d5-4aa8-bbaa-34ab854ba059",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "468b2ed9-496e-42bd-96d8-4dd1754d3920",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "833c582c-fe05-450e-bb58-739e8ae76d4e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb537752-40f7-47f1-88f9-b75f3acc4d02",
+          "name": "Update payee",
+          "request": {
+            "name": "Update payee",
+            "description": {
+              "content": "Updates an existing payee.\n\nYou can update a payee with the outcome of a [CoP request](#tag/Confirmation-of-payee) by supplying a `cop-request-url`.\n\nA payee can be deactivated by updating the `payee-status` of an active payee to `deactivated`. Any attempt to create or submit a payment to a deactivated payee will fail.\n\nA 422 is served when attempting to deactivate an already-deactivated payee.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "payees",
+                ":payee-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payee-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cop-request-url\": \"<string>\",\n  \"payee-status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "51ef65ed-9ebb-4875-8110-3698c3618f0a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cop-request-url\": \"<string>\",\n  \"payee-status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account-holder\": \"string\",\n  \"account-number\": \"12345678\",\n  \"bank-id\": \"123456\",\n  \"country-code\": {},\n  \"created-at\": \"1962-07-15T10:52:44.076Z\",\n  \"legal-person-url\": \"string\",\n  \"payee-status\": \"deactivated\",\n  \"payee-url\": \"string\",\n  \"cop-request-url\": \"string\",\n  \"account-url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a0fdbe6-1a1d-4ae3-80ce-0224dfae63f4",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cop-request-url\": \"<string>\",\n  \"payee-status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f0cdeed0-8acd-4866-a506-52da1474f18b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cop-request-url\": \"<string>\",\n  \"payee-status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aed63983-ade1-4ec9-9ca0-7275e18d5057",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cop-request-url\": \"<string>\",\n  \"payee-status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41f446e0-ff7c-42d0-9ab6-1db3c8856e63",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "payees",
+                    ":payee-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payee-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cop-request-url\": \"<string>\",\n  \"payee-status\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "40517701-6f85-4735-a9c4-72ef978db89f",
+    "name": "The Griffin API keys Payees API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

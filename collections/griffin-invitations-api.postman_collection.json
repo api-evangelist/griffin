@@ -1,0 +1,396 @@
+{
+  "item": [
+    {
+      "id": "bcfff049-7830-4f2a-99a1-0979fcccefb7",
+      "name": "Invitations",
+      "description": {
+        "content": "Invitations enable [users](#tag/Users) to create new [memberships](#tag/Memberships) for their [organization](#tag/Organizations).\nThe new membership is only created once when the invitation is accepted.\n\nIf the `email-address` provided is linked to an existing user, the invitation will create a membership for that user.\nThis does not affect any other memberships the user may have.\n\nIf the `email-address` is not linked to an existing user, the invitee will be prompted to set up a Griffin account when they accept the invitation.\n\nWhen a new membership is created, the invited user is assigned the [role](#tag/Roles) with the most limited set of capabilities by default.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3058130d-02e0-418c-b0f7-8eccde7fc18e",
+          "name": "Create invitation",
+          "request": {
+            "name": "Create invitation",
+            "description": {
+              "content": "`POST` creates a new invitation to the organization.\n\nSends an email invitation to join the `organization` to the specified `email-address`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "invitations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email-address\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31f816ec-7b06-4b4e-baad-406c5bbcc75e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email-address\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1807fdc-4b1d-4ada-b94b-5c1ccf972d6d",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email-address\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5ee28e96-dfa9-4106-a933-7a33f169addb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email-address\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61dd6c24-b677-4693-a0df-70ebcda80457",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email-address\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41164550-dc47-45d2-bb69-8dcab24db715",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "invitations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email-address\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cb7b8f58-2fa4-4771-a06a-7b01e1f88570",
+    "name": "The Griffin API keys Invitations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

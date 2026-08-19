@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Confirmation of payee API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Confirmation of payee",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a CoP request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/cop-request",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a Confirmation of Payee (CoP) request."
+        },
+        {
+          "info": {
+            "name": "[Alpha] Simulate a CoP request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/simulation/organizations/:organization-id/cop-request/simulate/:cop-simulation-type",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cop-simulation-type",
+                "value": "",
+                "type": "path",
+                "description": "The type of simulation to run."
+              }
+            ]
+          },
+          "docs": "Simulate the creation of a CoP Request. Note: This is an alpha API and may change anytime."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

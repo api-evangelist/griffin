@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Legal persons API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Legal persons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get legal person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id",
+            "params": [
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields the legal-person."
+        },
+        {
+          "info": {
+            "name": "Update legal person",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id",
+            "params": [
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates the legal-person."
+        },
+        {
+          "info": {
+            "name": "List legal persons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/legal-persons",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each legal person returned, include its latest verification (if one exists), any roles in companies (significant control or directorship), and/or its latest risk rating (if one exists) in the response under the `included` attribute."
+              },
+              {
+                "name": "filter[legal-person-status][in][]",
+                "value": "",
+                "type": "query",
+                "description": "Return only legal persons with the given legal-person-status."
+              },
+              {
+                "name": "filter[application-status][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Return only legal persons with the given application-status."
+              },
+              {
+                "name": "filter[has][]",
+                "value": "",
+                "type": "query",
+                "description": "Return only legal persons with the given attributes."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all legal persons for the given organization.\n\nBy default, results are sorted descending by `created-at` (newest first). To sort ascending by `created-at`, provide a `?sort=created-at` query parameter. "
+        },
+        {
+          "info": {
+            "name": "Create legal person",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/legal-persons",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates a new Legal Person. A collection of [Claims](#tag/Claims) may be provided."
+        },
+        {
+          "info": {
+            "name": "Search legal persons",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/legal-persons/search",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each legal person returned, include any roles in companies (significant control or directorship) in the response under the `included` attribute."
+              },
+              {
+                "name": "filter[legal-person-status][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Return only legal persons with the given legal-person-status."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of legal persons whose legal names match the `search-query` supplied in the request.\n                 Takes an optional 'equals onboarded' filter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

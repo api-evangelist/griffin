@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Bank account restrictions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank account restrictions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get bank account restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/account-restrictions/:bank-account-restriction-id",
+            "params": [
+              {
+                "name": "bank-account-restriction-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetches details of a single bank account restriction.\n\nThe response includes the restriction's current status (`active` or `lifted`),\ntype, reason code, legal status, and who applied it.\n\nIf the restriction was applied by Griffin using a sensitive reason code\n(`griffin-decision`, `law-enforcement`, `sanctions`, or `terrorist-financing`),\nthe type, reason code, and legal status fields are omitted from the response.\n\nAction URLs (`update-bank-account-restriction-url`, `lift-bank-account-restrictio"
+        },
+        {
+          "info": {
+            "name": "Lift bank account restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/account-restrictions/:bank-account-restriction-id/actions/lift",
+            "params": [
+              {
+                "name": "bank-account-restriction-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lifts a bank account restriction.\n\nMarks the restriction as `lifted`, removing its effect on the account. Notes are\nrequired to provide context for the removal."
+        },
+        {
+          "info": {
+            "name": "Update bank account restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/account-restrictions/:bank-account-restriction-id/actions/update",
+            "params": [
+              {
+                "name": "bank-account-restriction-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates a bank account restriction.\n\nAllows you to change the restriction type, reason code, and/or legal status of an\nactive restriction. Notes are always required to provide context for the change.\n\nOnly the fields you include in the request body will be updated. Omitted fields\nare left unchanged."
+        },
+        {
+          "info": {
+            "name": "List bank account restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/restrictions",
+            "params": [
+              {
+                "name": "filter[restriction-status][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Return only restrictions with the given restriction-status."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists restrictions on a bank account.\n\nReturns all restrictions (both `active` and `lifted`) by default. Use\n`filter[restriction-status][eq]=active` to return only active restrictions.\n\nSee [get restriction](#tag/Bank-account-restrictions/paths/~1v0~1bank~1account-restrictions~1%7Bbank-account-restriction-id%7D/get)\nfor details on field visibility and redaction."
+        },
+        {
+          "info": {
+            "name": "Apply bank account restriction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/restrictions",
+            "params": [
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Applies a restriction to a bank account.\n\n### Reason codes\n\n| Code | Description |\n|---|---|\n| `customer-request` | Account holder requested temporary restriction pending further instruction. |\n| `deceased` | Account holder confirmed deceased. Restricted pending estate administration. |\n| `dormant` | Account inactive for 2+ years (no customer-initiated transactions). |\n| `fraud-1st-party` | Account holder is suspected perpetrator committing fraud against Griffin or third parties. |\n| `fraud-3rd-"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

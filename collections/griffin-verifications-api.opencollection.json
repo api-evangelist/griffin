@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Verifications API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Verifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List verifications for a legal person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/verifications",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List verifications for the given legal person."
+        },
+        {
+          "info": {
+            "name": "Perform verification of a legal person",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/verifications",
+            "params": [
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Initiates verification of the subject legal person.\n\nThe request body must include a `workflow-url` to determine checks to be\nperformed by the verification. The workflow specified determines which claims\nmust exist for the subject legal person, as identified in the request URL, and any\nassociated legal persons (i.e. directors and people with significant control of a\ncorporation).\n\nThese claims can be found in the `required-claim-types` field on a [Workflow](#tag/Workflows/paths/~1v0~1workflows~1"
+        },
+        {
+          "info": {
+            "name": "Get verification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/verifications/:verification-id",
+            "params": [
+              {
+                "name": "verification-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetch the verification."
+        },
+        {
+          "info": {
+            "name": "Get verification profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/verifications/:verification-id/profiles",
+            "params": [
+              {
+                "name": "verification-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "GET a verification's profiles. A profile is the collection of claims used in a verification."
+        },
+        {
+          "info": {
+            "name": "Get verification resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/verifications/:verification-id/resources",
+            "params": [
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "verification-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields details of the verification resources for this verification."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

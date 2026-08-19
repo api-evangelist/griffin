@@ -1,0 +1,498 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Payments API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get payment admission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/admissions/:admission-id",
+            "params": [
+              {
+                "name": "admission-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields an admission."
+        },
+        {
+          "info": {
+            "name": "List bank account admissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/admissions",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "filter[created-at][lte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][lt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than the given timestamp."
+              },
+              {
+                "name": "filter[admission-status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists admissions targeting a bank account"
+        },
+        {
+          "info": {
+            "name": "List bank account payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/payments",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each payment returned, include its bank account, latest submission (if one exists), rejecting user (if one exists), and/or creating user (if one exists) in the response under the `included` attribute."
+              },
+              {
+                "name": "filter[rejected][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether the payment has been [rejected](/docs/guides/payment-approvals)."
+              },
+              {
+                "name": "filter[payment-direction][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Whether the payment is moving money into or out of the account."
+              },
+              {
+                "name": "filter[latest-submission-status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[created-at][lte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][lt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than the given timestamp."
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists payments made from a bank account."
+        },
+        {
+          "info": {
+            "name": "Create payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/payments",
+            "params": [
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Registers a new payment request for the bank account"
+        },
+        {
+          "info": {
+            "name": "List bank account submissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/submissions",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "filter[submission-status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[created-at][lte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][lt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than the given timestamp."
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists submissions originating from a bank account"
+        },
+        {
+          "info": {
+            "name": "GET /v0/organizations/{organization-id}/payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/payments",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each payment returned, include its bank account, latest submission (if one exists), rejecting user (if one exists), and/or creating user (if one exists) in the response under the `included` attribute."
+              },
+              {
+                "name": "filter[rejected][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Specifies whether the payment has been [rejected](/docs/guides/payment-approvals)."
+              },
+              {
+                "name": "filter[payment-direction][eq]",
+                "value": "",
+                "type": "query",
+                "description": "Whether the payment is moving money into or out of the account."
+              },
+              {
+                "name": "filter[latest-submission-status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[created-at][lte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][lt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at less than the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than or equal to the given timestamp."
+              },
+              {
+                "name": "filter[created-at][gt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only resources with a created-at greater than the given timestamp."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List payments in your organization."
+        },
+        {
+          "info": {
+            "name": "Search payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/payments/search",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each payment returned, include its bank account, latest submission (if one exists), rejecting user (if one exists), and/or creating user (if one exists) in the response under the `included` attribute."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns a list of payments which reference or scheme ID match the `search-query` supplied in the request."
+        },
+        {
+          "info": {
+            "name": "Get payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/payments/:payment-id",
+            "params": [
+              {
+                "name": "payment-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields payment details"
+        },
+        {
+          "info": {
+            "name": "PATCH /v0/payments/{payment-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v0/payments/:payment-id",
+            "params": [
+              {
+                "name": "payment-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates a payment"
+        },
+        {
+          "info": {
+            "name": "List payment admissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/payments/:payment-id/admissions",
+            "params": [
+              {
+                "name": "payment-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists admissions for a payment. A payment may have at most one admission."
+        },
+        {
+          "info": {
+            "name": "List payment submissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/payments/:payment-id/submissions",
+            "params": [
+              {
+                "name": "payment-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists submissions for a payment. The presence of a submission means that the payment has been submitted."
+        },
+        {
+          "info": {
+            "name": "Submit payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/payments/:payment-id/submissions",
+            "params": [
+              {
+                "name": "payment-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Submits a previously created payment for execution.\n\nYou can submit payments over different payment schemes, check out our [payments guides](docs/guides/payments-overview) to help decide which scheme best suites your use case."
+        },
+        {
+          "info": {
+            "name": "Get payment submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/submissions/:submission-id",
+            "params": [
+              {
+                "name": "submission-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields a submission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

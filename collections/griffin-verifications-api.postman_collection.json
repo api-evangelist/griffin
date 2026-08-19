@@ -1,0 +1,1641 @@
+{
+  "item": [
+    {
+      "id": "e75683a3-94bf-4288-9864-b23b36f5abfd",
+      "name": "Verifications",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73e1a0b6-1085-43ab-8ee2-67abbbfcad06",
+          "name": "List verifications for a legal person",
+          "request": {
+            "name": "List verifications for a legal person",
+            "description": {
+              "content": "List verifications for the given legal person.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "legal-persons",
+                ":legal-person-id",
+                "verifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legal-person-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88d83506-d425-482a-bf7b-cf5904b52eb0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verifications\": [\n    {\n      \"created-at\": \"1973-01-20T07:12:23.438Z\",\n      \"legal-person-url\": \"string\",\n      \"verification-status\": \"checks-declined\",\n      \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n      \"verification-checks-url\": \"string\",\n      \"verification-profiles-url\": \"string\",\n      \"verification-resources-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources\",\n      \"updated-at\": \"2024-09-29T12:16:03.778Z\",\n      \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n      \"risk-rating\": \"medium-risk\",\n      \"verification-risk-assessments-url\": \"string\"\n    },\n    {\n      \"created-at\": \"1991-10-05T09:30:42.572Z\",\n      \"legal-person-url\": \"string\",\n      \"verification-status\": \"in-progress\",\n      \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n      \"verification-checks-url\": \"string\",\n      \"verification-profiles-url\": \"string\",\n      \"verification-resources-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources\",\n      \"updated-at\": \"1950-01-26T04:41:44.153Z\",\n      \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n      \"risk-rating\": \"low-risk\",\n      \"verification-risk-assessments-url\": \"string\"\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"page\": {\n      \"total\": 3794,\n      \"estimated-total\": {\n        \"at-least\": 10000\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b3817b5-6fd6-48b0-9e0e-4e24c67688f2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3867551b-f66b-407d-94f5-1f4e4f5c02f4",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e64bc775-073b-4e95-8444-6c9ad88d8e38",
+          "name": "Perform verification of a legal person",
+          "request": {
+            "name": "Perform verification of a legal person",
+            "description": {
+              "content": "Initiates verification of the subject legal person.\n\nThe request body must include a `workflow-url` to determine checks to be\nperformed by the verification. The workflow specified determines which claims\nmust exist for the subject legal person, as identified in the request URL, and any\nassociated legal persons (i.e. directors and people with significant control of a\ncorporation).\n\nThese claims can be found in the `required-claim-types` field on a [Workflow](#tag/Workflows/paths/~1v0~1workflows~1{workflow-id}/get).\n\n---\n\nOnce a verification is created, the system will perform checks on the claim details.\nThe status of check processing is indicated by the `verification-status` in the response body.\nInitially it will be `pending`, and will transition through `in-progress` to a final status of `checks-complete`.\n\nA `verification-status` of `failed` indicates something went wrong during check processing.\nYou can initiate another verification to retry the check processing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "legal-persons",
+                ":legal-person-id",
+                "verifications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legal-person-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workflow-url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "69f0ef6e-e369-4a2f-8c85-700695cd9081",
+              "name": "The created verification",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL of the verification",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"1967-01-11T10:31:03.333Z\",\n  \"legal-person-url\": \"string\",\n  \"verification-status\": \"pending\",\n  \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n  \"verification-checks-url\": \"string\",\n  \"verification-profiles-url\": \"string\",\n  \"verification-resources-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources\",\n  \"updated-at\": \"2004-02-01T03:29:51.951Z\",\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"risk-rating\": \"medium-risk\",\n  \"verification-risk-assessments-url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "228a7ac8-6f4d-47ec-af9c-3df4247a8f35",
+              "name": "Bad Request: specific error details will be provided, if available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aabb248d-ff73-4a75-b975-b00e157c77de",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "abad0f35-8cd0-44d8-908c-404e01289a82",
+              "name": "Not Found: An associated legal person or workflow does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "83f4cf19-c7f6-4477-9f89-b9a0dc6f66b3",
+              "name": "Conflict: An existing verification is in-flight",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94c211d4-b9fc-4e50-b8ef-8916dd5eee21",
+              "name": "Unprocessable Entity: specific error details will be provided, if available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "daeec2a7-9b49-4767-88cb-34aff23d289b",
+              "name": "Internal Server Error: please contact support@griffin.com",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3cc63630-0653-45a7-9bbe-dfd306e47b0b",
+              "name": "Bad Gateway: An error occurred with an external service integration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id",
+                    "verifications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Gateway",
+              "code": 502,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cea10fdf-0207-4b53-9f21-abee4a7a0857",
+          "name": "Get verification",
+          "request": {
+            "name": "Get verification",
+            "description": {
+              "content": "Fetch the verification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "verifications",
+                ":verification-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "verification-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b20c3192-2ba4-4632-9796-ef46af15ce38",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"1975-03-24T21:44:16.141Z\",\n  \"legal-person-url\": \"string\",\n  \"verification-status\": \"in-progress\",\n  \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n  \"verification-checks-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/checks\",\n  \"verification-profiles-url\": \"string\",\n  \"verification-resources-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources\",\n  \"updated-at\": \"2016-11-12T11:54:14.455Z\",\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"risk-rating\": \"high-risk\",\n  \"verification-risk-assessments-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/risk-assessments\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1385a26-d8fb-47ab-88a2-5d4ea30f52a1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "407fd954-b95b-42b8-8f97-9f395e2aa274",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9444938d-5fe5-4817-936b-8d9b1277e61d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d2c362a-790f-44d0-9645-c3ef7c7abbc8",
+          "name": "Get verification profiles",
+          "request": {
+            "name": "Get verification profiles",
+            "description": {
+              "content": "GET a verification's profiles. A profile is the collection of claims used in a verification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "verifications",
+                ":verification-id",
+                "profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "verification-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d3617b1-cc54-488b-9952-60091e58c507",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verification-subject-profile\": {\n    \"display-name\": \"string\",\n    \"legal-person-url\": \"string\",\n    \"legal-person-type\": \"individual\",\n    \"current-claims\": [\n      {\n        \"aeoi-entity-classification\": \"active-nfe\",\n        \"claim-type\": \"aeoi-entity-classification\"\n      },\n      {\n        \"aeoi-entity-classification\": \"passive-nfe\",\n        \"claim-type\": \"aeoi-entity-classification\"\n      }\n    ]\n  },\n  \"verification-related-party-profiles\": [\n    {\n      \"display-name\": \"string\",\n      \"legal-person-url\": \"string\",\n      \"legal-person-type\": \"corporation\",\n      \"current-claims\": [\n        {\n          \"aeoi-entity-classification\": \"financial-institution\",\n          \"claim-type\": \"aeoi-entity-classification\"\n        },\n        {\n          \"aeoi-entity-classification\": \"active-nfe\",\n          \"claim-type\": \"aeoi-entity-classification\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"string\",\n      \"legal-person-url\": \"string\",\n      \"legal-person-type\": \"individual\",\n      \"current-claims\": [\n        {\n          \"aeoi-entity-classification\": \"active-nfe\",\n          \"claim-type\": \"aeoi-entity-classification\"\n        },\n        {\n          \"aeoi-entity-classification\": \"passive-nfe\",\n          \"claim-type\": \"aeoi-entity-classification\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f4c8b01-8fb0-46c8-8adf-22d21c771894",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13ebc392-d1c3-42e2-8590-dd5a9067134e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b247c892-430d-452d-b156-d07d768bc15f",
+          "name": "Get verification resources",
+          "request": {
+            "name": "Get verification resources",
+            "description": {
+              "content": "Yields details of the verification resources for this verification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "verifications",
+                ":verification-id",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "verification-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ec2179dc-cbd3-455d-ab4e-916c1d583e29",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n  \"legal-person-url\": \"string\",\n  \"organization-url\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA\",\n  \"verification-resources\": [\n    {\n      \"display-name\": \"string\",\n      \"idv-check-expires-at\": \"2004-02-22\",\n      \"idv-check-status\": \"pending\",\n      \"idv-check-url\": \"string\",\n      \"legal-person-url\": \"string\",\n      \"verification-resource-id\": \"vr.N7hwn54ASHCQGOdocxfQQQ\",\n      \"verification-resource-type\": \"idv-check\",\n      \"key_0\": \"string\"\n    },\n    {\n      \"display-name\": \"string\",\n      \"idv-check-expires-at\": \"1977-10-21\",\n      \"idv-check-status\": \"complete\",\n      \"idv-check-url\": \"string\",\n      \"legal-person-url\": \"string\",\n      \"verification-resource-id\": \"vr.N7hwn54ASHCQGOdocxfQQQ\",\n      \"verification-resource-type\": \"idv-check\",\n      \"key_0\": 3138.9189109088143\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78effe95-2ef3-4376-96aa-9b1bfe5fc130",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d303f78-3e4c-4ad5-8e80-b57a41fe6b20",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "afaadf57-f087-4c92-9e64-078b1a22af77",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "verifications",
+                    ":verification-id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "verification-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3409d28b-6c55-45bc-87d1-dcad21006f58",
+    "name": "The Griffin API keys Verifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

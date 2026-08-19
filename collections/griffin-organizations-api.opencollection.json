@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Organizations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields the organization details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

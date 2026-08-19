@@ -1,0 +1,1601 @@
+{
+  "item": [
+    {
+      "id": "be0449c0-21f9-40f9-b484-d53c7a1d5a41",
+      "name": "Legal persons",
+      "description": {
+        "content": "In the Griffin API, your organization and your customers are all represented by [legal persons](/docs/terms/legal-person). When you sign up with Griffin, your organization will be automatically assigned a unique legal person ID. When onboarding your customers, you will create legal persons to represent them.\n\nEvery legal person has a `legal-person-type` with the value: `individual` or `corporation`.\n\nAn `individual` represents an individual human.\n\nA `corporation` represents any non-human entity (not just companies). A corporation should have at least one [director](/docs/terms/director) or [person with significant control](/docs/terms/person-with-significant-control) attached to it, who must also be represented as a distinct `individual` legal person.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "edb259c4-0bb0-435f-a094-a63998f98b2f",
+          "name": "Get legal person",
+          "request": {
+            "name": "Get legal person",
+            "description": {
+              "content": "Yields the legal-person.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "legal-persons",
+                ":legal-person-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legal-person-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0eaf52e-1cf7-44b7-92dc-da10f69baaa4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"2007-08-25T03:44:44.383Z\",\n  \"display-name\": \"Company name\",\n  \"legal-person-decisions-url\": \"string\",\n  \"legal-person-documents-url\": \"string\",\n  \"legal-person-type\": \"individual\",\n  \"legal-person-url\": \"string\",\n  \"legal-person-verifications-url\": \"string\",\n  \"latest-decision\": {\n    \"legal-person-url\": \"string\",\n    \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n    \"decision-outcome\": \"accepted\",\n    \"decision-maker\": \"user\",\n    \"decision-notes\": \"string\",\n    \"created-at\": \"1958-02-23T20:20:31.139Z\",\n    \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"decision-ops-user\": \"griffin-ops-user\",\n    \"decision-user-username\": \"user@example.com\"\n  },\n  \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n  \"application-status\": \"submitted\",\n  \"legal-person-status\": \"onboarding\",\n  \"status-changed-at\": \"1996-05-22T09:48:56.571Z\",\n  \"legal-person-claims-url\": \"string\",\n  \"legal-person-bank-payees-url\": \"string\",\n  \"legal-name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27ceed70-f174-49d0-a623-a6601c295e99",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8d0086a-5ff7-4916-8178-a7ab5e9e1ac9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86cb08c2-81ea-4c3d-97ee-f6fd7d5b7e45",
+          "name": "Update legal person",
+          "request": {
+            "name": "Update legal person",
+            "description": {
+              "content": "Updates the legal-person.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "legal-persons",
+                ":legal-person-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "legal-person-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display-name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff10dada-131d-45df-944f-b09cec60b3ad",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The location of the updated legal-person of type individual",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"2007-08-25T03:44:44.383Z\",\n  \"display-name\": \"Company name\",\n  \"legal-person-decisions-url\": \"string\",\n  \"legal-person-documents-url\": \"string\",\n  \"legal-person-type\": \"individual\",\n  \"legal-person-url\": \"string\",\n  \"legal-person-verifications-url\": \"string\",\n  \"latest-decision\": {\n    \"legal-person-url\": \"string\",\n    \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n    \"decision-outcome\": \"accepted\",\n    \"decision-maker\": \"user\",\n    \"decision-notes\": \"string\",\n    \"created-at\": \"1958-02-23T20:20:31.139Z\",\n    \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"decision-ops-user\": \"griffin-ops-user\",\n    \"decision-user-username\": \"user@example.com\"\n  },\n  \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n  \"application-status\": \"submitted\",\n  \"legal-person-status\": \"onboarding\",\n  \"status-changed-at\": \"1996-05-22T09:48:56.571Z\",\n  \"legal-person-claims-url\": \"string\",\n  \"legal-person-bank-payees-url\": \"string\",\n  \"legal-name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "297e2a9c-2ca3-4164-970a-842682e97bb5",
+              "name": "Responds with bad-request if the body does not conform to the schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "648ebf7a-7b4e-48ac-877d-da56b801b0f3",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "23507811-8973-4740-8147-f9e0d456f764",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "edf2fd16-90a2-472c-8515-428840987a52",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "legal-persons",
+                    ":legal-person-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "legal-person-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2136d647-35ac-4d0a-92ff-b2fd0637a047",
+          "name": "List legal persons",
+          "request": {
+            "name": "List legal persons",
+            "description": {
+              "content": "Returns a paginated list of all legal persons for the given organization.\n\nBy default, results are sorted descending by `created-at` (newest first). To sort ascending by `created-at`, provide a `?sort=created-at` query parameter. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "legal-persons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each legal person returned, include its latest verification (if one exists), any roles in companies (significant control or directorship), and/or its latest risk rating (if one exists) in the response under the `included` attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[legal-person-status][in][]",
+                  "value": "<string>,<string>",
+                  "description": "Return only legal persons with the given legal-person-status."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[application-status][eq]",
+                  "value": "<string>",
+                  "description": "Return only legal persons with the given application-status."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[has][]",
+                  "value": "<string>,<string>",
+                  "description": "Return only legal persons with the given attributes."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60c739fb-d98d-48b5-96be-fe1f7fb7a612",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[legal-person-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[application-status][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"legal-persons\": [\n    {\n      \"created-at\": \"1990-10-22T12:17:14.117Z\",\n      \"display-name\": \"Company name\",\n      \"legal-person-decisions-url\": \"string\",\n      \"legal-person-documents-url\": \"string\",\n      \"legal-person-type\": \"corporation\",\n      \"legal-person-url\": \"string\",\n      \"legal-person-verifications-url\": \"string\",\n      \"latest-decision\": {\n        \"legal-person-url\": \"string\",\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"decision-outcome\": \"accepted\",\n        \"decision-maker\": \"system\",\n        \"decision-notes\": \"string\",\n        \"created-at\": \"1997-10-03T22:31:00.285Z\",\n        \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"decision-ops-user\": \"griffin-ops-user\",\n        \"decision-user-username\": \"user@example.com\"\n      },\n      \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n      \"application-status\": \"submitted\",\n      \"legal-person-status\": \"verified\",\n      \"status-changed-at\": \"1997-09-08T16:19:59.341Z\",\n      \"legal-person-claims-url\": \"string\",\n      \"legal-person-bank-payees-url\": \"string\",\n      \"legal-name\": \"string\"\n    },\n    {\n      \"created-at\": \"2019-01-17T20:43:48.188Z\",\n      \"display-name\": \"Company name\",\n      \"legal-person-decisions-url\": \"string\",\n      \"legal-person-documents-url\": \"string\",\n      \"legal-person-type\": \"corporation\",\n      \"legal-person-url\": \"string\",\n      \"legal-person-verifications-url\": \"string\",\n      \"latest-decision\": {\n        \"legal-person-url\": \"string\",\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"decision-outcome\": \"declined\",\n        \"decision-maker\": \"ops-user\",\n        \"decision-notes\": \"string\",\n        \"created-at\": \"1987-09-08T02:30:20.509Z\",\n        \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"decision-ops-user\": \"griffin-ops-user\",\n        \"decision-user-username\": \"user@example.com\"\n      },\n      \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n      \"application-status\": \"submitted\",\n      \"legal-person-status\": \"verified\",\n      \"status-changed-at\": \"1991-10-11T20:37:31.544Z\",\n      \"legal-person-claims-url\": \"string\",\n      \"legal-person-bank-payees-url\": \"string\",\n      \"legal-name\": \"string\"\n    }\n  ],\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"meta\": {\n    \"page\": {\n      \"total\": 5041,\n      \"estimated-total\": {\n        \"at-least\": 10000\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4d6c678-facc-47ef-968e-bfac52e4e08a",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[legal-person-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[application-status][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "41dc8d0e-36db-4f2f-927c-14237c3d0715",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[legal-person-status][in][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[application-status][eq]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[has][]",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41447c03-dd9c-4aea-83f5-b117424923d2",
+          "name": "Create legal person",
+          "request": {
+            "name": "Create legal person",
+            "description": {
+              "content": "Creates a new Legal Person. A collection of [Claims](#tag/Claims) may be provided.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "legal-persons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"display-name\": \"<string>\",\n  \"legal-person-type\": \"<string>\",\n  \"claims\": [\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    },\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "38e7c155-8549-4741-9f19-19e82cc1e0cc",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\",\n  \"legal-person-type\": \"<string>\",\n  \"claims\": [\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    },\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL of the created legal-person",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"2007-08-25T03:44:44.383Z\",\n  \"display-name\": \"Company name\",\n  \"legal-person-decisions-url\": \"string\",\n  \"legal-person-documents-url\": \"string\",\n  \"legal-person-type\": \"individual\",\n  \"legal-person-url\": \"string\",\n  \"legal-person-verifications-url\": \"string\",\n  \"latest-decision\": {\n    \"legal-person-url\": \"string\",\n    \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n    \"decision-outcome\": \"accepted\",\n    \"decision-maker\": \"user\",\n    \"decision-notes\": \"string\",\n    \"created-at\": \"1958-02-23T20:20:31.139Z\",\n    \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n    \"decision-ops-user\": \"griffin-ops-user\",\n    \"decision-user-username\": \"user@example.com\"\n  },\n  \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n  \"application-status\": \"submitted\",\n  \"legal-person-status\": \"onboarding\",\n  \"status-changed-at\": \"1996-05-22T09:48:56.571Z\",\n  \"legal-person-claims-url\": \"string\",\n  \"legal-person-bank-payees-url\": \"string\",\n  \"legal-name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9a5c685-5020-41f1-bc36-10211e9b4eaf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\",\n  \"legal-person-type\": \"<string>\",\n  \"claims\": [\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    },\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a68daca-4bee-4627-ab34-5eec013aa433",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\",\n  \"legal-person-type\": \"<string>\",\n  \"claims\": [\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    },\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "77020a38-d3c6-4d98-98d1-88045fa4ba70",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\",\n  \"legal-person-type\": \"<string>\",\n  \"claims\": [\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    },\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "229ec447-8e8e-4eb5-b0d1-06e1c55a6de4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"display-name\": \"<string>\",\n  \"legal-person-type\": \"<string>\",\n  \"claims\": [\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    },\n    {\n      \"aeoi-entity-classification\": \"<string>\",\n      \"claim-type\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "024316cc-cef2-4624-8cd2-cbafa5d3788d",
+          "name": "Search legal persons",
+          "request": {
+            "name": "Search legal persons",
+            "description": {
+              "content": "Returns a list of legal persons whose legal names match the `search-query` supplied in the request.\n                 Takes an optional 'equals onboarded' filter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "legal-persons",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each legal person returned, include any roles in companies (significant control or directorship) in the response under the `included` attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[legal-person-status][eq]",
+                  "value": "<string>",
+                  "description": "Return only legal persons with the given legal-person-status."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"search-query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a456a330-0fab-40ed-864b-34b7d8efc5df",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[legal-person-status][eq]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"search-query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"meta\": {\n    \"page\": {\n      \"total\": 2476,\n      \"estimated-total\": {\n        \"at-least\": 10000\n      }\n    }\n  },\n  \"search-results\": [\n    {\n      \"created-at\": \"1981-09-11T23:32:12.810Z\",\n      \"display-name\": \"Company name\",\n      \"legal-person-decisions-url\": \"string\",\n      \"legal-person-documents-url\": \"string\",\n      \"legal-person-type\": \"corporation\",\n      \"legal-person-url\": \"string\",\n      \"legal-person-verifications-url\": \"string\",\n      \"latest-decision\": {\n        \"legal-person-url\": \"string\",\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"decision-outcome\": \"accepted\",\n        \"decision-maker\": \"system\",\n        \"decision-notes\": \"string\",\n        \"created-at\": \"2005-07-17T00:31:01.064Z\",\n        \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"decision-ops-user\": \"griffin-ops-user\",\n        \"decision-user-username\": \"user@example.com\"\n      },\n      \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n      \"application-status\": \"submitted\",\n      \"legal-person-status\": \"onboarding-declined\",\n      \"status-changed-at\": \"1986-06-11T09:10:28.056Z\",\n      \"legal-person-claims-url\": \"string\",\n      \"legal-person-bank-payees-url\": \"string\",\n      \"legal-name\": \"string\"\n    },\n    {\n      \"created-at\": \"1964-09-23T04:32:11.065Z\",\n      \"display-name\": \"Company name\",\n      \"legal-person-decisions-url\": \"string\",\n      \"legal-person-documents-url\": \"string\",\n      \"legal-person-type\": \"individual\",\n      \"legal-person-url\": \"string\",\n      \"legal-person-verifications-url\": \"string\",\n      \"latest-decision\": {\n        \"legal-person-url\": \"string\",\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"decision-outcome\": \"declined\",\n        \"decision-maker\": \"user\",\n        \"decision-notes\": \"string\",\n        \"created-at\": \"2026-05-19T15:15:43.080Z\",\n        \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n        \"decision-ops-user\": \"griffin-ops-user\",\n        \"decision-user-username\": \"user@example.com\"\n      },\n      \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n      \"application-status\": \"submitted\",\n      \"legal-person-status\": \"verified\",\n      \"status-changed-at\": \"1985-05-17T06:43:18.718Z\",\n      \"legal-person-claims-url\": \"string\",\n      \"legal-person-bank-payees-url\": \"string\",\n      \"legal-name\": \"string\"\n    }\n  ],\n  \"included\": {\n    \"company-roles\": [\n      {\n        \"legal-person-url\": \"string\",\n        \"individual-company-roles\": {}\n      },\n      {\n        \"legal-person-url\": \"string\",\n        \"individual-company-roles\": {}\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f53249a-9c3b-4b13-ae98-c71b3969ee8c",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[legal-person-status][eq]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"search-query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed6c8d7f-3d70-499b-a6a9-37eba57f1e76",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "legal-persons",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[legal-person-status][eq]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"search-query\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "95989fbf-3586-46eb-abe3-169e8d839ab9",
+    "name": "The Griffin API keys Legal persons API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

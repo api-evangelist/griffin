@@ -1,0 +1,134 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Memberships API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Memberships",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/memberships/:membership-id",
+            "params": [
+              {
+                "name": "membership-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the [user's](#tag/Users) [membership](#tag/Memberships) information."
+        },
+        {
+          "info": {
+            "name": "Delete membership",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v0/memberships/:membership-id",
+            "params": [
+              {
+                "name": "membership-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Removes a [user](#tag/Users) from an [organization](#tag/Organizations)."
+        },
+        {
+          "info": {
+            "name": "List organization memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/memberships",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns this [organization's](#tag/Organizations) [memberships](#tag/Memberships)."
+        },
+        {
+          "info": {
+            "name": "List user memberships",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/users/:user-id/memberships",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "user-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns this [user's](#tag/Users) [memberships](#tag/Memberships)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

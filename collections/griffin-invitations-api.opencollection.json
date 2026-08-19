@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Invitations API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invitations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/invitations",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "`POST` creates a new invitation to the organization.\n\nSends an email invitation to join the `organization` to the specified `email-address`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

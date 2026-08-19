@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Transactions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/transactions",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each transaction returned, include its payment (if one exists) in the response under the `included` attribute."
+              },
+              {
+                "name": "filter[processed-at][lte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only transactions processed at or before the given timestamp."
+              },
+              {
+                "name": "filter[processed-at][lt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only transactions processed before the given timestamp."
+              },
+              {
+                "name": "filter[processed-at][gte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only transactions processed at or after the given timestamp."
+              },
+              {
+                "name": "filter[processed-at][gt]",
+                "value": "",
+                "type": "query",
+                "description": "Return only transactions processed after the given timestamp."
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists transactions on a bank account. Use an `Accept: application/vnd.griffin+xero-csv` header to receive transactions in a CSV format suitable for importing into [Xero](https://central.xero.com/s/article/Import-a-CSV-bank-statement)."
+        },
+        {
+          "info": {
+            "name": "Get transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/transactions/:transaction-id",
+            "params": [
+              {
+                "name": "transaction-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields a bank account transaction"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,623 @@
+{
+  "item": [
+    {
+      "id": "3830d9f1-9583-4e84-b9e2-d6d6be166303",
+      "name": "Reliance onboarding",
+      "description": {
+        "content": "Reliance onboarding allows you to create and submit an application on behalf of your customer, using information about them you have already collected. For more information, checkout our [onboarding guides](https://docs.griffin.com/docs/tags/onboarding).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bdde86ca-37e0-4983-ab6e-ae6669260bdf",
+          "name": "Get onboarding application",
+          "request": {
+            "name": "Get onboarding application",
+            "description": {
+              "content": "Fetch an onboarding application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "onboarding",
+                "applications",
+                ":onboarding-application-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "onboarding-application-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7959bb5-7cc0-4f8d-b678-da3792e455e7",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "onboarding",
+                    "applications",
+                    ":onboarding-application-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "onboarding-application-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created-at\": \"2007-11-20T19:19:00.993Z\",\n  \"legal-person-url\": \"string\",\n  \"onboarding-application-url\": \"/v0/onboarding/applications/oa.b25ib2FyZGluZy1hcHBsaQ\",\n  \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"onboarding-application-status\": \"processing\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0c8be368-2b1d-4274-bbbe-1ee1d9683edf",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "onboarding",
+                    "applications",
+                    ":onboarding-application-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "onboarding-application-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f46199a-7a6c-4bc6-bbb4-a46371bcf73a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "onboarding",
+                    "applications",
+                    ":onboarding-application-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "onboarding-application-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "716c2c24-e091-4a52-b98a-6c7752c601d8",
+          "name": "Create an onboarding application",
+          "request": {
+            "name": "Create an onboarding application",
+            "description": {
+              "content": "Create an onboarding application and submit it for processing.\n\n  The request body must include a `workflow-url` to determine checks to be performed by the verification.\n  The workflow specified determines which claims must exist for the subject profile, and any related profile (i.e. directors and people with significant control of a corporation).\n\n  ---\n\n  At the moment we only support 3 reliance workflows: Reliance LTD Company, Reliance Individual and Reliance Sole Trader.\n\n  You need to provide different claims depending on the type of customer you wish to onboard via reliance.\n  | LTD Company | Individual | Sole trader |\n  | ----------- | ---------- | ----------- |\n  | Subject profile:<br>`uk-company-register`<br>`trading-address`<br>`reliance-verification`<br><br>Related profiles:<br>`individual-identity`<br>`individual-residence`<br>`reliance-verification` | Subject profile:<br>`individual-identity`<br>`individual-residence`<br>`reliance-verification` | Subject profile:<br>`business-name`<br>`individual-identity`<br>`individual-residence`<br>`reliance-verification` |\n\n  For more information, check out our [onboarding guides](/docs/tags/onboarding).\n  ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "organizations",
+                ":organization-id",
+                "onboarding",
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"workflow-url\": \"<string>\",\n  \"subject-profile\": {\n    \"display-name\": \"<string>\",\n    \"claims\": [\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      },\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      }\n    ]\n  },\n  \"related-profiles\": [\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"<string>\"\n        },\n        \"psc\": {\n          \"companies-house-url\": \"<string>\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"<string>\"\n        },\n        \"psc\": {\n          \"companies-house-url\": \"<string>\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e1044cc-7a1b-42c4-8917-da17524ef76b",
+              "name": "The created application",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "onboarding",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"subject-profile\": {\n    \"display-name\": \"<string>\",\n    \"claims\": [\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      },\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      }\n    ]\n  },\n  \"related-profiles\": [\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL of the application",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"onboarding-application-url\": \"/v0/onboarding/applications/oa.b25ib2FyZGluZy1hcHBsaQ\",\n  \"onboarding-application-status\": \"complete\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fa8ae6e-3120-4a3d-9a0d-28fb54ee5377",
+              "name": "Responds with bad-request if the body does not conform to the schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "onboarding",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"subject-profile\": {\n    \"display-name\": \"<string>\",\n    \"claims\": [\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      },\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      }\n    ]\n  },\n  \"related-profiles\": [\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ae24777-b09c-4643-b3d7-fbcf455d66b3",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "onboarding",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"subject-profile\": {\n    \"display-name\": \"<string>\",\n    \"claims\": [\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      },\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      }\n    ]\n  },\n  \"related-profiles\": [\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2174741c-5735-40cd-b521-230b4e068388",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "onboarding",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"subject-profile\": {\n    \"display-name\": \"<string>\",\n    \"claims\": [\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      },\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      }\n    ]\n  },\n  \"related-profiles\": [\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eb9f4304-78d1-41cf-b501-0b5a95adb219",
+              "name": "Unprocessable Entity: specific error details will be provided, if available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "organizations",
+                    ":organization-id",
+                    "onboarding",
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n  \"subject-profile\": {\n    \"display-name\": \"<string>\",\n    \"claims\": [\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      },\n      {\n        \"aeoi-entity-classification\": \"<string>\",\n        \"claim-type\": \"<string>\"\n      }\n    ]\n  },\n  \"related-profiles\": [\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"display-name\": \"<string>\",\n      \"subject-association\": {\n        \"director\": {\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"psc\": {\n          \"ownership-percent\": \"12.34\",\n          \"companies-house-url\": \"https://api.company-information.service.gov.uk/company/00000001/appointments/AbcDEFGhI1JKLmnO2PQ3sTUv4WX\"\n        },\n        \"senior-manager\": {},\n        \"governing-body-member\": {},\n        \"senior-manager-function-holder\": {}\n      },\n      \"claims\": [\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        },\n        {\n          \"aeoi-entity-classification\": \"<string>\",\n          \"claim-type\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "bdb71067-f7bd-46b7-9bd4-72051df5e087",
+    "name": "The Griffin API keys Reliance onboarding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

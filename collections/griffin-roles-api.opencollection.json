@@ -1,0 +1,83 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Roles API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Roles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List membership roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/memberships/:membership-id/roles",
+            "params": [
+              {
+                "name": "membership-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the [roles](#tag/Roles) assigned to this [membership](#tag/Memberships)."
+        },
+        {
+          "info": {
+            "name": "Update role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/v0/memberships/:membership-id/roles",
+            "params": [
+              {
+                "name": "membership-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Assigns [roles](#tag/Roles) to the [membership](#tag/Memberships).\n\nA 422 Unprocessable Entity is served if either:\n* one role url provided in the body is not in the [Organisations](#tag/Organizations) `\"available-roles\"`\n* the request attempts to remove the last admin role of the organization, thus making the organisation unusable."
+        },
+        {
+          "info": {
+            "name": "List roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/roles"
+          },
+          "docs": "Yields a list of all Role resources."
+        },
+        {
+          "info": {
+            "name": "Get role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/roles/:role-id",
+            "params": [
+              {
+                "name": "role-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields the Role resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

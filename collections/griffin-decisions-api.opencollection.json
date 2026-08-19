@@ -1,0 +1,76 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Decisions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Decisions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List decisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/decisions",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all decisions for the given legal-person."
+        },
+        {
+          "info": {
+            "name": "Create decision",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/decisions",
+            "params": [
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates a decision against the legal person.\n\nThe provided verification must have a `verification-status` of `checks-complete`, otherwise a 422 is served.\n\nWhen a decision is successfully created, the legal person's `application-status` is updated accordingly.\n\nMultiple decisions may be made against the same legal person."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

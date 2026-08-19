@@ -1,0 +1,92 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Bank account holds API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bank account holds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v0/bank/accounts/{bank-account-id}/holds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/accounts/:bank-account-id/holds",
+            "params": [
+              {
+                "name": "filter[origin-type][eq]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter[updated-at][gte]",
+                "value": "",
+                "type": "query",
+                "description": "Return only holds updated at or after the given timestamp."
+              },
+              {
+                "name": "filter[status][in][]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "bank-account-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists all holds on a bank account.\n                 Use `filter[status][in][]` to filter by specific statuses.\n                 Use `filter[updated-at][gte]` to return only holds last updated at or after a timestamp.\n                 Use `filter[origin-type][eq]` to filter by origin type."
+        },
+        {
+          "info": {
+            "name": "GET /v0/bank/holds/{hold-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/bank/holds/:hold-id",
+            "params": [
+              {
+                "name": "hold-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetches a single hold by ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

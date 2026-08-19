@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Claims API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Claims",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DELETE /v0/claims/{claim-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v0/claims/:claim-id",
+            "params": [
+              {
+                "name": "claim-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes an existing claim about a Legal Person."
+        },
+        {
+          "info": {
+            "name": "List claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/claims",
+            "params": [
+              {
+                "name": "filter[verification-status][eq]",
+                "value": "",
+                "type": "query",
+                "description": "The verification-status of a claim changes from `\"unverified\"` to `\"verified\"` when it has successfully been used in a verification as part of an accepted application. Claims of errored or declined applications are `\"unverified\"`."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Yields a list of all current claims about this Legal Person."
+        },
+        {
+          "info": {
+            "name": "Create claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/claims",
+            "params": [
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Creates a new claim about a Legal Person."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

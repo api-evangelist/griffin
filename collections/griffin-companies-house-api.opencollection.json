@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Companies House API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Companies House",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Lookup company",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/companies-house/companies/:company-number",
+            "params": [
+              {
+                "name": "company-number",
+                "value": "",
+                "type": "path",
+                "description": "UK Companies House company number"
+              }
+            ]
+          },
+          "docs": "Lookup Companies House company by company number. Includes information about the company, its directors, and persons with significant control."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

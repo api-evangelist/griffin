@@ -1,0 +1,819 @@
+{
+  "item": [
+    {
+      "id": "5d1fb760-52ee-48ec-8af9-433f6f72db06",
+      "name": "Pooled account membership",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3d028ee3-a230-4d8a-b590-4a758a8db35d",
+          "name": "List legal person in a pooled account membership",
+          "request": {
+            "name": "List legal person in a pooled account membership",
+            "description": {
+              "content": "List legal persons in a pooled account membership",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "bank",
+                "accounts",
+                ":bank-account-id",
+                "membership"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "For each member returned, include its legal person details, latest verification (if one exists), and/or latest risk rating (if one exists) in the response under the `included` attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "<long>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<byte>",
+                  "description": "A base64 encoded opaque string returned in paginated responses."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank-account-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "18263806-43c9-4125-918a-22ec20ccab4f",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"prev\": \"string\",\n    \"next\": \"string\"\n  },\n  \"pool-members\": [\n    {\n      \"created-at\": \"2016-07-11T20:26:30.983Z\",\n      \"legal-person-url\": \"string\"\n    },\n    {\n      \"created-at\": \"1970-01-07T17:29:30.024Z\",\n      \"legal-person-url\": \"string\"\n    }\n  ],\n  \"meta\": {\n    \"page\": {\n      \"total\": 2892,\n      \"estimated-total\": {\n        \"at-least\": 10000\n      }\n    }\n  },\n  \"included\": {\n    \"verifications\": [\n      {\n        \"created-at\": \"1984-11-28T00:31:02.366Z\",\n        \"legal-person-url\": \"string\",\n        \"verification-status\": \"checks-complete\",\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"verification-checks-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/checks\",\n        \"verification-profiles-url\": \"string\",\n        \"verification-resources-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources\",\n        \"updated-at\": \"2010-08-24T02:39:40.766Z\",\n        \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n        \"risk-rating\": \"medium-risk\",\n        \"verification-risk-assessments-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/risk-assessments\"\n      },\n      {\n        \"created-at\": \"1991-10-15T19:25:42.542Z\",\n        \"legal-person-url\": \"string\",\n        \"verification-status\": \"checks-complete\",\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"verification-checks-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/checks\",\n        \"verification-profiles-url\": \"string\",\n        \"verification-resources-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/resources\",\n        \"updated-at\": \"2009-05-18T10:30:06.641Z\",\n        \"workflow-url\": \"/v0/workflows/wf.ICAgICB3b3JrZmxvdy1pZA\",\n        \"risk-rating\": \"prohibited-risk\",\n        \"verification-risk-assessments-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA/risk-assessments\"\n      }\n    ],\n    \"risk-rating-entries\": [\n      {\n        \"risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n        \"risk-rating\": \"prohibited-risk\",\n        \"legal-person-url\": \"string\",\n        \"notes\": \"string\",\n        \"manually-created-by\": {\n          \"manually-created-by-type\": \"ops-user\",\n          \"key_0\": false\n        },\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"previous-risk-rating\": \"medium-risk\"\n      },\n      {\n        \"risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n        \"risk-rating\": \"low-risk\",\n        \"legal-person-url\": \"string\",\n        \"notes\": \"string\",\n        \"manually-created-by\": {\n          \"manually-created-by-type\": \"ops-user\",\n          \"key_0\": 346.6039191205039\n        },\n        \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n        \"previous-risk-rating\": \"prohibited-risk\"\n      }\n    ],\n    \"legal-persons\": [\n      {\n        \"created-at\": \"1983-02-16T14:09:01.807Z\",\n        \"display-name\": \"string\",\n        \"legal-person-decisions-url\": \"string\",\n        \"legal-person-documents-url\": \"string\",\n        \"legal-person-type\": \"individual\",\n        \"legal-person-url\": \"string\",\n        \"legal-person-verifications-url\": \"string\",\n        \"latest-decision\": {\n          \"legal-person-url\": \"string\",\n          \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n          \"decision-outcome\": \"declined\",\n          \"decision-maker\": \"ops-user\",\n          \"decision-notes\": \"string\",\n          \"created-at\": \"1969-11-06T13:54:43.788Z\",\n          \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n          \"decision-ops-user\": \"griffin-ops-user\",\n          \"decision-user-username\": \"user@example.com\"\n        },\n        \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n        \"application-status\": \"submitted\",\n        \"legal-person-status\": \"onboarded\",\n        \"status-changed-at\": \"2023-04-16T11:35:37.424Z\",\n        \"legal-person-claims-url\": \"string\",\n        \"legal-person-bank-payees-url\": \"string\",\n        \"legal-name\": \"string\"\n      },\n      {\n        \"created-at\": \"1978-05-03T21:21:12.266Z\",\n        \"display-name\": \"string\",\n        \"legal-person-decisions-url\": \"string\",\n        \"legal-person-documents-url\": \"string\",\n        \"legal-person-type\": \"corporation\",\n        \"legal-person-url\": \"string\",\n        \"legal-person-verifications-url\": \"string\",\n        \"latest-decision\": {\n          \"legal-person-url\": \"string\",\n          \"verification-url\": \"/v0/verifications/vn.IHZlcmlmaWNhdGlvbi1pZA\",\n          \"decision-outcome\": \"declined\",\n          \"decision-maker\": \"ops-user\",\n          \"decision-notes\": \"string\",\n          \"created-at\": \"1988-07-25T15:35:45.881Z\",\n          \"decision-user-url\": \"/v0/users/ur.ICAgICAgICAgdXNlci1pZA\",\n          \"decision-ops-user\": \"griffin-ops-user\",\n          \"decision-user-username\": \"user@example.com\"\n        },\n        \"latest-risk-rating-url\": \"/v0/risk-ratings/rr.ICByaXNrLXJhdGluZy1pZA\",\n        \"application-status\": \"referred\",\n        \"legal-person-status\": \"onboarding-declined\",\n        \"status-changed-at\": \"1964-04-02T20:15:39.881Z\",\n        \"legal-person-claims-url\": \"string\",\n        \"legal-person-bank-payees-url\": \"string\",\n        \"legal-name\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbbdda9a-53bf-4591-87cd-e1a9557dcc22",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ef2ff80a-d00d-4859-a7dc-f892bb2ba897",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dbec23f6-c8ba-4ad6-ae47-9355c3e433a4",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<byte>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<byte>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "effc7937-9108-4702-9493-4d8676e0025d",
+          "name": "Manage pooled account members",
+          "request": {
+            "name": "Manage pooled account members",
+            "description": {
+              "content": "Add and update the legal persons in a pooled account membership. Limited to 1000 legal persons per operation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v0",
+                "bank",
+                "accounts",
+                ":bank-account-id",
+                "membership-updates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bank-account-id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d185655-459a-4884-9783-745466025098",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership-updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pooled-account-memberships-url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77449a3f-8517-4e53-be69-3d60b1f24b41",
+              "name": "Responds with bad-request if the body does not conform to the schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership-updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5d8a05c9-9455-41e6-aec3-893ce00fe140",
+              "name": "Requires an API key to continue",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership-updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Returns `GriffinSession` if no valid authentication is found.",
+                  "key": "www-authenticate",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e68af310-0c63-4af4-8d52-7c9e7f5cc76c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership-updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f811ebe7-df27-4867-ab48-d55c2cc7676b",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership-updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "07826bd7-ddd1-4107-b22e-58cd7e1a1fed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v0",
+                    "bank",
+                    "accounts",
+                    ":bank-account-id",
+                    "membership-updates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bank-account-id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"deletions\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.griffin.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b5c799ee-411b-4516-bbc9-9b10c9822f00",
+    "name": "The Griffin API keys Pooled account membership API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\n\nThe Griffin API is based on [REST](https://en.wikipedia.org/wiki/Representational_state_transfer).\nIt has resource-oriented URLs, accepts [JSON](https://www.json.org/json-en.html)-encoded request bodies, returns [JSON](https://www.json.org/json-en.html)-encoded responses, and uses standard HTTP response verbs and response codes.\n\nOur API deviates from strict RESTful principles if it makes sense to do so, such as when we enforce tighter access controls around certain operations.\nFor example, when closing a bank account: rather than send a PATCH request to the [bank account](#tag/Bank-accounts) resource to update it's status to `\"closed\"`, we provide a dedicated account closure resource.\n\nAnyone can [create an account](https://app.griffin.com/register) with Griffin and try out our API in [sandbox mode](/docs/guides/sandbox-vs-live-mode).\n\nNew to Griffin? Check out our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Navigation\n\nOur API is designed to be navigated programmatically. When you request any resource, you will find the URLs for related resources in the response body.\n\nThe API is structured as a tree with your [organization](#tag/Organizations) at the top. Everything that you own will be a sub-resource of your organization.\n\nTo bootstrap the navigation process, request the [index](#tag/Navigation/paths/~1v0~1index/get) endpoint: the response will contain your `organization-url`.\n\nFor a walkthrough, see our [getting started guide](/docs/guides/get-started-with-the-api).\n\n## Pagination\n\nOur list APIs support pagination (e.g. [list bank accounts](#tag/Bank-accounts/paths/~1v0~1organizations~1%7Borganization-id%7D~1bank~1accounts/get) and [list payments](#tag/Payments/paths/~1v0~1bank~1accounts~1%7Bbank-account-id%7D~1payments/get)).\nBy default, a list API returns up to 25 results. If there are more results available, the response payload will include links to the previous/next pages.\n\n### Change page size\n\nYou can request a different number of results (between 1 and 200, inclusive) by using the `page[size]` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?page[size]=100\n```\n\n### Navigating between pages\n\nList responses will include a `links` object with `prev` and `next` attributes, as shown below.\nPerform a GET request to the value of the attribute to fetch the previous/next page of results.\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    \"prev\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[before]=djE6WxSPxfYUTnCU9XtWzj9gGA\",\n    \"next\": \"/v0/organizations/og.IG9yZ2FuaXphdGlvbi1pZA/bank/accounts?page[after]=djE6aw79PXZySUOL16LD8HRJ3A\"\n  }\n}\n\n```\nIf there is no previous or next page available, the value of the attribute will be  null.\n\nAny other query parameters included in the initial request will also be included in the response payload's links.\nIf you want to change parameters (see [filtering and sorting](#section/Filtering-and-sorting)), request the first page and follow the links from there.\n\n## Filtering and sorting\n\n### Sort results\n\nBy default, resources will be listed in descending order, usually based on the `created-at` attribute.\nYou can change the sorting behaviour of a list of results by using the `sort` query parameter.\n\nFor example, to list bank accounts in ascending order (oldest first):\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=created-at\n```\n\nTo _explicitly_ sort in descending order (newest first), prefix the sort attribute with `-`:\n\n```\nGET /v0/organizations/:id/bank/accounts?sort=-created-at\n```\n\n### Filter results\n\nSome list APIs allow you to filter the results.\nFilters are expressed as nested data structures encoded into query parameters.\nFor example, you can list bank accounts that are in either the `opening` or `open` state with:\n\n```\nGET /v0/organizations/:id/bank/accounts?filter[account-status][in][]=opening&filter[account-status][in][]=open\n```\n\nSimilarly, you can list legal persons with a specific `application-status`:\n\n```\nGET /v0/organizations/:id/legal-persons?filter[application-status][eq]=accepted\n```\n\n### Include resources\n\nSome list APIs allow you to include associated resources in the response, reducing the number of requests needed to fetch related data.\nFor instance, when listing bank accounts, you can include each bank account's beneficiary legal person by using the `include` query parameter:\n\n```\nGET /v0/organizations/:id/bank/accounts?include=beneficiary\n```\n\nThe response returns the usual list of bank accounts, but it will also have an `included` object with a `legal-persons` attribute:\n\n```\n{\n  \"accounts\": [\n    // ...\n  ],\n  \"links\": {\n    // ...\n  }\n  \"included\": {\n    \"legal-persons\": [\n      // ...\n    ]\n  }\n}\n```\n\nCheck the documentation for each list API to see all options for sorting and filtering\n\n## Request limits\n\nEach organization is allowed up to 50 concurrent (in-flight) API requests. Exceeding this threshold results in a 429 - Too Many Requests response. Upon receiving a 429 response, you should implement a backoff strategy, pausing to allow your outstanding requests to complete before attempting new requests. To manage your request rate effectively and avoid surpassing this limit, consider using a controlled approach such as a finite pool of threads or workers.\n\n## Versioning\n\nThe Griffin API is versioned via a prefix in the URL.\nThe current version is v0.\nAn example endpoint is: https://api.griffin.com/v0/index.\n\nWe will not break your integration with a particular version for as long as we support that version.\nIf we release a new version, you will have 12 months to upgrade to it.",
+      "type": "text/plain"
+    }
+  }
+}

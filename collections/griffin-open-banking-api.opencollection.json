@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Open banking API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Open banking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tell consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/open-banking/tell-consents/:consent-id",
+            "params": [
+              {
+                "name": "consent-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetch a registered Tell consent."
+        },
+        {
+          "info": {
+            "name": "Revoke Tell consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/open-banking/tell-consents/:consent-id/actions/revoke",
+            "params": [
+              {
+                "name": "consent-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Revoke a registered Tell consent.\n\nAfter revoking a consent with Tell Money, also revoke it with Griffin\nso that Griffin rejects any further resource requests for this consent."
+        },
+        {
+          "info": {
+            "name": "Register Tell consent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/open-banking/tell-consents",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Register a Tell consent for open banking on your customers' accounts.\n\nAfter granting a consent with Tell Money, register it with Griffin so\nthat Griffin can validate Tell's subsequent resource requests.\n\n`tell-consent-permissions` behaviour depends on `tell-consent-scope`:\n  - `accounts` scope requires at least one permission; this controls which\n    AISP operations the TPP can perform (e.g. reading balances or\n    transactions).\n  - `payments` scope does not use permissions — Tell Money return"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

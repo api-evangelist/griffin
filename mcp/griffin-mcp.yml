@@ -14,7 +14,9 @@ server:
   auth:
     env: GRIFFIN_API_KEY
     note: Sandbox keys only — the docs warn not to use a live organisation API key.
-  clients: [Claude Desktop, Cursor]
+  clients:
+  - Claude Desktop
+  - Cursor
 tools:
 - name: open-operational-account
 - name: create-and-submit-payment
@@ -27,8 +29,12 @@ tools:
 - name: list-payees
 - name: get-payee
 - name: list-transactions
-notes: >-
-  Official first-party MCP server (11 tools) published by Griffin to npm and
-  GitHub. Wraps a subset of the v0 REST API for account, payment, legal-person,
-  payee and transaction operations. Tool list transcribed from the docs; exact
-  names verified against the published tool descriptions.
+notes: Official first-party MCP server (11 tools) published by Griffin to npm and GitHub. Wraps a subset
+  of the v0 REST API for account, payment, legal-person, payee and transaction operations. Tool list transcribed
+  from the docs; exact names verified against the published tool descriptions.
+deployment:
+  mode: local-stdio
+  verified: searched
+  tools: 11
+  checked: '2026-08-12'
+  source: catalog MCP census

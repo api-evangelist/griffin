@@ -1,0 +1,118 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Payees API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List legal person payees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/bank/payees",
+            "params": [
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "For each payee returned, include its Confirmation of Payee (CoP) details (if they exist) in the response under the `included` attribute."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "A base64 encoded opaque string returned in paginated responses."
+              },
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists payees belonging to the legal person."
+        },
+        {
+          "info": {
+            "name": "Create payee",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/legal-persons/:legal-person-id/bank/payees",
+            "params": [
+              {
+                "name": "legal-person-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Registers a new payee with a legal person.\n\nYou may associate the outcome of a [CoP request](#tag/Confirmation-of-payee) with the payee by supplying a `cop-request-url`."
+        },
+        {
+          "info": {
+            "name": "Get payee",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/payees/:payee-id",
+            "params": [
+              {
+                "name": "payee-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the payee details."
+        },
+        {
+          "info": {
+            "name": "Update payee",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v0/payees/:payee-id",
+            "params": [
+              {
+                "name": "payee-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Updates an existing payee.\n\nYou can update a payee with the outcome of a [CoP request](#tag/Confirmation-of-payee) by supplying a `cop-request-url`.\n\nA payee can be deactivated by updating the `payee-status` of an active payee to `deactivated`. Any attempt to create or submit a payment to a deactivated payee will fail.\n\nA 422 is served when attempting to deactivate an already-deactivated payee."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

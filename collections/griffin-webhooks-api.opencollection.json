@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "The Griffin API keys Webhooks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /v0/organizations/{organization-id}/webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/webhooks",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get all webhooks for the organization"
+        },
+        {
+          "info": {
+            "name": "POST /v0/organizations/{organization-id}/webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/organizations/:organization-id/webhooks",
+            "params": [
+              {
+                "name": "organization-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Create a webhook"
+        },
+        {
+          "info": {
+            "name": "GET /v0/webhooks/{webhook-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Fetch a webhook"
+        },
+        {
+          "info": {
+            "name": "PATCH /v0/webhooks/{webhook-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update a webhook"
+        },
+        {
+          "info": {
+            "name": "DELETE /v0/webhooks/{webhook-id}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a webhook"
+        },
+        {
+          "info": {
+            "name": "POST /v0/webhooks/{webhook-id}/actions/activate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id/actions/activate",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Activate a webhook"
+        },
+        {
+          "info": {
+            "name": "POST /v0/webhooks/{webhook-id}/actions/deactivate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id/actions/deactivate",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deactivate a webhook"
+        },
+        {
+          "info": {
+            "name": "GET /v0/webhooks/{webhook-id}/actions/test",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id/actions/test",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get the status of the latest test event"
+        },
+        {
+          "info": {
+            "name": "POST /v0/webhooks/{webhook-id}/actions/test",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/v0/webhooks/:webhook-id/actions/test",
+            "params": [
+              {
+                "name": "webhook-id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Send a test event to the webhook"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
