@@ -42,6 +42,16 @@ tags:
 - KYC
 - Open Banking
 - Bank Accounts
+- Financial-Services
+tags_raw:
+- Company
+- Fintech
+- Banking
+- Banking as a Service
+- Payments
+- KYC
+- Open Banking
+- Bank Accounts
 - Financial Services
 apis:
 - aid: griffin:griffin-api-keys-api
@@ -64,6 +74,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - APIKeys
+  tags_raw:
   - API keys
   properties:
   - type: OpenAPI
@@ -124,6 +136,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Bank Accounts
+  tags_raw:
   - Bank accounts
   properties:
   - type: OpenAPI
@@ -175,6 +189,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Confirmation of Payee
+  tags_raw:
   - Confirmation of payee
   properties:
   - type: OpenAPI
@@ -223,6 +239,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -395,6 +413,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Open Banking
+  tags_raw:
   - Open banking
   properties:
   - type: OpenAPI
@@ -429,6 +449,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -542,6 +564,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
@@ -560,6 +584,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -576,6 +602,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Verification
+  tags_raw:
   - Verifications
   properties:
   - type: OpenAPI
@@ -592,6 +620,8 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
