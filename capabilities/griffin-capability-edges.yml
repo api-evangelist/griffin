@@ -1,0 +1,73 @@
+slug: griffin
+provider: Griffin
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Payments
+  spec_file: griffin-payments-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.85
+  evidence: POST /v0/bank/accounts/{bank-account-id}/payments  Create payment; POST /v0/payments/{payment-id}/submissions  Submit
+    payment
+  reason: Operations capture, submit and track payment instructions (with admissions/submissions to the
+    scheme) for a regulated bank — payment initiation, with adjacent processing.
+- tag: Verifications
+  spec_file: griffin-verifications-api-openapi.yml
+  capability_id: BC-1300.20
+  capability_id_l1: BC-1300
+  capability_name: KYC & Customer Due Diligence Management
+  confidence: 0.85
+  evidence: POST /v0/legal-persons/{legal-person-id}/verifications  Perform verification of a legal person;
+    GET /v0/verifications/{verification-id}/profiles
+  reason: Vendor describes 'automated KYC/KYB onboarding (Verify)'; these operations run and retrieve
+    identity/due-diligence verifications on legal persons, i.e. KYC/CDD.
+- tag: Bank accounts
+  spec_file: griffin-bank-accounts-api-openapi.yml
+  capability_id: BC-1330.40
+  capability_id_l1: BC-1330
+  capability_name: Account Lifecycle Operations Management
+  confidence: 0.8
+  evidence: POST /v0/organizations/{organization-id}/bank/accounts  "Open bank account"; POST /v0/bank/accounts/{bank-account-id}/actions/close;
+    GET "Get bank account product"
+  reason: Operations open, retrieve, patch, list and close bank accounts against bank products for an
+    organization — deposit account lifecycle operations at a regulated bank, not a technical resource.
+- tag: Reliance onboarding
+  spec_file: griffin-reliance-onboarding-api-openapi.yml
+  capability_id: BC-1300.10
+  capability_id_l1: BC-1300
+  capability_name: Customer Onboarding Management
+  confidence: 0.75
+  evidence: POST /v0/organizations/{organization-id}/onboarding/applications  Create an onboarding application
+  reason: Creates and tracks onboarding applications for banking customers (under KYC reliance arrangements),
+    i.e. customer onboarding/account opening for a regulated bank.
+- tag: Legal persons
+  spec_file: griffin-legal-persons-api-openapi.yml
+  capability_id: BC-1300.40
+  capability_id_l1: BC-1300
+  capability_name: Customer Information Management
+  confidence: 0.7
+  evidence: POST /v0/organizations/{organization-id}/legal-persons  "Create legal person"; PUT "Update
+    legal person"; POST "Search legal persons"
+  reason: Legal persons are the customer (individual or company) records that Griffin's banking and KYC/KYB
+    flows hang off — create, update, search and retrieve customer master data for a bank.
+- tag: Payees
+  spec_file: griffin-payees-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.7
+  evidence: POST /v0/legal-persons/{legal-person-id}/bank/payees  Create payee
+  reason: Payee (beneficiary) records are maintained to capture and validate outbound payment instructions
+    on this UK bank's rails, which sits under payment initiation management.
