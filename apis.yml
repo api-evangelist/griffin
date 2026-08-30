@@ -86,7 +86,7 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
-  - APIKeys
+  - API keys
   tags_raw:
   - API keys
   properties:
@@ -201,7 +201,7 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
-  - Confirmation of Payee
+  - Confirmation of payee
   tags_raw:
   - Confirmation of payee
   properties:
@@ -425,7 +425,7 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
-  - Open Banking
+  - Open banking
   tags_raw:
   - Open banking
   properties:
@@ -614,7 +614,7 @@ apis:
   humanURL: https://docs.griffin.com/
   baseURL: https://api.griffin.com/v0
   tags:
-  - Verification
+  - Verifications
   tags_raw:
   - Verifications
   properties:
