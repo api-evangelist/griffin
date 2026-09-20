@@ -1,0 +1,55 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://griffin.com/pricing
+sources:
+- https://griffin.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+published: true
+note: Also states interest/commission 'From 1.75 %' (1.76% AER, variable, tracks BoE base rate). Details
+  require contacting sales.
+plan_count: 6
+currency: GBP
+plans:
+- name: Business bank accounts
+  price_text: From £100
+  price: 100
+  currency: GBP
+  period: month
+  unit: monthly fee
+- name: Onboard with Griffin (platform banking)
+  price_text: One-off fee, from £15,000
+  price: 15000
+  currency: GBP
+  period: one-time
+  unit: onboarding
+  included_quota: Go live in 6–8 weeks. Pay once, get complete onboarding support.
+- name: Monthly package
+  price_text: £3,500
+  price: 3500
+  currency: GBP
+  period: month
+  unit: minimum spend
+  included_quota: Draw down from your monthly package with each transaction.
+- name: Monthly package
+  price_text: £5,000
+  price: 5000
+  currency: GBP
+  period: month
+  unit: minimum spend
+  included_quota: Save up to 20%
+- name: Monthly package
+  price_text: £10,000
+  price: 10000
+  currency: GBP
+  period: month
+  unit: minimum spend
+  included_quota: Save up to 40%
+- name: Enterprise
+  price_text: Custom
+  period: none
