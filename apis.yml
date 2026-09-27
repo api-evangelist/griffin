@@ -56,7 +56,7 @@ tags:
 - KYC
 - Open Banking
 - Bank Accounts
-- Financial-Services
+- Financial Services
 tags_raw:
 - Company
 - Fintech
@@ -67,6 +67,7 @@ tags_raw:
 - Open Banking
 - Bank Accounts
 - Financial Services
+- Financial-Services
 apis:
 - aid: griffin:griffin-api-keys-api
   name: Griffin API keys API
