@@ -1,0 +1,12 @@
+{
+ "url": "https://api.griffin.com/swagger.json",
+ "requested_url": "https://api.griffin.com/swagger.json",
+ "status": 200,
+ "content_type": "application/json;charset=utf-8",
+ "bytes": 1933068,
+ "sha256": "9e4c303c70a54f52925c56402014a3c8f9db94f8b173965af134a336234f28b3",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.933), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
