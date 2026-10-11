@@ -12,8 +12,8 @@
   type: claimed
   evidence: https://griffin.com/blog/griffin-partners-with-veriff-to-offer-idv-to-baas-customers
   source: edge
-  status: pending-generation
-  arazzo: null
+  arazzo: griffin-veriff-idv-verification.yml
+  status: arazzo
 - slug: griffin-countingup
   label: Countingup
   partner_name: Countingup

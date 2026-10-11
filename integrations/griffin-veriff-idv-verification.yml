@@ -1,0 +1,81 @@
+arazzo: 1.0.1
+info:
+  title: Griffin + Veriff identity verification
+  summary: Run a Veriff ID&V session for a Griffin BaaS customer's end user, read the decision, then open a Griffin verification on the legal person.
+  version: 1.0.0
+x-integration:
+  partner: veriff
+  template: null
+  edge_evidence: https://griffin.com/blog/griffin-partners-with-veriff-to-offer-idv-to-baas-customers
+  edge_type: claimed
+  method: generated
+  generated: '2026-10-12'
+  generator: pipeline step 25b (payments-integration-arazzo)
+sourceDescriptions:
+- name: veriffSessions
+  url: https://raw.githubusercontent.com/api-evangelist/veriff/refs/heads/main/openapi/veriff-sessions-api-openapi.yml
+  type: openapi
+- name: veriffDecisions
+  url: https://raw.githubusercontent.com/api-evangelist/veriff/refs/heads/main/openapi/veriff-decisions-api-openapi.yml
+  type: openapi
+- name: griffinVerifications
+  url: https://raw.githubusercontent.com/api-evangelist/griffin/refs/heads/main/openapi/griffin-verifications-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: veriffIdvThenGriffinVerification
+  summary: Veriff session and decision, then a Griffin verification for the same person.
+  inputs:
+    type: object
+    required: [sessionRequest, legalPersonId, workflowUrl]
+    properties:
+      sessionRequest:
+        type: object
+        description: Veriff session body (verification.person, callback, vendorData).
+      legalPersonId:
+        type: string
+        description: Griffin legal person id for the end user.
+      workflowUrl:
+        type: string
+        description: Griffin workflow link to verify against.
+  steps:
+  - stepId: createVeriffSession
+    operationId: $sourceDescriptions.veriffSessions.postSessions
+    requestBody:
+      contentType: application/json
+      payload: $inputs.sessionRequest
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      sessionId: $response.body#/verification/id
+      sessionUrl: $response.body#/verification/url
+  - stepId: getVeriffDecision
+    operationId: $sourceDescriptions.veriffDecisions.getSessionsBySessionIdDecision
+    parameters:
+    - name: sessionId
+      in: path
+      value: $steps.createVeriffSession.outputs.sessionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      decisionStatus: $response.body#/verification/status
+  - stepId: createGriffinVerification
+    operationId: $sourceDescriptions.griffinVerifications.postV0LegalPersonsByLegalPersonIdVerifications
+    parameters:
+    - name: legal-person-id
+      in: path
+      value: $inputs.legalPersonId
+    requestBody:
+      contentType: application/json
+      payload:
+        workflow-url: $inputs.workflowUrl
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      verificationUrl: $response.body#/verification-url
+      verificationStatus: $response.body#/verification-status
+  outputs:
+    veriffSessionId: $steps.createVeriffSession.outputs.sessionId
+    veriffSessionUrl: $steps.createVeriffSession.outputs.sessionUrl
+    veriffDecision: $steps.getVeriffDecision.outputs.decisionStatus
+    griffinVerificationUrl: $steps.createGriffinVerification.outputs.verificationUrl
+    griffinVerificationStatus: $steps.createGriffinVerification.outputs.verificationStatus
