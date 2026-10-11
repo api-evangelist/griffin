@@ -1,6 +1,9 @@
 generated: '2026-07-19'
 method: searched
 source: https://docs.griffin.com/docs/guides/sandbox-vs-live-mode
+description: >-
+  Griffin runs separate sandbox and live organization types; resources never move
+  between them. Sandbox is a free playground (no fees, no NDA, no commitment to buy).
 docs:
 - https://docs.griffin.com/docs/guides/sandbox-vs-live-mode
 - https://app.griffin.com/register

@@ -2,6 +2,7 @@
 generated: '2026-09-20'
 method: searched
 source: https://griffin.com/pricing
+name: Griffin API Plans
 sources:
 - https://griffin.com/pricing
 provenance:

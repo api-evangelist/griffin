@@ -1,6 +1,7 @@
 # ESTIMATES computed by API Evangelist — not published by the provider. See `note` and `replace_by`.
 generated: '2026-09-20'
 method: estimated
+name: Griffin API Plans
 estimator: 'planning/api-economics/estimate_prices.py — design: ESTIMATION.md'
 note: ESTIMATES, not quotes. Computed by API Evangelist from the prices this provider publishes on https://griffin.com/pricing
   (transcribed in plans/griffin-plans-pricing.yml). Nothing here overrides a published price. Each estimate
@@ -22,3 +23,4 @@ estimates:
     price_text: From £100
   replace_by: 'API Commons Plans — plans[].entries[] with type: fee, a numeric `price`, `timeFrame: month`
     and the tier that includes API access stated in `elements`'
+plans: []  # this file holds ESTIMATES (see estimates:), not published tiers; tiers live in griffin-plans-pricing.yml

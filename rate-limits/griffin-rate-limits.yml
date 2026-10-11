@@ -1,0 +1,20 @@
+name: Griffin rate limits
+generated: '2026-10-12'
+method: searched
+source: https://docs.griffin.com/docs/guides/get-started-with-the-api
+sources:
+- https://docs.griffin.com/docs/guides/get-started-with-the-api
+- https://docs.griffin.com/docs/guides/errors-overview
+limit_count: 1
+limits:
+- name: Concurrent in-flight requests per organisation
+  limit_text: Each organisation is allowed up to 50 concurrent (in-flight) API requests.
+  max: 50
+  scope: per-organisation
+  kind: concurrency
+  status_on_exhaustion: 429
+  note: A concurrency cap, not a windowed rate; no window is stated.
+signaling:
+  status: 429
+  status_text: Too Many Requests
+  guidance: handle 429 responses with backoff and retry (docs)

@@ -1,5 +1,7 @@
 aid: griffin
+
 name: Griffin
+
 description: >-
   Griffin is a UK-regulated bank (Financial Conduct Authority authorised,
   Prudential Regulation Authority regulated) offering Banking-as-a-Service via a
@@ -9,6 +11,7 @@ description: >-
   savings accounts, and open banking directly into their own products. The v0
   API uses API-key authentication with mandatory HTTP message signatures in live,
   documented webhooks, a full sandbox, and a first-party MCP server.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -21,6 +24,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: unknown
@@ -35,21 +39,35 @@ accessModel:
   - sandbox
   generated: '2026-09-03'
   method: derived
+
 image: https://griffin.com/social.png
+
 url: https://raw.githubusercontent.com/api-evangelist/griffin/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: vc-portfolio
+
 x-backed-by:
 - eqt-ventures
 - seedcamp
+
 x-tier: enriched
+
 x-tier-reason: portfolio-lead
+
 specificationVersion: '0.23'
+
 created: '2026-07-17'
+
 modified: '2026-07-19'
+
 x-docs-platform: docusaurus
+
 x-docs-platform-confidence: medium
+
 x-docs-platform-checked: 2026-10-03
+
 tags:
 - Company
 - Fintech
@@ -60,6 +78,7 @@ tags:
 - Open Banking
 - Bank Accounts
 - Financial Services
+
 tags_raw:
 - Company
 - Fintech
@@ -71,6 +90,106 @@ tags_raw:
 - Bank Accounts
 - Financial Services
 - Financial-Services
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+
+common:
+- type: RateLimits
+  url: rate-limits/griffin-rate-limits.yml
+- type: Spectral
+  url: rules/griffin-rules.yml
+- type: Vocabulary
+  url: vocabulary/griffin-vocabulary.yml
+- type: Hosts
+  url: hosts/griffin-hosts.yml
+- type: IntegrationEdges
+  url: integrations/griffin-integration-edges.yml
+- type: Vendors
+  url: vendors/griffin-vendors.yml
+- type: SDKs
+  url: packages/griffin-packages.yml
+- type: Newsroom
+  url: https://griffin.com/newsroom
+- type: Leadership
+  url: https://griffin.com/team
+- type: Plans
+  url: plans/griffin-plans-pricing.yml
+- type: CapabilityMap
+  url: capabilities/griffin-capability-edges.yml
+  name: Griffin Business Capability Map
+- type: Website
+  url: https://griffin.com/
+- type: DeveloperPortal
+  url: https://docs.griffin.com/
+- type: Documentation
+  url: https://docs.griffin.com/
+- type: APIReference
+  url: https://docs.griffin.com/api
+- type: GettingStarted
+  url: https://docs.griffin.com/docs/guides/get-started-with-the-api
+- type: Pricing
+  url: https://griffin.com/pricing
+- type: SignUp
+  url: https://app.griffin.com/register
+- type: Login
+  url: https://app.griffin.com
+- type: Blog
+  url: https://griffin.com/blog
+- type: Support
+  url: https://docs.griffin.com/
+- type: GitHubOrganization
+  url: https://github.com/griffinbank
+- type: TermsOfService
+  url: https://griffin.com/terms
+- type: PrivacyPolicy
+  url: https://griffin.com/privacy
+- type: StatusPage
+  url: https://status.griffin.com/
+- type: ChangeLog
+  url: https://updates.griffin.com/
+- type: Postman
+  url: https://github.com/griffinbank/griffin-postman
+- type: OpenAPI
+  url: openapi/_original/griffin-openapi-original.yml
+- type: Authentication
+  url: authentication/griffin-authentication.yml
+- type: Conventions
+  url: conventions/griffin-conventions.yml
+- type: ErrorCatalog
+  url: errors/griffin-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/griffin-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/griffin-lifecycle.yml
+- type: Sandbox
+  url: sandbox/griffin-sandbox.yml
+- type: ChangeLog
+  url: changelog/griffin-changelog.yml
+- type: MCPServer
+  url: mcp/griffin-mcp.yml
+- type: Packages
+  url: packages/griffin-packages.yml
+- type: Webhooks
+  url: asyncapi/griffin-webhooks.yml
+- type: DataModel
+  url: data-model/griffin-data-model.yml
+- type: Conformance
+  url: conformance/griffin-conformance.yml
+- type: LLMsTxt
+  url: llms/griffin-llms.txt
+- type: Overlay
+  url: overlays/griffin-api-overlay.yaml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/griffin-agentic-access.yml
+- type: DomainSecurity
+  url: security/griffin-domain-security.yml
+
 apis:
 - aid: griffin:griffin-api-keys-api
   name: Griffin API keys API
@@ -670,87 +789,8 @@ apis:
     url: https://docs.griffin.com/api
   - type: GettingStarted
     url: https://docs.griffin.com/docs/guides/get-started-with-the-api
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
-- FN: APIs.json
-  email: info@apis.io
-common:
-- type: Plans
-  url: plans/griffin-plans-pricing.yml
-- type: CapabilityMap
-  url: capabilities/griffin-capability-edges.yml
-  name: Griffin Business Capability Map
-- type: Website
-  url: https://griffin.com/
-- type: DeveloperPortal
-  url: https://docs.griffin.com/
-- type: Documentation
-  url: https://docs.griffin.com/
-- type: APIReference
-  url: https://docs.griffin.com/api
-- type: GettingStarted
-  url: https://docs.griffin.com/docs/guides/get-started-with-the-api
-- type: Pricing
-  url: https://griffin.com/pricing
-- type: SignUp
-  url: https://app.griffin.com/register
-- type: Login
-  url: https://app.griffin.com
-- type: Blog
-  url: https://griffin.com/blog
-- type: Support
-  url: https://docs.griffin.com/
-- type: GitHubOrganization
-  url: https://github.com/griffinbank
-- type: TermsOfService
-  url: https://griffin.com/terms
-- type: PrivacyPolicy
-  url: https://griffin.com/privacy
-- type: StatusPage
-  url: https://status.griffin.com/
-- type: ChangeLog
-  url: https://updates.griffin.com/
-- type: Postman
-  url: https://github.com/griffinbank/griffin-postman
-- type: OpenAPI
-  url: openapi/_original/griffin-openapi-original.yml
-- type: Authentication
-  url: authentication/griffin-authentication.yml
-- type: Conventions
-  url: conventions/griffin-conventions.yml
-- type: ErrorCatalog
-  url: errors/griffin-problem-types.yml
-- type: Lifecycle
-  url: lifecycle/griffin-lifecycle.yml
-- type: Deprecation
-  url: lifecycle/griffin-lifecycle.yml
-- type: Sandbox
-  url: sandbox/griffin-sandbox.yml
-- type: ChangeLog
-  url: changelog/griffin-changelog.yml
-- type: MCPServer
-  url: mcp/griffin-mcp.yml
-- type: Packages
-  url: packages/griffin-packages.yml
-- type: Webhooks
-  url: asyncapi/griffin-webhooks.yml
-- type: DataModel
-  url: data-model/griffin-data-model.yml
-- type: Conformance
-  url: conformance/griffin-conformance.yml
-- type: LLMsTxt
-  url: llms/griffin-llms.txt
-- type: Overlay
-  url: overlays/griffin-api-overlay.yaml
-- type: AgentSkill
-  url: skills/_index.yml
-- type: AgenticAccess
-  url: agentic-access/griffin-agentic-access.yml
-- type: DomainSecurity
-  url: security/griffin-domain-security.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
-  pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  date: '2026-10-12'
+  status: enriched
+  artifacts_added: 2
+  pass: local-v5

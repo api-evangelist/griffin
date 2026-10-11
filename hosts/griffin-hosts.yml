@@ -1,0 +1,102 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 7
+  own: 6
+  other_domain: 0
+  platform: 1
+  roles:
+  - api
+  - collections
+  - identity
+  - other
+  - portal
+  - status
+  - website
+hosts:
+- host: api.griffin.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: griffin.com
+  role: api
+  relation: own
+- host: app.griffin.com
+  found_by:
+  - pointer
+  types:
+  - SignUp
+  - Login
+  serves: []
+  registrable_domain: griffin.com
+  role: identity
+  relation: own
+- host: docs.griffin.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - Support
+  serves:
+  - docs
+  registrable_domain: griffin.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  - Postman
+  serves: []
+  registrable_domain: github.com
+  role: collections
+  relation: platform
+- host: griffin.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Newsroom
+  - Leadership
+  - Website
+  - Pricing
+  - Blog
+  - TermsOfService
+  - PrivacyPolicy
+  serves:
+  - cdn
+  vendor: cloudfront
+  registrable_domain: griffin.com
+  role: website
+  relation: own
+- host: status.griffin.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - StatusPage
+  serves:
+  - hosting
+  - status-page
+  vendor: vercel
+  registrable_domain: griffin.com
+  role: status
+  relation: own
+- host: updates.griffin.com
+  found_by:
+  - pointer
+  types:
+  - ChangeLog
+  serves: []
+  registrable_domain: griffin.com
+  role: other
+  relation: own

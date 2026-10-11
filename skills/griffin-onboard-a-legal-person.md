@@ -1,11 +1,11 @@
 ---
-name: Onboard and verify a legal person (KYC/KYB)
+name: griffin-onboard-a-legal-person
 description: Create a legal person under an organization, run a KYC/KYB verification, and read the resulting decision using the Griffin v0 API.
 api: openapi/griffin-openapi-original.yml
 operations:
-  - POST /v0/organizations/{organization-id}/legal-persons
-  - POST /v0/legal-persons/{legal-person-id}/verifications
-  - GET /v0/legal-persons/{legal-person-id}/decisions
+  - postV0OrganizationsByOrganizationIdLegalPersons
+  - postV0LegalPersonsByLegalPersonIdVerifications
+  - getV0LegalPersonsByLegalPersonIdDecisions
 ---
 
 # Onboard and verify a legal person

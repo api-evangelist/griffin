@@ -48,6 +48,7 @@
 - [Newsroom](https://griffin.com/newsroom): Press releases and company announcements
 - [Annual reports](https://griffin.com/reports): Griffin's annual financial reports
 - [Contact](https://griffin.com/contact): Get in touch
+- [Talk to sales](https://griffin.com/contact/sales): Get in touch with the Griffin sales team
 
 ## Resources
 
@@ -59,7 +60,9 @@
 
 ## Legal and compliance
 
+- [Terms of use](https://griffin.com/terms)
 - [Privacy policy](https://griffin.com/privacy)
+- [Cookie policy](https://griffin.com/cookies)
 - [Deposit protection](https://griffin.com/deposit-protection): FSCS deposit protection information
 - [Eligibility](https://griffin.com/eligibility): Who can use Griffin's products
 - [Complaints](https://griffin.com/complaints): How to raise a complaint

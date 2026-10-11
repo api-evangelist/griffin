@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/griffin/integrations
 - https://n8n.io/integrations/griffin/
@@ -7,10 +7,72 @@ source:
 - https://monid.ai/tools/griffin
 checked:
 - https://composio.dev/toolkits/griffin
+- https://docs.griffin.com/sitemap.xml
+- https://griffin.com/integrations
+- https://griffin.com/partners
+- https://griffin.com/sitemap.xml
 - https://monid.ai/tools/griffin
 - https://n8n.io/integrations/griffin/
 - https://zapier.com/apps/griffin/integrations
-summary: null
+summary: No marketplace listings and no partners/integrations page (griffin.com/partners and /integrations 404).
+  Edges are partnership announcements on Griffin's own blog plus its documented MCP client targets. Most announced
+  partners are customers building on Griffin's BaaS.
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Veriff
+  partner: veriff
+  type: claimed
+  evidence: https://griffin.com/blog/griffin-partners-with-veriff-to-offer-idv-to-baas-customers
+  direction: provider-built
+  category: identity-verification
+  use_case: out-of-the-box ID&V for Griffin BaaS customers
+- partner_name: Countingup
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/countingup-partners-with-griffin
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: Prosper
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/griffin-partners-with-prosper
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: Haboo
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/haboo-partners-with-griffin
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: Income Group
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/income-group-partners-with-griffin
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: Sidekick
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/sidekick-partners-with-griffin
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: TransactPay
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/transactpay-partners-with-griffin
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: TransferGo
+  partner: null
+  type: claimed
+  evidence: https://griffin.com/blog/transfergo-partners-with-griffin
+  direction: partner-built
+  category: banking-as-a-service-customer
+- partner_name: Claude Desktop
+  partner: null
+  type: claimed
+  evidence: https://docs.griffin.com/docs/guides/griffin-mcp-server
+  direction: provider-built
+  category: mcp-client
+  use_case: Griffin's local-stdio MCP server (@griffinbank/mcp-server) documented for Claude Desktop and Cursor
 templates: []

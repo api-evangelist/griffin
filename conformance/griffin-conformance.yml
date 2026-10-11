@@ -5,13 +5,9 @@ docs:
 - https://docs.griffin.com/docs/guides/api-security-overview
 - https://docs.griffin.com/docs/guides/errors-overview
 - https://griffin.com/llms.txt
-notes: >-
-  Standards asserted from the OpenAPI, docs, and Griffin's published regulatory
-  status. Griffin is a UK-regulated bank (FCA authorised, PRA regulated),
-  publicly stated on griffin.com — a real regulatory/compliance posture, though
-  Griffin does not publish a certifications trust center (SOC 2/ISO 27001 pages
-  returned 404). No `Compliance` pointer is emitted since no dedicated
-  compliance/certifications page was found.
+notes: Standards asserted from the OpenAPI, docs, and Griffin's published regulatory status. Griffin is a UK-regulated bank (FCA authorised, PRA
+  regulated), publicly stated on griffin.com — a real regulatory/compliance posture, though Griffin does not publish a certifications trust center
+  (SOC 2/ISO 27001 pages returned 404). No `Compliance` pointer is emitted since no dedicated compliance/certifications page was found.
 standards:
 - id: api-key-auth
   conforms: true
@@ -38,6 +34,15 @@ standards:
 - id: confirmation-of-payee
   conforms: true
   evidence: CoP request endpoints (/v0/organizations/{id}/cop-request)
+- id: openapi-3.2
+  conforms: true
+  evidence: the document declares 3.2.0
+- id: rfc9457
+  conforms: false
+  evidence: no response declares application/problem+json
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key parameter on mutating operations
 regulatory:
   status: UK bank — Financial Conduct Authority authorised, Prudential Regulation Authority regulated
   source: https://griffin.com/llms.txt

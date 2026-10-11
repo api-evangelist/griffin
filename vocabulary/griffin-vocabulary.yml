@@ -1,0 +1,118 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/griffin-api-keys-api-openapi.yml
+- openapi/griffin-bank-account-holds-api-openapi.yml
+- openapi/griffin-bank-account-restrictions-api-openapi.yml
+- openapi/griffin-bank-accounts-api-openapi.yml
+- openapi/griffin-claims-api-openapi.yml
+vocabulary:
+  name: Griffin Domain Vocabulary
+  description: 'Terms declared by Griffin''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-12'
+  terms:
+  - term: API Keys
+    definition: The `api-key-secret` field is only shown once when you create an API key. We cannot recover the value, so you should store it
+      securely. Pass an `Authorization` header with `GriffinAPIKey api-key-secret` to authenticate. Each API key is only valid for one organization.
+      If you are a member of multiple organizations, you will need to create a new API key for each one. There is currently no limit on t
+    tags:
+    - Resource Group
+    source: openapi/griffin-api-keys-api-openapi.yml
+  - term: Bank account restrictions
+    definition: Restrictions prevent payments on a bank account.
+    tags:
+    - Resource Group
+    source: openapi/griffin-bank-account-restrictions-api-openapi.yml
+  - term: Bank Accounts
+    definition: 'Bank accounts are used for managing funds. Every bank account is opened against a bank product, which determines the account''s
+      behaviour (type, pooled vs dedicated, interest, notice period, etc.). Some account types are for managing your own funds and some are for
+      managing your customers'' funds. For information, check out our guides: - Opening a bank account. - Bank products. - Types of bank accou'
+    tags:
+    - Resource Group
+    source: openapi/griffin-bank-accounts-api-openapi.yml
+  - term: Claims
+    definition: A claim is an unverified data point or series of data points attached to a legal person. Claims are verified by running a verification
+      against the legal person.
+    tags:
+    - Resource Group
+    source: openapi/griffin-claims-api-openapi.yml
+  - term: Invitations
+    definition: Invitations enable users to create new memberships for their organization.
+    tags:
+    - Resource Group
+    source: openapi/griffin-invitations-api-openapi.yml
+  - term: Legal persons
+    definition: In the Griffin API, your organization and your customers are all represented by legal persons.
+    tags:
+    - Resource Group
+    source: openapi/griffin-legal-persons-api-openapi.yml
+  - term: Memberships
+    definition: Memberships represents the relationship between a user and an organization. A membership must have at least one role assigned
+      to it.
+    tags:
+    - Resource Group
+    source: openapi/griffin-memberships-api-openapi.yml
+  - term: Message Signatures
+    definition: 'Message Signatures confirm the identity of the sender and integrity of request messages. Key points: - Uses Ed25519 algorithm
+      - Requires registering a public key with Griffin - Signatures cover specific message components - Includes `Signature-Input` and `Signature`
+      headers How to create message signatures provides a detailed guide.'
+    tags:
+    - Resource Group
+    source: openapi/griffin-message-signatures-api-openapi.yml
+  - term: Open Banking
+    definition: Open banking allows regulated third-party providers (TPPs) to access your customers' account data or initiate payments on their
+      behalf. Griffin partners with tell.money to provide the TPP-facing open banking APIs. You handle the consent flow — authenticating your
+      customer and registering the consent with Griffin — and Griffin handles the resource requests from TPPs. For a full walkthrough, see our
+    tags:
+    - Resource Group
+    source: openapi/griffin-open-banking-api-openapi.yml
+  - term: Organizations
+    definition: The organization resource represents your company and acts as a container for the majority of other resources, including legal
+      persons and bank accounts.
+    tags:
+    - Resource Group
+    source: openapi/griffin-organizations-api-openapi.yml
+  - term: Payees
+    definition: A payee is the person or business to whom you are paying money. When you create a payee, you need to provide their name (`"account-holder"`),
+      and their bank account number (`"account-number"`) and sort code (`"bank-id"`). You may also register the outcome of a Confirmation of Payee
+      (CoP) check with your payee by supplying a `cop-request-url`. Read more about payees in our guides.
+    tags:
+    - Resource Group
+    source: openapi/griffin-payees-api-openapi.yml
+  - term: Payments
+    definition: A payment captures the intent to move funds from a bank account to another bank account. Outbound payments can be made from your
+      bank account to a payee. Griffin accepts inbound payments to your bank accounts on your behalf. If it's your first time using our payments
+      API, check out our guide for sending payments
+    tags:
+    - Resource Group
+    source: openapi/griffin-payments-api-openapi.yml
+  - term: Reliance onboarding
+    definition: Reliance onboarding allows you to create and submit an application on behalf of your customer, using information about them you
+      have already collected. For more information, checkout our onboarding guides.
+    tags:
+    - Resource Group
+    source: openapi/griffin-reliance-onboarding-api-openapi.yml
+  - term: Roles
+    definition: A role represents a pre-defined set of capabilities that can be assigned to a user via their membership in an organization. By
+      default, the first user in an organization gets assigned an administration role. Subsequent users get assigned the most limited set of capabilities.
+    tags:
+    - Resource Group
+    source: openapi/griffin-roles-api-openapi.yml
+  - term: Transactions
+    definition: A transaction represents funds deposited or withdrawn from a bank account. Read more about transactions in our guides.
+    tags:
+    - Resource Group
+    source: openapi/griffin-transactions-api-openapi.yml
+  - term: Users
+    definition: Users represent individuals who use the Griffin platform. A user must have a membership in at least one organization, and may
+      have memberships in multiple organizations.
+    tags:
+    - Resource Group
+    source: openapi/griffin-users-api-openapi.yml
+  - term: Workflows
+    definition: A workflow determines which checks will be run against a legal person as part of a verification
+    tags:
+    - Resource Group
+    source: openapi/griffin-workflows-api-openapi.yml

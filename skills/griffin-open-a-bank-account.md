@@ -1,11 +1,11 @@
 ---
-name: Open a bank account for a verified legal person
+name: griffin-open-a-bank-account
 description: Select a bank product and open a bank account for a verified legal person using the Griffin v0 API.
 api: openapi/griffin-openapi-original.yml
 operations:
-  - GET /v0/bank/products/{bank-product-id}
-  - POST /v0/bank/products/{bank-product-id}/accounts
-  - GET /v0/bank/accounts/{bank-account-id}
+  - getV0BankProductsByBankProductId
+  - postV0BankProductsByBankProductIdAccounts
+  - getV0BankAccountsByBankAccountId
 ---
 
 # Open a bank account

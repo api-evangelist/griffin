@@ -15,6 +15,7 @@ required_headers:
 - 'Content-Type: application/json (requests with a body)'
 - 'Accept: application/json'
 idempotency:
+  coverage: none
   supported: false
   notes: >-
     Griffin does not document a client idempotency-key header. Payment

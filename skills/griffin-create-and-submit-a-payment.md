@@ -1,11 +1,11 @@
 ---
-name: Create and submit a Faster Payment
+name: griffin-create-and-submit-a-payment
 description: Create a payee and send an outbound payment from a Griffin bank account, then reconcile via transactions, using the v0 API.
 api: openapi/griffin-openapi-original.yml
 operations:
-  - POST /v0/legal-persons/{legal-person-id}/bank/payees
-  - POST /v0/bank/accounts/{bank-account-id}/payments
-  - GET /v0/bank/accounts/{bank-account-id}/transactions
+  - postV0LegalPersonsByLegalPersonIdBankPayees
+  - postV0BankAccountsByBankAccountIdPayments
+  - getV0BankAccountsByBankAccountIdTransactions
 ---
 
 # Create and submit a payment
