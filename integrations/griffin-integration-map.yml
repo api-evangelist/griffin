@@ -1,0 +1,58 @@
+# DERIVED by derive-integration-map.py (roadmap#949): each integration workflow, step by step,
+# resolved to spec file -> tag -> business capability (Turbo EA, CC BY 4.0) and the operation's
+# phrasing intent. Read from our own files; an unmapped link says why.
+slug: griffin
+workflows:
+- file: griffin-veriff-idv-verification.yml
+  title: Griffin + Veriff identity verification
+  partner: veriff
+  template: null
+  repos:
+  - veriff
+  - griffin
+  steps:
+  - step: createVeriffSession
+    repo: veriff
+    spec_file: veriff-sessions-api-openapi.yml
+    operationId: postSessions
+    tag: Sessions
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: getVeriffDecision
+    repo: veriff
+    spec_file: veriff-decisions-api-openapi.yml
+    operationId: getSessionsBySessionIdDecision
+    tag: Decisions
+    capability_id: null
+    capability: null
+    capability_l1: null
+    intent: null
+    effect: null
+    unmapped: no capability edge for this spec file
+  - step: createGriffinVerification
+    repo: griffin
+    spec_file: griffin-verifications-api-openapi.yml
+    operationId: postV0LegalPersonsByLegalPersonIdVerifications
+    tag: Verifications
+    capability_id: BC-1300.20
+    capability: KYC & Customer Due Diligence Management
+    capability_l1: BC-1300
+    intent: null
+    effect: null
+    unmapped: null
+  connects:
+    veriff:
+      capabilities: []
+      tags:
+      - Decisions
+      - Sessions
+    griffin:
+      capabilities:
+      - BC-1300.20
+      tags:
+      - Verifications
+  intents: []
